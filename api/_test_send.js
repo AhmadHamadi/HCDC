@@ -105,7 +105,7 @@ async function main() {
     if (sendMailCalls.length !== 0) throw new Error("honeypot should NOT have sent email");
   })) pass++;
 
-  total++; if (await run("valid submission -> attempts send and redirects to thank-you", async () => {
+  total++; if (await run("valid appointment submission -> standard subject, organized body, redirects to thank-you", async () => {
     sendMailCalls.length = 0;
     const req = makeReq({ body: {
       name: "Jane Smith", email: "jane@example.com", phone: "289-555-0123",
@@ -119,17 +119,50 @@ async function main() {
     if (!String(res.headers["location"]).endsWith("/thank-you/")) throw new Error("wrong redirect: " + res.headers["location"]);
     if (sendMailCalls.length !== 1) throw new Error("expected 1 sendMail, got " + sendMailCalls.length);
     const call = sendMailCalls[0];
+    // Standard subject across every submission
+    if (call.msg.subject !== "Appointment Request Submission") throw new Error("subject not standardized: " + call.msg.subject);
+    // To address
     if (call.msg.to !== "office@hamiltoncaredental.ca") throw new Error("wrong To: " + call.msg.to);
-    if (!call.msg.subject.includes("Jane Smith")) throw new Error("subject missing name");
+    // Body contains every relevant field
     if (!call.msg.text.includes("Jane Smith")) throw new Error("body missing name");
     if (!call.msg.text.includes("jane@example.com")) throw new Error("body missing email");
     if (!call.msg.text.includes("289-555-0123")) throw new Error("body missing phone");
+    if (!call.msg.text.includes("2026-06-01")) throw new Error("body missing preferred date");
     if (!call.msg.text.includes("Routine cleaning")) throw new Error("body missing notes");
-    if (!call.msg.text.includes("homepage-appointment")) throw new Error("body missing source");
+    if (!call.msg.text.includes("Homepage appointment form")) throw new Error("body missing friendly source label");
+    if (!call.msg.text.includes("Appointment request")) throw new Error("body missing form-type label");
+    if (call.msg.text.includes("Patient referral")) throw new Error("non-referral body should not say Patient referral");
+    // HTML body present too
+    if (!call.msg.html || !call.msg.html.includes("Jane Smith")) throw new Error("HTML body missing or doesn't include name");
+    if (!call.msg.html.includes("Appointment Request Submission")) throw new Error("HTML body missing header");
+    // Reply-to set to patient
     if (!call.msg.replyTo.includes("jane@example.com")) throw new Error("replyTo wrong");
+    // Transport
     if (call.opts.host !== "smtp.example.com") throw new Error("SMTP host wrong");
     if (call.opts.port !== 587) throw new Error("SMTP port wrong");
     if (call.opts.secure !== false) throw new Error("port 587 should be secure=false (STARTTLS)");
+  })) pass++;
+
+  total++; if (await run("valid referral submission -> labels referrer and referred separately", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: {
+      name: "Alice Referrer", phone: "289-555-1111", email: "alice@example.com",
+      referred_name: "Bob Newpatient", referred_contact: "bob@example.com",
+      notes: "Bob has been wanting to come in.",
+      _source: "referral-form",
+    }});
+    const res = makeRes();
+    await send(req, res);
+    if (res.statusCode !== 303) throw new Error("status " + res.statusCode);
+    if (sendMailCalls.length !== 1) throw new Error("expected 1 sendMail");
+    const t = sendMailCalls[0].msg.text;
+    if (sendMailCalls[0].msg.subject !== "Appointment Request Submission") throw new Error("subject not standardized for referral");
+    if (!t.includes("Patient referral")) throw new Error("referral type label missing");
+    if (!t.includes("Patient referral form")) throw new Error("referral source label missing");
+    if (!t.includes("Person referring")) throw new Error("missing referrer section heading");
+    if (!t.includes("Alice Referrer")) throw new Error("referrer name missing");
+    if (!t.includes("Bob Newpatient")) throw new Error("referred name missing");
+    if (!t.includes("bob@example.com")) throw new Error("referred contact missing");
   })) pass++;
 
   total++; if (await run("phone-only contact accepted (no email)", async () => {
@@ -140,6 +173,7 @@ async function main() {
     if (res.statusCode !== 303) throw new Error("status " + res.statusCode);
     if (sendMailCalls.length !== 1) throw new Error("expected 1 sendMail, got " + sendMailCalls.length);
     if (sendMailCalls[0].msg.replyTo) throw new Error("replyTo should be undefined when no email");
+    if (!sendMailCalls[0].msg.text.includes("Contact page appointment form")) throw new Error("source label wrong");
   })) pass++;
 
   total++; if (await run("CRLF in header fields is stripped (no header injection)", async () => {
