@@ -691,8 +691,9 @@ p { margin: 0 0 1em; }
    object-position shifts the visible crop window inside the source image;
    transform scales the photo inside the square card. The doctor-card:hover
    scale(1.03) is overridden here so the base zoom is preserved on hover. */
-.doctor-card[data-slug="darcy"]  .doctor-photo img { object-position: center 15%; }
-.doctor-card[data-slug="sally"]  .doctor-photo img { object-position: center 80%; }
+.doctor-card[data-slug="darcy"]  .doctor-photo img { object-position: center 35%; }
+.doctor-card[data-slug="sally"]  .doctor-photo img { object-position: center 65%; }
+.doctor-card[data-slug="paeez"]  .doctor-photo img { object-position: center 25%; }
 .doctor-card[data-slug="sana"]   .doctor-photo img { object-position: center 25%; transform: scale(1.2); transform-origin: center 35%; }
 .doctor-card[data-slug="erazel"] .doctor-photo img { object-position: center 25%; transform: scale(1.2); transform-origin: center 35%; }
 .doctor-card[data-slug="sana"]:hover   .doctor-photo img,
