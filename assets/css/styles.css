@@ -685,7 +685,19 @@ p { margin: 0 0 1em; }
   overflow: hidden;
   background: var(--cream-light);
 }
-.doctor-photo img { width: 100%; height: 100%; object-fit: cover; }
+.doctor-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+/* Per-photo framing tweaks so the About-Us team rows line up visually.
+   object-position shifts the visible crop window inside the source image;
+   transform scales the photo inside the square card. The doctor-card:hover
+   scale(1.03) is overridden here so the base zoom is preserved on hover. */
+.doctor-card[data-slug="darcy"]  .doctor-photo img { object-position: center 15%; }
+.doctor-card[data-slug="sally"]  .doctor-photo img { object-position: center 80%; }
+.doctor-card[data-slug="sana"]   .doctor-photo img { object-position: center 25%; transform: scale(1.2); transform-origin: center 35%; }
+.doctor-card[data-slug="erazel"] .doctor-photo img { object-position: center 25%; transform: scale(1.2); transform-origin: center 35%; }
+.doctor-card[data-slug="sana"]:hover   .doctor-photo img,
+.doctor-card[data-slug="erazel"]:hover .doctor-photo img { transform: scale(1.23); }
+
 .doctor-info { padding: 1.4rem; }
 .doctor-info h3 { margin-bottom: .15rem; }
 .doctor-info .role { font-family: var(--font-head); color: var(--gold); font-weight: 600; font-size: .9rem; letter-spacing: .05em; text-transform: uppercase; }

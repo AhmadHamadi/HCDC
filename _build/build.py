@@ -512,16 +512,16 @@ def build_about_us():
  # Team grouped per the live site's actual roles
  TEAM_GROUPS = [
  ("Dentists", ["dr-fadi-dawood", "dr-bassam-petros", "dr-peter-markho"]),
+ ("Office Management & Reception", ["sally", "lucy", "nahrin", "fatima"]),
  ("Denturist", ["saif"]),
  ("Registered Dental Hygienists", ["darcy", "melissa", "maheen", "torees"]),
  ("Dental Assistants", ["paeez", "erazel", "sana"]),
- ("Office Management & Reception", ["sally", "lucy", "nahrin", "fatima"]),
  ]
 
  # Build all team cards using a flat list comprehension (lint-safe — no nested defs/ifs)
  _bn = BUSINESS["name"]
  def _photo(t): return ("/assets/images/scraped/" + urllib.parse.quote(t["photo"])) if t.get("photo") else "/assets/images/team-photo.png"
- _card = lambda s, t: '      <article class="doctor-card"><a href="/team/' + s + '/"><div class="doctor-photo"><img height="450" width="600" src="' + _photo(t) + '" alt="' + t["name"] + ', ' + t["role"] + ' at ' + _bn + '" loading="lazy" /></div><div class="doctor-info"><h3>' + t["name"] + '</h3><span class="role">' + t["role"] + '</span></div></a></article>'
+ _card = lambda s, t: '      <article class="doctor-card" data-slug="' + s + '"><a href="/team/' + s + '/"><div class="doctor-photo"><img height="450" width="600" src="' + _photo(t) + '" alt="' + t["name"] + ', ' + t["role"] + ' at ' + _bn + '" loading="lazy" /></div><div class="doctor-info"><h3>' + t["name"] + '</h3><span class="role">' + t["role"] + '</span></div></a></article>'
 
  team_sections_html = "".join(
  f'    <h3 class="team-group-title">{gt}</h3>\n    <div class="doctors-grid">\n' +
