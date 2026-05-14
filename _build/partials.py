@@ -212,12 +212,12 @@ def render_footer():
  <div class="footer-contact-item">{SVG_PHONE}<a href="tel:{BUSINESS['phone_tel']}">{BUSINESS['phone_display']}</a></div>
  <div class="footer-contact-item">{SVG_MAIL}<a href="mailto:{BUSINESS['email']}">{BUSINESS['email']}</a></div>
  <table class="footer-hours" aria-label="Office hours">
- <tr><th scope="row">Mon</th><td>8:00 AM – 6:00 PM</td></tr>
- <tr><th scope="row">Tue</th><td>8:00 AM – 6:00 PM</td></tr>
- <tr><th scope="row">Wed</th><td>8:00 AM – 6:00 PM</td></tr>
- <tr><th scope="row">Thu</th><td>8:00 AM – 6:00 PM</td></tr>
- <tr><th scope="row">Fri</th><td>8:00 AM – 6:00 PM</td></tr>
- <tr><th scope="row">Sat</th><td>9:00 AM – 3:00 PM</td></tr>
+ <tr><th scope="row">Mon</th><td>9:00 AM – 5:00 PM</td></tr>
+ <tr><th scope="row">Tue</th><td>9:00 AM – 5:00 PM</td></tr>
+ <tr><th scope="row">Wed</th><td>9:00 AM – 5:00 PM</td></tr>
+ <tr><th scope="row">Thu</th><td>9:00 AM – 4:00 PM</td></tr>
+ <tr><th scope="row">Fri</th><td>9:00 AM – 3:00 PM</td></tr>
+ <tr><th scope="row">Sat</th><td>By appointment only</td></tr>
  <tr><th scope="row">Sun</th><td>Closed</td></tr>
  </table>
  <p class="footer-cta-line"><a href="/contact-us/" class="btn btn-primary btn-sm">Book Appointment</a></p>
@@ -406,8 +406,10 @@ def schema_localbusiness_ref():
  },
  "geo": {"@type": "GeoCoordinates", "latitude": BUSINESS["lat"], "longitude": BUSINESS["lng"]},
  "openingHoursSpecification": [
- {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00"},
- {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "15:00"},
+ {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday"], "opens": "09:00", "closes": "17:00"},
+ {"@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "09:00", "closes": "16:00"},
+ {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "15:00"},
+ {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "00:00", "closes": "00:00", "description": "By appointment only"},
  ],
  "sameAs": [BUSINESS["facebook"], BUSINESS["instagram"]],
  "aggregateRating": {"@type": "AggregateRating", "ratingValue": BUSINESS["rating"], "reviewCount": BUSINESS["review_count"], "bestRating": "5", "worstRating": "1"},
