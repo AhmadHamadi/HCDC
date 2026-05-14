@@ -187,6 +187,17 @@ def build_service_page(slug, data):
  for step, detail in data["process"]
  )
 
+ # Optional in-depth authority content (a list of (heading, html) tuples)
+ deep_anchor = lambda h: h.lower().replace(" ", "-").replace(",", "").replace("'", "").replace("&", "and")
+ deep_blocks = data.get("deep_content", [])
+ deep_html = "\n".join(
+ '<section class="service-deep" aria-labelledby="deep-' + deep_anchor(h) + '">'
+ '<div class="container"><div class="prose">'
+ '<h2 id="deep-' + deep_anchor(h) + '">' + h + '</h2>' + body_html
+ + '</div></div></section>'
+ for h, body_html in deep_blocks
+ )
+
  body = f"""
 <section class="service-intro" aria-labelledby="svc-intro-title">
  <div class="container service-content">
@@ -232,6 +243,8 @@ def build_service_page(slug, data):
  </aside>
  </div>
 </section>
+
+{deep_html}
 
 {render_faq_section(data["faqs"])}
 """
