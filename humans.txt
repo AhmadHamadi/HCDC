@@ -1,0 +1,14 @@
+/* TEAM */
+Owner / Dentist: Dr. Fadi Dawood
+Dentist: Dr. Bassam Petros
+Dentist: Dr. Peter Markho
+Location: Hamilton, Ontario, Canada
+
+/* SITE */
+Name: Hamilton Care Dental Centre
+Phone: (289) 755-2568
+Email: office@hamiltoncaredental.ca
+Address: 969 Upper Ottawa St, 11 A, Hamilton, ON L8T 4V9
+Established: 2012
+Last update: 2026-05-13
+Language: English (en-CA)

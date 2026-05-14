@@ -1,0 +1,63 @@
+# ---------- Build / dev artifacts ----------
+_build/__pycache__/
+_build/_audit_seo.py
+_build/_audit_content.py
+_build/_fix_quotes.py
+_build/_inject_faq_links.py
+_build/_inject_seo_titles.py
+_build/_inject_sub_services.py
+__pycache__/
+*.pyc
+*.pyo
+
+# ---------- Editor / OS ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# ---------- Scratch reference scrapes (do not deploy) ----------
+_about.html
+_about_live.html
+_blog_live.html
+_contact_live.html
+_live.html
+_live.css
+_payments.html
+_peter.html
+_story.html
+_story_live.html
+hero_aboutus_ourstory.html
+hero_aboutus_ourstory_files/
+Dental Services in Hamilton _ Hamilton Care Dental Centre.html
+Dental Services in Hamilton _ Hamilton Care Dental Centre_files/
+
+# ---------- Loose source images (already copied into /assets/images/scraped/) ----------
+Team Photo.png
+aligner1.jpg
+aligner2.jpg
+prev1.jpg
+prev2.jpg
+m1.png
+cos1.png
+rest1.png
+sleep1.jpg
+teeth1.jpg
+smile3.jpg
+homepage2.png
+petermarkho.png
+erazel.png
+endoontics.jpg
+preventatiev dentsitry.jpg
+
+# ---------- Secrets / local config ----------
+.env
+.env.*
+*.pem
+*.key
+config.local.*

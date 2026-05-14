@@ -1,0 +1,125 @@
+# Hamilton Care Dental Centre, robots.txt
+# Family dental clinic in Hamilton, Ontario. CDCP accepted. Beautifi financing.
+# https://hamiltoncaredental.com/
+
+User-agent: *
+Allow: /
+Disallow: /thank-you/
+Disallow: /style-guide/
+Disallow: /send.php
+Disallow: /*?*
+
+# ============================================================
+# Search engines
+# ============================================================
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: MojeekBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# ============================================================
+# AI / answer-engine crawlers
+# Explicitly allowed so this practice's information appears in AI search
+# results and large-language-model answers (ChatGPT, Claude, Gemini,
+# Perplexity, Copilot, You.com, Apple Intelligence, Meta AI, etc.).
+# ============================================================
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Cohere-AI
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: ImagesiftBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Timpibot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+# Sitemap & host
+Sitemap: https://hamiltoncaredental.com/sitemap.xml
+Host: hamiltoncaredental.com
