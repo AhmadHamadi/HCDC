@@ -130,15 +130,27 @@ def build_service_page(slug, data):
  if slug in SLIDERS:
   slides = SLIDERS[slug]
   n = len(slides)
+  # Slide images. First one is the height-anchor and is marked is-active for
+  # the no-JS initial render; the JS hydrator re-asserts the active class.
   _slide_imgs = "".join(
-   '<img class="slide slide-' + str(i + 1) + '" src="' + s + '" alt="' + a + '" '
+   '<img class="slide slide-' + str(i + 1) + (' is-active' if i == 0 else '') + '" src="' + s + '" alt="' + a + '" '
    + ('loading="eager" fetchpriority="high" ' if i == 0 else 'loading="eager" ')
    + 'width="800" height="900" decoding="async" />'
    for i, (s, a) in enumerate(slides)
   )
+  # Pagination dots, one per slide.
+  _slide_dots = "".join(
+   '<button class="slider-dot' + (' is-active' if i == 0 else '') + '" type="button" '
+   'aria-label="Show slide ' + str(i + 1) + '" data-slide-index="' + str(i) + '"></button>'
+   for i in range(n)
+  )
   hero_visual_html = (
-   '<div class="service-hero-image service-hero-slider" data-count="' + str(n) + '" aria-label="' + name + '">'
+   '<div class="service-hero-image service-hero-slider" data-count="' + str(n) + '" '
+   'data-autoplay="7000" aria-roledescription="carousel" aria-label="' + name + ' image gallery">'
    + _slide_imgs +
+   '<button class="slider-btn slider-prev" type="button" aria-label="Previous image">&lsaquo;</button>'
+   '<button class="slider-btn slider-next" type="button" aria-label="Next image">&rsaquo;</button>'
+   '<div class="slider-dots" role="tablist" aria-label="Choose image">' + _slide_dots + '</div>'
    '</div>'
   )
  else:

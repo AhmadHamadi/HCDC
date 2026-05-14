@@ -1990,9 +1990,9 @@ p { margin: 0 0 1em; }
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* Crossfade slider for selected service hero images.
-   slide-1 sets the box height naturally; subsequent slides are absolutely
-   positioned on top, sized to contain so nothing gets cropped or reshaped. */
+/* Service-hero image slider with manual controls + 7-second auto-advance.
+   Slide-1 is position:relative so it dictates the box height. All slides
+   crossfade via opacity controlled by an .is-active class added by JS. */
 .service-hero-slider {
   position: relative;
   width: 100%;
@@ -2007,6 +2007,8 @@ p { margin: 0 0 1em; }
   display: block;
   border-radius: 0;
   box-shadow: none;
+  opacity: 0;
+  transition: opacity .55s ease;
 }
 .service-hero-slider .slide-2,
 .service-hero-slider .slide-3,
@@ -2018,50 +2020,71 @@ p { margin: 0 0 1em; }
   border-radius: 0;
   box-shadow: none;
   opacity: 0;
+  transition: opacity .55s ease;
 }
+.service-hero-slider .slide.is-active { opacity: 1; }
 
-/* 2-slide cycle: each visible 1s, total 2s */
-.service-hero-slider[data-count="2"] .slide-1 { animation: hcd-show2of2-pos1 2s linear infinite; }
-.service-hero-slider[data-count="2"] .slide-2 { animation: hcd-show2of2-pos2 2s linear infinite; }
-@keyframes hcd-show2of2-pos1 {
-  0%, 45% { opacity: 1; }
-  55%, 95% { opacity: 0; }
-  100% { opacity: 1; }
+/* Prev / Next arrow buttons */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .6);
+  background: rgba(42, 42, 42, .55);
+  color: var(--white);
+  font-size: 22px; line-height: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: background .2s ease, transform .15s ease, opacity .2s ease;
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
 }
-@keyframes hcd-show2of2-pos2 {
-  0%, 45% { opacity: 0; }
-  55%, 95% { opacity: 1; }
-  100% { opacity: 0; }
-}
+.slider-btn:hover { background: var(--gold-dark); border-color: var(--white); }
+.slider-btn:active { transform: translateY(-50%) scale(.94); }
+.slider-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.slider-prev { left: 12px; }
+.slider-next { right: 12px; }
 
-/* 3-slide cycle: each visible 1s, total 3s */
-.service-hero-slider[data-count="3"] .slide-1 { animation: hcd-show3of3-pos1 3s linear infinite; }
-.service-hero-slider[data-count="3"] .slide-2 { animation: hcd-show3of3-pos2 3s linear infinite; }
-.service-hero-slider[data-count="3"] .slide-3 { animation: hcd-show3of3-pos3 3s linear infinite; }
-@keyframes hcd-show3of3-pos1 {
-  0%, 30% { opacity: 1; }
-  36%, 96% { opacity: 0; }
-  100% { opacity: 1; }
+/* Pagination dots */
+.slider-dots {
+  position: absolute;
+  bottom: 12px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 8px;
+  padding: 6px 10px;
+  background: rgba(42, 42, 42, .45);
+  border-radius: 999px;
+  z-index: 3;
 }
-@keyframes hcd-show3of3-pos2 {
-  0%, 30% { opacity: 0; }
-  36%, 63% { opacity: 1; }
-  70%, 100% { opacity: 0; }
+.slider-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, .55);
+  cursor: pointer;
+  padding: 0;
+  transition: background .2s ease, transform .15s ease;
 }
-@keyframes hcd-show3of3-pos3 {
-  0%, 63% { opacity: 0; }
-  70%, 96% { opacity: 1; }
-  100% { opacity: 0; }
-}
+.slider-dot:hover { background: var(--white); }
+.slider-dot.is-active { background: var(--gold); transform: scale(1.18); }
+.slider-dot:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
+/* If the slider hasn't been hydrated by JS yet, show slide-1 by default
+   so the page is never blank during the brief script load window. */
+.service-hero-slider:not(.is-hydrated) .slide-1 { opacity: 1; }
+
+/* Reduced-motion users still get manual controls; we just skip auto-advance
+   and ease the crossfade much faster so it feels closer to a step change. */
 @media (prefers-reduced-motion: reduce) {
-  .service-hero-slider .slide-1,
-  .service-hero-slider .slide-2,
-  .service-hero-slider .slide-3,
-  .service-hero-slider .slide-4 { animation: none; }
-  .service-hero-slider .slide-2,
-  .service-hero-slider .slide-3,
-  .service-hero-slider .slide-4 { opacity: 0; }
+  .service-hero-slider .slide,
+  .service-hero-slider .slide-1 { transition: opacity .12s ease; }
+}
+
+@media (max-width: 600px) {
+  .slider-btn { width: 36px; height: 36px; font-size: 18px; }
+  .slider-prev { left: 8px; } .slider-next { right: 8px; }
 }
 @media (max-width: 992px) {
   .service-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
