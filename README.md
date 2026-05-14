@@ -43,7 +43,7 @@ HamiltonCareDentalCentre/
 4. **Action strip** — Call / Book quick buttons
 5. **Appointment form** — name, phone, email, preferred date, notes
 6. **May promo** — checkups, cleanings, CDCP care
-7. **About / Welcome** — copy + 14 years experience badge
+7. **About / Welcome** — copy + 14+ years experience badge
 8. **Why Choose Us** — 6 reason cards
 9. **Services** — 6 service cards + "View All" link
 10. **Our Doctors** — 3 dentist cards
@@ -98,7 +98,7 @@ HamiltonCareDentalCentre/
 ### Conversion + UX
 
 - Phone + Book CTAs above the fold and repeated throughout (top bar, hero, action strip, about, doctors, CTA banner, footer, sticky mobile bar)
-- Trust badges: 4.9★ rating, 89+ reviews, CDCP, 14 years
+- Trust badges: 4.9★ rating, 89+ reviews, CDCP, 14+ years
 - `tel:` and `mailto:` links everywhere a number/email appears
 - Sticky mobile action bar (Call + Book)
 - Appointment form with proper input types, autocomplete, and confirmation note

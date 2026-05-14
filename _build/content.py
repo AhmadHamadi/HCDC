@@ -30,7 +30,7 @@ HERO_MAP = {
  "nitrous-sedation": "nitrous-sedation.jpg",
  "oral-surgery": "69575b656e3432c4987283e6_PICT0184.jpg",
  "preventative-dentistry": "prev1.jpg",
- "restorative-dentistry": "rest1.png",
+ "restorative-dentistry": "cos1.png",
  "suresmile-clear-aligners": "6982397522a67279467e28ff_Screenshot_2026-02-03_130614.jpg",
 }
 
