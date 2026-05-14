@@ -21,7 +21,10 @@
 
 const nodemailer = require("nodemailer");
 
-const TO_EMAIL = process.env.TO_EMAIL || "office@hamiltoncaredental.ca";
+// TEMPORARY: routing form submissions to a test inbox so we can verify the
+// SMTP pipeline end-to-end. Revert this back to office@hamiltoncaredental.ca
+// once you confirm a test submission arrives.
+const TO_EMAIL = process.env.TO_EMAIL || "ahmadhamadi2002@gmail.com";
 const FROM_EMAIL = process.env.FROM_EMAIL || process.env.SMTP_USER || "no-reply@hamiltoncaredental.ca";
 const FROM_NAME = "Hamilton Care Dental website";
 const SITE_URL = process.env.SITE_URL || "https://hamiltoncaredental.com";

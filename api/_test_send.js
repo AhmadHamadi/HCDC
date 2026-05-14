@@ -73,6 +73,10 @@ async function main() {
   process.env.SMTP_PORT = process.env.SMTP_PORT || "587";
   process.env.SMTP_USER = process.env.SMTP_USER || "no-reply@example.com";
   process.env.SMTP_PASS = process.env.SMTP_PASS || "test-password";
+  // Pin the recipient for the happy-path test so it isn't sensitive to any
+  // temporary redirect set in send.js. Production deploys read TO_EMAIL from
+  // Vercel env vars and ignore the hardcoded fallback.
+  process.env.TO_EMAIL = "office@hamiltoncaredental.ca";
 
   const send = require("./send.js");
   let pass = 0, total = 0;
