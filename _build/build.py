@@ -122,6 +122,10 @@ def build_service_page(slug, data):
    ("/assets/images/scraped/sleep1.jpg", "Sleep apnea oral appliance therapy at Hamilton Care Dental Centre"),
    ("/assets/images/scraped/teeth1.jpg", "Zoom in-office teeth whitening at Hamilton Care Dental Centre"),
   ),
+  "restorative-dentistry": (
+   ("/assets/images/scraped/rest1.png", "Restorative dentistry at Hamilton Care Dental Centre, view one"),
+   ("/assets/images/scraped/cos1.png", "Restorative and cosmetic restorations at Hamilton Care Dental Centre, view two"),
+  ),
  }
  if slug in SLIDERS:
   slides = SLIDERS[slug]

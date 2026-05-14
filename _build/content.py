@@ -23,7 +23,7 @@ HERO_MAP = {
  "style-guide": "69544ac938513c9b12f2dde5_Untitled-design-14-min-555x740.png",
 
  # Service detail pages
- "cosmetic-dentistry": "cos1.png",
+ "cosmetic-dentistry": "rest1.png",
  "dental-implants": "698237a0315ecee2c52c1f82_istockphoto-1811278606-612x612.jpg",
  "endodontics": "endodontics.jpg",
  "miscellaneous": "m1.png",
