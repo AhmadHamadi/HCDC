@@ -1,0 +1,12 @@
+{
+  "name": "hamilton-care-dental-centre",
+  "version": "1.0.0",
+  "description": "Hamilton Care Dental Centre website (static + Vercel serverless form handler).",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.1"
+  }
+}

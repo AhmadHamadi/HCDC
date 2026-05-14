@@ -826,7 +826,7 @@ def build_contact_us():
  <span class="eyebrow">Easy Booking</span>
  <h2>Request an Appointment</h2>
  <p class="form-helper">Tell us a bit about your visit and we'll confirm within 24 hours by phone.</p>
- <form id="appointment-form" class="appt-form contact-appt-form" action="/send.php" method="post" novalidate>
+ <form id="appointment-form" class="appt-form contact-appt-form" action="/api/send" method="post" novalidate>
  <input type="hidden" name="_source" value="contact-us-appointment" />
  <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
  <label for="website-hp">Website</label>
@@ -1881,7 +1881,7 @@ def build_referral():
 <section class="appointment">
  <div class="container">
  <div class="appointment-card">
- <form id="referral-form" class="appt-form" action="/send.php" method="post" novalidate>
+ <form id="referral-form" class="appt-form" action="/api/send" method="post" novalidate>
  <input type="hidden" name="_source" value="referral-form" />
  <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
  <label for="ref-website-hp">Website</label>
