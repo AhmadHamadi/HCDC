@@ -111,16 +111,18 @@ def build_service_page(slug, data):
   "suresmile-clear-aligners": (
    ("/assets/images/scraped/aligner1.jpg", "SureSmile® Aligners, view one"),
    ("/assets/images/scraped/aligner2.jpg", "SureSmile® Aligners, view two"),
-   ("/assets/images/scraped/smile3.jpg", "Patient smiling with straightened teeth after SureSmile clear-aligner treatment at Hamilton Care Dental Centre"),
+   ("/assets/images/scraped/q1.jpg", "Patient smiling with straightened teeth after SureSmile® Aligners treatment at Hamilton Care Dental Centre, view one"),
+   ("/assets/images/scraped/q2.jpg", "Patient smiling with straightened teeth after SureSmile® Aligners treatment at Hamilton Care Dental Centre, view two"),
   ),
   "preventative-dentistry": (
    ("/assets/images/scraped/prev1.jpg", "Preventive dental care at Hamilton Care Dental Centre, view one"),
    ("/assets/images/scraped/prev2.jpg", "Preventive dental care at Hamilton Care Dental Centre, view two"),
   ),
   "miscellaneous": (
-   ("/assets/images/scraped/m1.png", "Additional dental services at Hamilton Care Dental Centre"),
-   ("/assets/images/scraped/sleep1.jpg", "Sleep apnea oral appliance therapy at Hamilton Care Dental Centre"),
-   ("/assets/images/scraped/teeth1.jpg", "Zoom in-office teeth whitening at Hamilton Care Dental Centre"),
+   ("/assets/images/scraped/panth1.webp", "Sleep apnea and snoring oral appliance therapy at Hamilton Care Dental Centre, view one"),
+   ("/assets/images/scraped/panth2.webp", "Sleep apnea and snoring oral appliance therapy at Hamilton Care Dental Centre, view two"),
+   ("/assets/images/scraped/w1.png", "Zoom and take-home teeth whitening at Hamilton Care Dental Centre, view one"),
+   ("/assets/images/scraped/w2.png", "Zoom and take-home teeth whitening at Hamilton Care Dental Centre, view two"),
   ),
   "restorative-dentistry": (
    ("/assets/images/scraped/rest1.png", "Restorative dentistry at Hamilton Care Dental Centre, view one"),

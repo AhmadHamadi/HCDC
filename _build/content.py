@@ -26,7 +26,7 @@ HERO_MAP = {
  "cosmetic-dentistry": "rest1.png",
  "dental-implants": "698237a0315ecee2c52c1f82_istockphoto-1811278606-612x612.jpg",
  "endodontics": "endodontics.jpg",
- "miscellaneous": "m1.png",
+ "miscellaneous": "w2.png",
  "nitrous-sedation": "nitrous-sedation.jpg",
  "oral-surgery": "69575b656e3432c4987283e6_PICT0184.jpg",
  "preventative-dentistry": "prev1.jpg",

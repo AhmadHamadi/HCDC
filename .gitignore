@@ -45,23 +45,30 @@ hero_aboutus_ourstory_files/
 Dental Services in Hamilton _ Hamilton Care Dental Centre.html
 Dental Services in Hamilton _ Hamilton Care Dental Centre_files/
 
-# ---------- Loose source images (already copied into /assets/images/scraped/) ----------
-Team Photo.png
-aligner1.jpg
-aligner2.jpg
-prev1.jpg
-prev2.jpg
-m1.png
-cos1.png
-rest1.png
-sleep1.jpg
-teeth1.jpg
-smile3.jpg
-homepage2.png
-petermarkho.png
-erazel.png
-endoontics.jpg
-preventatiev dentsitry.jpg
+# ---------- Loose source images at the repo root only ----------
+# (these are working copies; the deployed versions live in /assets/images/scraped/)
+/Team Photo.png
+/aligner1.jpg
+/aligner2.jpg
+/prev1.jpg
+/prev2.jpg
+/cos1.png
+/rest1.png
+/smile3.jpg
+/panth1.webp
+/panth2.webp
+/w1.png
+/w2.png
+/i1.jpg
+/i2.jpg
+/i3.jpg
+/q1.jpg
+/q2.jpg
+/homepage2.png
+/petermarkho.png
+/erazel.png
+/endoontics.jpg
+/preventatiev dentsitry.jpg
 
 # ---------- Secrets / local config ----------
 .env
