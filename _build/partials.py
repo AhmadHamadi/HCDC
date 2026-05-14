@@ -35,7 +35,7 @@ NAV_LINKS = [
 
 SERVICES_NAV = [
  ("nitrous-sedation", "Nitrous Sedation"),
- ("suresmile-clear-aligners", "SureSmile Clear Aligners"),
+ ("suresmile-clear-aligners", "SureSmile® Aligners"),
  ("dental-implants", "Dental Implants"),
  ("oral-surgery", "Oral Surgery"),
  ("cosmetic-dentistry", "Cosmetic Dentistry"),
@@ -149,7 +149,7 @@ def render_header(active=""):
 def render_footer():
  pop_services = [
  ("dental-implants", "Dental Implants"),
- ("suresmile-clear-aligners", "SureSmile Aligners"),
+ ("suresmile-clear-aligners", "SureSmile® Aligners"),
  ("cosmetic-dentistry", "Cosmetic Dentistry"),
  ("oral-surgery", "Oral Surgery / Wisdom Teeth"),
  ("nitrous-sedation", "Nitrous Sedation"),
@@ -163,7 +163,7 @@ def render_footer():
 
  <div class="footer-seo-block">
  <h2 class="footer-seo-h">Trusted Family Dentist on Hamilton Mountain</h2>
- <p>{BUSINESS['name']} has been caring for Hamilton families since {BUSINESS['founded']}. We're a full-service dental clinic on Upper Ottawa Street offering cleanings, checkups, dental implants, Invisalign, SureSmile clear aligners, professional whitening, crowns and bridges, root canals, oral surgery and wisdom teeth removal, dentures, nitrous oxide sedation, and same-day emergency care. We accept the Canadian Dental Care Plan (CDCP), bill insurance directly, and offer Beautifi financing including 0% options.</p>
+ <p>{BUSINESS['name']} has been caring for Hamilton families since {BUSINESS['founded']}. We're a full-service dental clinic on Upper Ottawa Street offering cleanings, checkups, dental implants, Invisalign, SureSmile® Aligners, professional whitening, crowns and bridges, root canals, oral surgery and wisdom teeth removal, dentures, nitrous oxide sedation, and same-day emergency care. We accept the Canadian Dental Care Plan (CDCP), bill insurance directly, and offer Beautifi financing including 0% options.</p>
  <p>Serving Hamilton Mountain, Upper Ottawa, Stoney Creek, Ancaster, Dundas, Binbrook, and Waterdown. New patients always welcome.</p>
  </div>
 
@@ -451,7 +451,7 @@ def schema_localbusiness_ref():
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Dental Implants"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "All-on-4 Dental Implants"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Invisalign Clear Aligners"}},
- {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "SureSmile Clear Aligners"}},
+ {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "SureSmile® Aligners"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Porcelain Veneers"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Dental Crowns and Bridges"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Composite White Fillings"}},

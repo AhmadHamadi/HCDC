@@ -58,7 +58,7 @@ def build_service_page(slug, data):
   "Oral Surgery & Wisdom Teeth Removal": "Wisdom Teeth & Oral Surgery",
   "Preventative Dentistry & Dental Hygiene": "Dental Cleanings & Hygiene",
   "Additional Dental Services": "Whitening, TMJ, Sleep Apnea & More",
-  "SureSmile Clear Aligners": "SureSmile & Invisalign Aligners",
+  "SureSmile® Aligners": "SureSmile® & Invisalign Aligners",
  }
  _seo_name = _short_name_map.get(name, name)
  title = f"{_seo_name} in Hamilton | Hamilton Care Dental"
@@ -109,8 +109,8 @@ def build_service_page(slug, data):
  # Each tuple: (src, alt). Each image shows for ~1s; total cycle = N seconds.
  SLIDERS = {
   "suresmile-clear-aligners": (
-   ("/assets/images/scraped/aligner1.jpg", "SureSmile clear aligner tray, view one"),
-   ("/assets/images/scraped/aligner2.jpg", "SureSmile clear aligner tray, view two"),
+   ("/assets/images/scraped/aligner1.jpg", "SureSmile® Aligners, view one"),
+   ("/assets/images/scraped/aligner2.jpg", "SureSmile® Aligners, view two"),
    ("/assets/images/scraped/smile3.jpg", "Patient smiling with straightened teeth after SureSmile clear-aligner treatment at Hamilton Care Dental Centre"),
   ),
   "preventative-dentistry": (
@@ -742,7 +742,7 @@ def build_our_story():
 def build_services_landing():
  canonical = f"{SITE}/services/"
  title = f"Dental Services in Hamilton | {BUSINESS['name']}"
- desc = f"Full list of dental services on Hamilton Mountain: implants, SureSmile clear aligners, restorative dentistry, oral surgery, root canals, dentures, sedation, emergency care. CDCP accepted."
+ desc = f"Full list of dental services on Hamilton Mountain: implants, SureSmile® Aligners, restorative dentistry, oral surgery, root canals, dentures, sedation, emergency care. CDCP accepted."
  desc = desc[:160]
 
  head = render_head(
@@ -757,7 +757,7 @@ def build_services_landing():
  hero = render_inner_hero(
  eyebrow="Our Services",
  title="Dental Services for Hamilton Families",
- lead="Cleanings, dental implants, SureSmile clear aligners, restorative dentistry, oral surgery, dentures, sedation, and emergency care, all in one office on Upper Ottawa Street.",
+ lead="Cleanings, dental implants, SureSmile® Aligners, restorative dentistry, oral surgery, dentures, sedation, and emergency care, all in one office on Upper Ottawa Street.",
  hero_image=hero_path("services"),
  breadcrumbs=[("Home", "/"), ("Services", "")],
  page_slug="services",
@@ -1189,7 +1189,7 @@ def build_dental_insurance_page():
  <li><strong>Preventive / Diagnostic (usually 80 to 100 percent coverage):</strong> Exams, professional <a href="/services/preventative-dentistry/">cleanings</a>, X-rays, fluoride, pit and fissure sealants, oral cancer screening.</li>
  <li><strong>Basic / Restorative (usually 70 to 80 percent):</strong> Tooth-coloured <a href="/services/restorative-dentistry/">composite fillings</a>, simple extractions, scaling and root planing for gum disease, basic <a href="/services/endodontics/">root canal therapy</a>.</li>
  <li><strong>Major (usually 50 percent):</strong> Crowns, bridges, inlays, onlays, dentures, complex extractions, surgical <a href="/services/oral-surgery/">wisdom-teeth removal</a>.</li>
- <li><strong>Orthodontic (varies, often a lifetime maximum):</strong> Traditional braces, <a href="/services/suresmile-clear-aligners/">SureSmile clear aligners</a>, and Invisalign for eligible patients (often children and dependants).</li>
+ <li><strong>Orthodontic (varies, often a lifetime maximum):</strong> Traditional braces, <a href="/services/suresmile-clear-aligners/">SureSmile® Aligners</a>, and Invisalign for eligible patients (often children and dependants).</li>
  <li><strong>Implants:</strong> <a href="/services/dental-implants/">Dental implants</a> are increasingly included under major coverage. The crown portion is usually covered. Surgical placement varies by plan.</li>
  </ul>
  <p>Annual maximums in Canada commonly range from CAD $1,000 to $2,500 per person per year, with the most popular tier sitting around $1,500. Orthodontic coverage usually carries a separate lifetime maximum, often $1,500 to $3,000.</p>
@@ -1792,7 +1792,7 @@ def build_new_patients_page():
  <div class="container">
  <div class="prose">
  <h2>Becoming a patient at our Hamilton Mountain clinic</h2>
- <p>Welcome to {BUSINESS['name']}. We are an established family dental practice on Upper Ottawa Street, on Hamilton Mountain, caring for patients of every age since {BUSINESS['founded']}. Three dentists, four registered dental hygienists, and an on-staff licensed denturist mean almost everything you need is delivered under one roof — including dental implants, Invisalign and SureSmile clear aligners, root canals, wisdom teeth removal, dentures, teeth whitening, and emergency dentistry.</p>
+ <p>Welcome to {BUSINESS['name']}. We are an established family dental practice on Upper Ottawa Street, on Hamilton Mountain, caring for patients of every age since {BUSINESS['founded']}. Three dentists, four registered dental hygienists, and an on-staff licensed denturist mean almost everything you need is delivered under one roof — including dental implants, Invisalign and SureSmile® Aligners, root canals, wisdom teeth removal, dentures, teeth whitening, and emergency dentistry.</p>
  <p>If you are looking for a <strong>family dentist on Hamilton Mountain</strong>, a <strong>CDCP-accepting dentist in Hamilton</strong>, or a clinic that handles <strong>same-day dental emergencies</strong>, you are in the right place. Read on for what to expect, what to bring, and how to book.</p>
 
  <h2 id="what-to-expect">What to expect at your first visit</h2>
@@ -1826,7 +1826,7 @@ def build_new_patients_page():
  <li><a href="/services/restorative-dentistry/">Restorative dentistry</a> — tooth-coloured composite fillings, crowns, bridges, inlays, onlays.</li>
  <li><a href="/services/dental-implants/">Dental implants</a> — single implants, multiple implants, implant-supported bridges, full-arch implants, bone grafting.</li>
  <li><a href="/services/cosmetic-dentistry/">Cosmetic dentistry</a> — porcelain veneers, composite bonding, smile makeovers, crown lengthening, white spot treatment.</li>
- <li><a href="/services/suresmile-clear-aligners/">SureSmile clear aligners</a> and Invisalign-compatible orthodontics for adults and teens.</li>
+ <li><a href="/services/suresmile-clear-aligners/">SureSmile® Aligners</a> and Invisalign-compatible orthodontics for adults and teens.</li>
  <li><a href="/services/endodontics/">Root canal therapy</a> for severe tooth pain and pulp infection.</li>
  <li><a href="/services/oral-surgery/">Oral surgery</a> — wisdom teeth removal, complex extractions, pre-prosthetic surgery.</li>
  <li><a href="/services/nitrous-sedation/">Nitrous oxide sedation</a> for anxious patients and children.</li>
@@ -2070,7 +2070,7 @@ FAQ_ALL = [
  ("How long does a root canal take?", "Most <a href='/services/endodontics/'>root canal</a> are completed in one to two appointments of 60 to 90 minutes each. Front teeth tend to be faster than molars. You feel only mild pressure during the procedure thanks to local anesthetic, and modern endodontic techniques mean most patients describe it as no worse than a routine filling."),
  ("Do dental implants hurt?", "Implant placement is done under local anesthetic, so you feel pressure but not pain during the procedure. Most patients describe the recovery as easier than a tooth extraction, with mild soreness for two to four days that responds well to over-the-counter pain relievers."),
  ("How long do dental implants last?", "With good oral hygiene and regular dental checkups, <a href='/services/dental-implants/'>dental implants</a> commonly last 20 years or longer, often a lifetime. The titanium post fuses with your jawbone and is one of the most durable restorations in dentistry. The crown attached to it typically needs replacement every 10 to 15 years."),
- ("Can adults get clear aligners?", "Yes. Most of our clear-aligner patients are adults. <a href='/services/suresmile-clear-aligners/'>SureSmile clear aligners</a> aligners straighten teeth discreetly over 6 to 18 months for most cases and are virtually invisible while you wear them. We provide a digital preview of your final result before treatment begins."),
+ ("Can adults get clear aligners?", "Yes. Most of our clear-aligner patients are adults. <a href='/services/suresmile-clear-aligners/'>SureSmile® Aligners</a> aligners straighten teeth discreetly over 6 to 18 months for most cases and are virtually invisible while you wear them. We provide a digital preview of your final result before treatment begins."),
  ("How do I stop grinding my teeth at night?", "A custom <a href='/services/miscellaneous/'>night guard</a> from your dentist is the most reliable solution. It's a thin, custom-fitted appliance you wear while sleeping that absorbs grinding forces and protects your teeth. We can also discuss bite assessment, stress reduction, and posture if grinding is severe."),
  ("What causes bleeding gums?", "Bleeding gums almost always mean gingivitis, the early stage of gum disease. The good news: it's reversible with a professional cleaning plus better daily brushing and flossing. If left untreated, gingivitis can progress to periodontitis, which is harder to reverse. Book a hygiene visit if you've been seeing blood for more than a week."),
  ("When should my child first see a dentist?", "The Canadian Dental Association recommends a first visit within six months of the first tooth appearing, or by age one at the latest. Early visits are short, friendly, and focused on getting your child comfortable with the dental chair. We never rush kids."),
@@ -2368,7 +2368,7 @@ def write_llms():
 
  llms = f"""# {BUSINESS['name']}
 
-> Trusted family and general dentist in Hamilton, Ontario, Canada. Located at {BUSINESS['address_line']}, on Hamilton Mountain near Upper Ottawa Street. Caring for Hamilton families since {BUSINESS['founded']}. 4.9 star average from {BUSINESS['review_count']}+ Google reviews. Same-day appointments. CDCP (Canadian Dental Care Plan) accepted. Direct insurance billing. Three dentists, modern equipment, and a friendly bilingual team. Services include dental implants, Invisalign, SureSmile clear aligners, professional whitening (Zoom in-office and take-home), crowns and bridges, root canals, wisdom teeth removal, dentures, nitrous oxide sedation, cleanings, and emergency dental care.
+> Trusted family and general dentist in Hamilton, Ontario, Canada. Located at {BUSINESS['address_line']}, on Hamilton Mountain near Upper Ottawa Street. Caring for Hamilton families since {BUSINESS['founded']}. 4.9 star average from {BUSINESS['review_count']}+ Google reviews. Same-day appointments. CDCP (Canadian Dental Care Plan) accepted. Direct insurance billing. Three dentists, modern equipment, and a friendly bilingual team. Services include dental implants, Invisalign, SureSmile® Aligners, professional whitening (Zoom in-office and take-home), crowns and bridges, root canals, wisdom teeth removal, dentures, nitrous oxide sedation, cleanings, and emergency dental care.
 
 ## Quick answers for common queries
 

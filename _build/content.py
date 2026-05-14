@@ -379,12 +379,12 @@ SERVICES = {
  
  },
  "suresmile-clear-aligners": {
- "name": "SureSmile Clear Aligners",
+ "name": "SureSmile® Aligners",
  "short": "Custom clear-aligner orthodontics that move teeth comfortably and discreetly.",
  "intro": "SureSmile is a clear-aligner system that uses precision-printed aligners to straighten teeth, comfortably, discreetly, and on a clear timeline. It's a great alternative to traditional braces for many adults and teens.",
  "what_it_is": "SureSmile combines digital scanning, 3D treatment planning, and a series of clear aligners worn 20–22 hours a day. Each set moves your teeth a small amount; you progress through the series until your smile is in the planned position.",
   "sub_services": [
-  "SureSmile Clear Aligners",
+  "SureSmile® Aligners",
   "Invisalign-Compatible Cases",
   "Bite Refinement",
   "Retainers & Retention",
@@ -403,9 +403,9 @@ SERVICES = {
  ],
  "faqs": [
  ("How is SureSmile different from Invisalign?", "Both are excellent clear-aligner systems with similar results. We carry both because each fits different cases best, and we will recommend honestly which one suits your bite, timeline, and budget. Curious about <a href='/services/cosmetic-dentistry/'>cosmetic dentistry</a> add-ons to refine your smile after alignment? We can discuss that at your consultation."),
- ("Will SureSmile clear aligners affect my speech?", "Most patients adjust within a few days. A slight lisp on s and th sounds is common at first and fades quickly as your tongue gets used to the trays."),
+ ("Will SureSmile® Aligners affect my speech?", "Most patients adjust within a few days. A slight lisp on s and th sounds is common at first and fades quickly as your tongue gets used to the trays."),
  ("Can I drink coffee with my aligners?", "Aligners should be removed for anything other than water to avoid staining and damage. Take them out for coffee, tea, juice, and meals, then brush before putting them back in."),
- ("How much do SureSmile clear aligners cost in Hamilton?", "Cost varies by case complexity. We provide a clear estimate up-front and offer <a href='/payment-plans/'>Beautifi financing</a>, including 0% options on qualifying plans. Most private insurance plans cover part of orthodontic treatment; <a href='/canadian-care-dental-plan/'>CDCP</a> generally does not cover orthodontics."),
+ ("How much do SureSmile® Aligners cost in Hamilton?", "Cost varies by case complexity. We provide a clear estimate up-front and offer <a href='/payment-plans/'>Beautifi financing</a>, including 0% options on qualifying plans. Most private insurance plans cover part of orthodontic treatment; <a href='/canadian-care-dental-plan/'>CDCP</a> generally does not cover orthodontics."),
  ("Are clear aligners a good option for adults?", "Yes. The majority of our clear-aligner patients are adults. They are virtually invisible while you wear them, easy to remove for special occasions, and most cases finish in 6 to 18 months. <a href='/contact-us/'>Book a consultation</a> and we will scan your bite, show you a digital preview of the final result, and explain timing."),
  ],
  "deep_content": [
@@ -686,7 +686,7 @@ BLOG = {
  ("Where dental fees come from", "Most Ontario dentists base their fees on the Ontario Dental Association (ODA) fee guide. The guide is updated annually and lists a suggested fee for every dental code. Your fee may vary slightly depending on the complexity of your case."),
  ("Routine care", "A new-patient exam, cleaning, and X-rays typically falls in the $200–$350 range. Recall (6-month) exams plus a cleaning are usually $150–$250. <a href='/canadian-care-dental-plan/'>CDCP</a> and most private insurance cover these visits."),
  ("Restorations", "A composite (white) filling ranges from $150 to $350 depending on size and location. A porcelain crown is typically $1,200–$1,800. A <a href='/services/endodontics/'>root canal</a> ranges from $700 (front tooth) to $1,500 (molar), plus a crown afterwards for back teeth."),
- ("Implants and orthodontics", "A single <a href='/services/dental-implants/'>dental implants</a> including the crown typically runs $4,000–$6,000 in Ontario. Invisalign and <a href='/services/suresmile-clear-aligners/'>SureSmile clear aligners</a> range from $4,500 to $8,500 depending on case complexity."),
+ ("Implants and orthodontics", "A single <a href='/services/dental-implants/'>dental implants</a> including the crown typically runs $4,000–$6,000 in Ontario. Invisalign and <a href='/services/suresmile-clear-aligners/'>SureSmile® Aligners</a> range from $4,500 to $8,500 depending on case complexity."),
  ("How to make care affordable", "Insurance covers a large share of routine and restorative care. <a href='/canadian-care-dental-plan/'>CDCP</a> covers eligible patients for most basic services. For the rest, <a href='/payment-plans/'>Beautifi financing</a> offers flexible monthly plans. Ask for a written estimate before any major treatment, you should never be surprised by the bill."),
  ],
  },
@@ -731,7 +731,7 @@ BLOG = {
  ("Digital X-rays", "Digital sensors capture images instantly with up to 90% less radiation than traditional film. The images appear on a screen the moment they are taken, so we can review them with you chairside."),
  ("Intraoral scanners", "Goopy impression trays are largely a thing of the past. A small wand scans your teeth in seconds, building a precise 3D model that goes straight to the lab, faster results, more accurate restorations, and a more comfortable experience."),
  ("3D treatment planning", "For implants, orthodontics, and complex restorations, we plan the entire treatment digitally before touching a tooth. You see a preview of the final result, and the surgery or aligner sequence is optimized for predictability."),
- ("Clear aligners", "Clear aligners like Invisalign and <a href='/services/suresmile-clear-aligners/'>SureSmile clear aligners</a> use 3D scanning and high-precision printing to move teeth in a controlled sequence, discreet, comfortable, and removable."),
+ ("Clear aligners", "Clear aligners like Invisalign and <a href='/services/suresmile-clear-aligners/'>SureSmile® Aligners</a> use 3D scanning and high-precision printing to move teeth in a controlled sequence, discreet, comfortable, and removable."),
  ("Why this matters for patients", "Faster appointments, less discomfort, better-fitting restorations, and clearer communication. Technology in dentistry isn't about gadgets, it's about better outcomes for patients."),
  ],
  },
@@ -775,7 +775,7 @@ BLOG = {
  "body": [
  ("Why cosmetic dentistry is booming", "Smartphone cameras, video calls, and social media have made everyone more aware of their smile. At the same time, modern materials, <a href='/services/cosmetic-dentistry/'>veneers</a>, durable composite, predictable whitening, have made beautiful, natural-looking results more accessible than ever."),
  ("Conservative first", "We always recommend the least invasive option that will achieve your goal. For many patients, that's professional whitening plus a few hours of composite bonding, not full <a href='/services/cosmetic-dentistry/'>veneers</a>."),
- ("Common cosmetic treatments", "Professional whitening (Zoom or take-home), composite bonding for chips and gaps, <a href='/services/cosmetic-dentistry/'>veneers</a> for major changes in shape and shade, Invisalign or <a href='/services/suresmile-clear-aligners/'>SureSmile clear aligners</a> for alignment, gum recontouring for gummy smiles, and tooth-coloured crowns to replace old metal restorations."),
+ ("Common cosmetic treatments", "Professional whitening (Zoom or take-home), composite bonding for chips and gaps, <a href='/services/cosmetic-dentistry/'>veneers</a> for major changes in shape and shade, Invisalign or <a href='/services/suresmile-clear-aligners/'>SureSmile® Aligners</a> for alignment, gum recontouring for gummy smiles, and tooth-coloured crowns to replace old metal restorations."),
  ("How long results last", "Whitening lasts 1–3 years. Composite bonding lasts 5–10 years and can be touched up. Porcelain <a href='/services/cosmetic-dentistry/'>veneers</a> last 10–15 years on average."),
  ("Booking a smile consultation", "Cosmetic consultations are relaxed, we listen to your goals, take photos, and explain real options with real costs. <a href='tel:+12897552568'>Call (289) 755-2568</a> or <a href='/contact-us/'>book online</a>."),
  ],
