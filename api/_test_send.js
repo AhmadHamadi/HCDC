@@ -134,11 +134,11 @@ async function main() {
     if (!call.msg.text.includes("2026-06-01")) throw new Error("body missing preferred date");
     if (!call.msg.text.includes("Routine cleaning")) throw new Error("body missing notes");
     if (!call.msg.text.includes("Homepage appointment form")) throw new Error("body missing friendly source label");
-    if (!call.msg.text.includes("Appointment request")) throw new Error("body missing form-type label");
-    if (call.msg.text.includes("Patient referral")) throw new Error("non-referral body should not say Patient referral");
+    if (!call.msg.text.toLowerCase().includes("new appointment request")) throw new Error("body missing heading");
+    if (call.msg.text.toLowerCase().includes("patient referral")) throw new Error("non-referral body should not say Patient referral");
     // HTML body present too
     if (!call.msg.html || !call.msg.html.includes("Jane Smith")) throw new Error("HTML body missing or doesn't include name");
-    if (!call.msg.html.includes("Appointment Request Submission")) throw new Error("HTML body missing header");
+    if (!call.msg.html.toLowerCase().includes("new appointment request")) throw new Error("HTML body missing heading");
     // Reply-to set to patient
     if (!call.msg.replyTo.includes("jane@example.com")) throw new Error("replyTo wrong");
     // Transport
@@ -161,9 +161,10 @@ async function main() {
     if (sendMailCalls.length !== 1) throw new Error("expected 1 sendMail");
     const t = sendMailCalls[0].msg.text;
     if (sendMailCalls[0].msg.subject !== "Appointment Request Submission") throw new Error("subject not standardized for referral");
-    if (!t.includes("Patient referral")) throw new Error("referral type label missing");
+    if (!t.toLowerCase().includes("new patient referral")) throw new Error("referral heading missing");
     if (!t.includes("Patient referral form")) throw new Error("referral source label missing");
-    if (!t.includes("Person referring")) throw new Error("missing referrer section heading");
+    if (!t.includes("Referring patient")) throw new Error("missing referring-patient section heading");
+    if (!t.includes("Patient being referred")) throw new Error("missing referred section heading");
     if (!t.includes("Alice Referrer")) throw new Error("referrer name missing");
     if (!t.includes("Bob Newpatient")) throw new Error("referred name missing");
     if (!t.includes("bob@example.com")) throw new Error("referred contact missing");

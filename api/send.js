@@ -84,118 +84,94 @@ async function readBody(req) {
   return out;
 }
 
-// Format a single field row for the plain-text email body. Pads the label
-// so values line up neatly in monospaced mail clients.
-function ptRow(label, value) {
-  const padded = (label + ":").padEnd(22, " ");
-  return padded + (value || "(not provided)");
-}
-
-// Build the plain-text email body for the front desk.
+// Build a short plain-text email for the front desk. Only the essentials:
+// who they are, how to reach them, when they want to come, what they wrote.
 function buildPlainText(fields) {
   const lines = [];
-  lines.push("APPOINTMENT REQUEST SUBMISSION");
-  lines.push("Hamilton Care Dental Centre website");
-  lines.push("");
-  lines.push("------ Form ------");
-  lines.push(ptRow("Form type", fields.referral ? "Patient referral" : "Appointment request"));
-  lines.push(ptRow("Submitted via", fields.sourceLabel));
-  lines.push("");
+  const dash = (v) => v || "-";
 
   if (fields.referral) {
-    lines.push("------ Person referring ------");
-    lines.push(ptRow("Name", fields.name));
-    lines.push(ptRow("Phone", fields.phone));
-    lines.push(ptRow("Email", fields.email));
+    lines.push("New patient referral from the website.");
     lines.push("");
-    lines.push("------ Friend / family member being referred ------");
-    lines.push(ptRow("Name", fields.referredName));
-    lines.push(ptRow("Phone or email", fields.referredContact));
+    lines.push("Referring patient");
+    lines.push("Name:  " + dash(fields.name));
+    lines.push("Phone: " + dash(fields.phone));
+    lines.push("Email: " + dash(fields.email));
+    lines.push("");
+    lines.push("Patient being referred");
+    lines.push("Name:    " + dash(fields.referredName));
+    lines.push("Contact: " + dash(fields.referredContact));
   } else {
-    lines.push("------ Patient contact ------");
-    lines.push(ptRow("Full name", fields.name));
-    lines.push(ptRow("Phone", fields.phone));
-    lines.push(ptRow("Email", fields.email));
+    lines.push("New appointment request from the website.");
     lines.push("");
-    lines.push("------ Visit details ------");
-    lines.push(ptRow("Preferred date", fields.preferredDate));
+    lines.push("Name:           " + dash(fields.name));
+    lines.push("Phone:          " + dash(fields.phone));
+    lines.push("Email:          " + dash(fields.email));
+    lines.push("Preferred date: " + dash(fields.preferredDate));
   }
-  lines.push("");
-  lines.push("------ Message / notes ------");
-  lines.push(fields.notes || "(none)");
-  lines.push("");
-  lines.push("------ Submission metadata ------");
-  lines.push(ptRow("Submitted at", fields.submittedAt));
-  lines.push(ptRow("Reply-to email", fields.replyToEmail || "(none)"));
-  lines.push(ptRow("IP address", fields.ip));
+
+  if (fields.notes) {
+    lines.push("");
+    lines.push("Message:");
+    lines.push(fields.notes);
+  }
+
   lines.push("");
   lines.push("---");
-  lines.push("Reply to this email to respond directly to the patient.");
-  lines.push("Hamilton Care Dental Centre  ·  hamiltoncaredental.com");
+  lines.push("Submitted from: " + fields.sourceLabel);
   return lines.join("\n");
 }
 
-// Build the HTML version for nicer rendering in modern mail clients.
+// Minimal HTML version. Same content, just wrapped in a readable layout so
+// modern mail clients render it neatly. No fancy styling.
 function buildHtml(fields) {
   const E = escapeHtml;
   const row = (label, value) =>
-    `<tr><td style="padding:6px 14px 6px 0;color:#7a6b56;font-weight:600;white-space:nowrap;vertical-align:top">${E(label)}</td>` +
-    `<td style="padding:6px 0;color:#2a2a2a;vertical-align:top">${E(value || "(not provided)")}</td></tr>`;
+    "<tr><td style=\"padding:4px 18px 4px 0;color:#555;white-space:nowrap;vertical-align:top\">" + E(label) + "</td>" +
+    "<td style=\"padding:4px 0;color:#111;vertical-align:top\">" + E(value || "-") + "</td></tr>";
 
-  const contactSection = fields.referral
-    ? `
-      <h3 style="font:600 14px/1.3 'Helvetica Neue',Arial,sans-serif;color:#7b6137;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.05em">Person referring</h3>
-      <table style="border-collapse:collapse;font:14px/1.5 'Helvetica Neue',Arial,sans-serif;width:100%">
-        ${row("Name", fields.name)}
-        ${row("Phone", fields.phone)}
-        ${row("Email", fields.email)}
-      </table>
-      <h3 style="font:600 14px/1.3 'Helvetica Neue',Arial,sans-serif;color:#7b6137;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.05em">Friend or family being referred</h3>
-      <table style="border-collapse:collapse;font:14px/1.5 'Helvetica Neue',Arial,sans-serif;width:100%">
-        ${row("Name", fields.referredName)}
-        ${row("Phone or email", fields.referredContact)}
-      </table>`
-    : `
-      <h3 style="font:600 14px/1.3 'Helvetica Neue',Arial,sans-serif;color:#7b6137;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.05em">Patient contact</h3>
-      <table style="border-collapse:collapse;font:14px/1.5 'Helvetica Neue',Arial,sans-serif;width:100%">
-        ${row("Full name", fields.name)}
-        ${row("Phone", fields.phone)}
-        ${row("Email", fields.email)}
-      </table>
-      <h3 style="font:600 14px/1.3 'Helvetica Neue',Arial,sans-serif;color:#7b6137;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.05em">Visit details</h3>
-      <table style="border-collapse:collapse;font:14px/1.5 'Helvetica Neue',Arial,sans-serif;width:100%">
-        ${row("Preferred date", fields.preferredDate)}
-      </table>`;
+  let body;
+  if (fields.referral) {
+    body =
+      "<h2 style=\"font:600 17px/1.3 system-ui,sans-serif;color:#111;margin:18px 0 6px\">Referring patient</h2>" +
+      "<table style=\"border-collapse:collapse;font:14px/1.5 system-ui,sans-serif\">" +
+      row("Name", fields.name) +
+      row("Phone", fields.phone) +
+      row("Email", fields.email) +
+      "</table>" +
+      "<h2 style=\"font:600 17px/1.3 system-ui,sans-serif;color:#111;margin:18px 0 6px\">Patient being referred</h2>" +
+      "<table style=\"border-collapse:collapse;font:14px/1.5 system-ui,sans-serif\">" +
+      row("Name", fields.referredName) +
+      row("Contact", fields.referredContact) +
+      "</table>";
+  } else {
+    body =
+      "<table style=\"border-collapse:collapse;font:14px/1.5 system-ui,sans-serif;margin-top:10px\">" +
+      row("Name", fields.name) +
+      row("Phone", fields.phone) +
+      row("Email", fields.email) +
+      row("Preferred date", fields.preferredDate) +
+      "</table>";
+  }
 
-  return `<!doctype html>
-<html><body style="margin:0;padding:24px;background:#f6f2ea;font-family:'Helvetica Neue',Arial,sans-serif;color:#2a2a2a">
-  <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:14px;padding:28px;border:1px solid #ead9b8">
-    <p style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#a48756;font-weight:700">Hamilton Care Dental Centre</p>
-    <h1 style="margin:6px 0 4px;font:700 22px/1.2 Georgia,serif;color:#2a2a2a">Appointment Request Submission</h1>
-    <p style="margin:0 0 18px;color:#5a5045;font-size:14px">A new request was submitted from the website. Reply to this email to respond directly to the patient.</p>
+  const message = fields.notes
+    ? "<h2 style=\"font:600 17px/1.3 system-ui,sans-serif;color:#111;margin:18px 0 6px\">Message</h2>" +
+      "<p style=\"font:14px/1.55 system-ui,sans-serif;color:#111;margin:0;white-space:pre-wrap\">" + E(fields.notes) + "</p>"
+    : "";
 
-    <h3 style="font:600 14px/1.3 'Helvetica Neue',Arial,sans-serif;color:#7b6137;margin:18px 0 8px;text-transform:uppercase;letter-spacing:.05em">Form</h3>
-    <table style="border-collapse:collapse;font:14px/1.5 'Helvetica Neue',Arial,sans-serif;width:100%">
-      ${row("Form type", fields.referral ? "Patient referral" : "Appointment request")}
-      ${row("Submitted via", fields.sourceLabel)}
-    </table>
+  const heading = fields.referral
+    ? "New patient referral from the website."
+    : "New appointment request from the website.";
 
-    ${contactSection}
-
-    <h3 style="font:600 14px/1.3 'Helvetica Neue',Arial,sans-serif;color:#7b6137;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.05em">Message / notes</h3>
-    <div style="background:#f6f2ea;border-radius:8px;padding:12px 14px;font:14px/1.55 'Helvetica Neue',Arial,sans-serif;color:#2a2a2a;white-space:pre-wrap">${E(fields.notes || "(none)")}</div>
-
-    <h3 style="font:600 14px/1.3 'Helvetica Neue',Arial,sans-serif;color:#7b6137;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.05em">Submission metadata</h3>
-    <table style="border-collapse:collapse;font:13px/1.5 'Helvetica Neue',Arial,sans-serif;width:100%;color:#5a5045">
-      ${row("Submitted at", fields.submittedAt)}
-      ${row("Reply-to email", fields.replyToEmail || "(none)")}
-      ${row("IP address", fields.ip)}
-    </table>
-
-    <hr style="border:0;border-top:1px solid #ead9b8;margin:22px 0 14px" />
-    <p style="margin:0;color:#7a6b56;font-size:12px">Hamilton Care Dental Centre · hamiltoncaredental.com</p>
-  </div>
-</body></html>`;
+  return "<!doctype html><html><body style=\"margin:0;padding:24px;font-family:system-ui,sans-serif;color:#111\">" +
+    "<div style=\"max-width:560px;margin:0 auto\">" +
+    "<p style=\"font:14px/1.5 system-ui,sans-serif;margin:0 0 12px;color:#444\">" + heading + "</p>" +
+    body +
+    message +
+    "<p style=\"font:12px/1.5 system-ui,sans-serif;color:#888;margin:22px 0 0;border-top:1px solid #eee;padding-top:10px\">" +
+    "Submitted from: " + E(fields.sourceLabel) +
+    "</p>" +
+    "</div></body></html>";
 }
 
 module.exports = async (req, res) => {
