@@ -186,6 +186,9 @@ def render_footer():
  <li><a href="/our-story/">Our Story</a></li>
  <li><a href="/services/">All Services</a></li>
  <li><a href="/new-patients/">New Patients</a></li>
+ <li><a href="/emergency-dentist-hamilton/">Emergency Dentist Hamilton</a></li>
+ <li><a href="/teeth-whitening-hamilton/">Teeth Whitening Hamilton</a></li>
+ <li><a href="/dentist-hamilton-mountain/">Dentist on Hamilton Mountain</a></li>
  <li><a href="/payment-plans/">Payment Plans</a></li>
  <li><a href="/dental-insurance/">Dental Insurance &amp; CDCP</a></li>
  <li><a href="/canadian-care-dental-plan/">CDCP</a></li>

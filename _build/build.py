@@ -1233,6 +1233,475 @@ def build_dental_insurance_page():
  write_page("dental-insurance", html)
 
 
+def build_emergency_dentist_page():
+ """Text-only authority page for 'emergency dentist Hamilton' search intent.
+ No hero image; long-form, neighbourhood-aware copy with FAQ schema."""
+ canonical = f"{SITE}/emergency-dentist-hamilton/"
+ title = "Emergency Dentist in Hamilton, Same-Day Care | Hamilton Care Dental"
+ desc = f"Same-day emergency dentist in Hamilton, Ontario. Severe tooth pain, knocked-out teeth, swelling, broken crowns. Call {BUSINESS['phone_display']} — slots reserved daily."
+ desc = desc[:160]
+
+ faqs = [
+ ("What counts as a dental emergency?",
+ "Severe or throbbing tooth pain that wakes you at night, swelling on the face or gums, a knocked-out tooth, a broken tooth with sharp or exposed edges, a lost crown or filling exposing the nerve, an abscess (a pus-filled bump on the gum), and bleeding that will not stop after fifteen minutes of pressure are the most common reasons to call us right away. If you cannot eat, sleep, or talk normally because of dental pain, that is an emergency."),
+ ("Will Hamilton Care Dental Centre see me today?",
+ f"In most cases, yes. We hold appointment slots every weekday and Saturday morning specifically for emergencies, and we try hard to fit walk-ins around our booked patients when something serious comes in. Call {BUSINESS['phone_display']} first thing in the morning if you can. The earlier you call, the more options we have for the same day."),
+ ("My tooth was just knocked out, what do I do?",
+ "Pick the tooth up by the crown (the chewing surface), not the root. Rinse it very gently with water for no more than ten seconds, do not scrub it, and do not touch the root. If you can, slide it back into the socket and bite gently on a clean cloth. If that is not possible, place the tooth in a small container of cold milk, your own saliva, or a tooth-preservation product if you have one. Then call us right away. The best window for re-implantation is the first thirty minutes."),
+ ("How much does an emergency dental visit cost in Hamilton?",
+ "An emergency exam at our office is typically $150 to $200, and that fee usually goes toward the cost of treatment if we complete it the same day. Treatment cost depends on what is needed (a temporary filling, drainage of an infection, a <a href='/services/endodontics/'>root canal</a>, an extraction, or a referral for IV sedation). Most private dental insurance plans cover emergency exams and many emergency treatments, and <a href='/canadian-care-dental-plan/'>CDCP</a> also covers emergency care for eligible patients. We give you a written cost estimate before any treatment begins."),
+ ("Can I take painkillers while I wait for my appointment?",
+ "Yes, in most cases. For adults without a contraindication, ibuprofen 400 mg every six hours is more effective for dental pain than acetaminophen, and the two can be alternated for stronger relief. Avoid placing aspirin directly on the gum (it burns the tissue). Apply a cold compress to the outside of the cheek for fifteen minutes on, fifteen minutes off. Avoid very hot or very cold food and drink on the affected side until we see you."),
+ ("What if I have swelling, a fever, or trouble swallowing?",
+ "Significant facial swelling with fever, trouble swallowing, or swelling that is spreading toward the eye or down the neck can be a serious dental infection that needs urgent care. If our office is closed and you cannot reach us quickly, go to your nearest emergency room or call 9-1-1. Dental infections that spread can become medical emergencies."),
+ ("Do you handle broken dentures or lost crowns same day?",
+ "Often, yes. We can usually adjust or reline a denture on the same day if the break is clean. Lost crowns can sometimes be re-cemented the same day if the underlying tooth is intact. Bring the crown or the broken piece with you if you have it."),
+ ("My child has a dental emergency, what should I do?",
+ "Stay calm and call us. Common pediatric emergencies are a knocked-out baby tooth (which we usually do not reimplant), a knocked-out permanent tooth (which is a true emergency, get to us within thirty minutes), a chipped or fractured tooth, a tongue or lip cut from a fall, or sudden tooth pain. For bleeding, apply gentle pressure with a clean cloth for ten minutes. For a knocked-out permanent tooth, follow the same steps as for adults and call right away."),
+ ("Can I be seen after hours?",
+ f"Our regular hours are Monday to Friday 8 AM to 6 PM and Saturday 9 AM to 3 PM. If you reach our voicemail outside those hours, leave a message and the on-call team will return your call as soon as possible. For life-threatening swelling, uncontrolled bleeding, or facial trauma, do not wait, call 9-1-1 or go to a hospital emergency department."),
+ ("Do you treat dental anxiety during emergencies?",
+ "Yes. If anxiety is a barrier for you, we offer <a href='/services/nitrous-sedation/'>nitrous oxide (laughing gas) sedation</a>. It takes effect within a few minutes, keeps you fully awake, and wears off as soon as the mask comes off. Tell our receptionist when you call so we can plan extra time and have the mask ready when you arrive."),
+ ]
+
+ head = render_head(
+ title=title, description=desc, canonical=canonical,
+ og_image=f"{SITE}/assets/images/team-photo.png",
+ extra_schemas=[
+ schema_localbusiness_ref(),
+ schema_breadcrumb([("Home", f"{SITE}/"), ("Emergency Dentist Hamilton", canonical)]),
+ schema_service("Emergency Dental Care", "Same-day emergency dental treatment in Hamilton for severe tooth pain, broken teeth, swelling, and infections.", "emergency-dentist-hamilton"),
+ schema_faq(faqs),
+ schema_speakable(),
+ ],
+ )
+
+ body = f"""
+<main id="main">
+<section class="page-intro" aria-labelledby="em-title">
+ <div class="container">
+ <nav class="crumbs" aria-label="Breadcrumb">
+ <a href="/">Home</a> <span aria-hidden="true">›</span> <span>Emergency Dentist Hamilton</span>
+ </nav>
+ <span class="eyebrow">Same-Day Emergency Care</span>
+ <h1 id="em-title">Emergency Dentist in Hamilton, Ontario</h1>
+ <p class="lead">If you are in pain right now, please <a href="tel:{BUSINESS['phone_tel']}">call {BUSINESS['phone_display']}</a>. We hold emergency slots every weekday and Saturday morning and will do everything we can to see you today. Below is what counts as a dental emergency, what to do before you arrive, what treatment usually costs, and how we approach urgent care at our Upper Ottawa Street office.</p>
+ </div>
+</section>
+
+<section class="prose-section">
+ <div class="container">
+ <div class="prose">
+ <h2 id="when-to-call">When to call us right away</h2>
+ <p>Most dental problems are not emergencies, even when they hurt. A cavity that bothers you when you chew sweets is not the same thing as a tooth that is throbbing on its own. But some situations cannot wait, because waiting either makes the treatment harder or risks losing the tooth.</p>
+ <p>Call us the same day if any of these is happening:</p>
+ <ul class="check-list">
+ <li>Severe tooth pain you cannot ignore. It wakes you up, it stops you from eating on that side, you are taking painkillers around the clock and they are barely working.</li>
+ <li>Swelling on the face, jaw, or gums. Especially with a foul taste, fever, or a pimple-like bump on the gum (a sign of an abscess).</li>
+ <li>A tooth was knocked out, fractured, or pushed out of position by an accident.</li>
+ <li>A crown or filling fell out and the tooth underneath is sharp, sensitive, or exposed.</li>
+ <li>Bleeding from the mouth that does not stop with fifteen minutes of firm pressure.</li>
+ <li>You bit something hard and cracked a tooth, or you can feel a sharp edge cutting your tongue or cheek.</li>
+ <li>Persistent jaw pain after an injury, or jaw locked open or closed.</li>
+ </ul>
+
+ <h2 id="what-to-do">What to do before you reach us</h2>
+ <p>The right first-aid steps in the minutes before your appointment can change the outcome, especially for knocked-out teeth and uncontrolled bleeding. Here is a short, practical list.</p>
+
+ <h3>For a knocked-out adult tooth</h3>
+ <ol class="process-list">
+ <li>Pick the tooth up by the chewing surface (the crown), not the root.</li>
+ <li>Rinse it very gently with cool water for no more than ten seconds. Do not scrub or use soap.</li>
+ <li>If you can, place it back in the socket and bite gently on a clean cloth or tea bag.</li>
+ <li>If you cannot reinsert it, put the tooth in cold milk, your own saliva, or a tooth-preservation kit. Do not store it in tap water.</li>
+ <li>Get to us within thirty minutes if at all possible. The faster you arrive, the more likely we can save it.</li>
+ </ol>
+ <p>For a knocked-out baby tooth, do not try to put it back. Bring your child in for a follow-up so we can check the area, but baby teeth are not normally reimplanted.</p>
+
+ <h3>For severe pain or a broken tooth</h3>
+ <ol class="process-list">
+ <li>Rinse with warm salt water (a teaspoon of salt in a mug of warm water). This calms the area and reduces bacteria.</li>
+ <li>Use a cold compress on the outside of the cheek, fifteen minutes on, fifteen minutes off.</li>
+ <li>Take ibuprofen 400 mg every six hours if you can tolerate it, alternating with acetaminophen if you need extra relief. Follow the package instructions.</li>
+ <li>Avoid hot, cold, or sugary food and drink on that side.</li>
+ <li>Do not put aspirin directly on the gum or tooth. It can burn the soft tissue.</li>
+ </ol>
+
+ <h3>For an abscess, facial swelling, or fever</h3>
+ <p>Get to us today. Swelling with a fever, swelling spreading toward the eye, or swelling that is making it hard to swallow or breathe can become a medical emergency. If our office is closed or unreachable, go to your nearest emergency department or call 9-1-1. Dental infections that spread to the airway are rare, but they are serious.</p>
+
+ <h3>For a lost crown, filling, or veneer</h3>
+ <ol class="process-list">
+ <li>Save the piece if you have it. Bring it with you.</li>
+ <li>You can buy temporary dental cement at a Hamilton pharmacy (Shoppers Drug Mart, Rexall, or Pharmasave on Upper Ottawa, Mountain Plaza, or Lime Ridge all carry it) and reseat the crown loosely as a stop-gap.</li>
+ <li>Avoid chewing on that side until we replace it.</li>
+ </ol>
+
+ <h2 id="we-treat">What we treat in an emergency visit</h2>
+ <p>Most dental emergencies are resolved in a single visit at our office. The most common ones we see are:</p>
+ <ul class="check-list">
+ <li><strong>Severe tooth pain.</strong> We diagnose the source (a deep cavity, a crack, a dying nerve, or an infection) and start treatment the same day. That might be a temporary filling, opening the tooth to relieve pressure, or starting a <a href="/services/endodontics/">root canal</a>.</li>
+ <li><strong>Dental abscess.</strong> We drain the infection, irrigate the area, prescribe antibiotics when appropriate, and arrange follow-up treatment to fix the underlying tooth.</li>
+ <li><strong>Knocked-out or fractured teeth.</strong> Reimplantation, splinting, smoothing rough edges, restoring with bonding, or planning a crown if the fracture is deep.</li>
+ <li><strong>Lost fillings or crowns.</strong> Temporary restoration the same day, final crown or filling in a follow-up visit.</li>
+ <li><strong>Wisdom-tooth pain.</strong> Often this is pericoronitis (inflammation around a partially erupted wisdom tooth). We can irrigate the area and plan extraction. See our <a href="/services/oral-surgery/">oral surgery</a> page.</li>
+ <li><strong>Soft-tissue injuries.</strong> Cuts on the lip, tongue, or cheek from a fall. We can suture if needed.</li>
+ <li><strong>Broken or sore dentures.</strong> Our on-staff denturist handles most repairs, relines, and adjustments in-office.</li>
+ </ul>
+
+ <h2 id="cost">What an emergency visit costs in Hamilton</h2>
+ <p>An emergency dental exam at our office is typically $150 to $200, and that fee normally goes toward the cost of any treatment we complete the same day. Treatment cost depends on what is needed. Some general ranges (Ontario Dental Association fee guide):</p>
+ <ul class="check-list">
+ <li>Temporary filling or sedative dressing: $80 to $180</li>
+ <li>Simple tooth extraction: $200 to $400</li>
+ <li>Surgical extraction (impacted or broken): $400 to $800</li>
+ <li>Root canal therapy (front tooth): $700 to $1,000</li>
+ <li>Root canal therapy (molar): $1,100 to $1,500</li>
+ <li>Crown re-cement: $90 to $180</li>
+ <li>Drainage of infection plus antibiotics: $150 to $300</li>
+ </ul>
+ <p>Most private dental insurance plans cover emergency exams and many emergency treatments. <a href="/canadian-care-dental-plan/">CDCP</a> covers emergency care for eligible patients. For anything not fully covered, <a href="/payment-plans/">Beautifi 0% financing</a> is available. We give you a written cost estimate before any treatment begins so there are no surprises.</p>
+
+ <h2 id="neighbourhoods">Emergency dental care across Hamilton and the GTHA</h2>
+ <p>We are on Upper Ottawa Street, central to Hamilton Mountain. If you are in pain in one of the following areas, here is a rough drive time to our door:</p>
+ <ul class="check-list">
+ <li>Hamilton Mountain (Sherwood, Berrisfield, Templemead, Quinndale, Eleanor): 0 to 5 minutes</li>
+ <li>West Mountain (Westcliffe, Mohawk, Buchanan, Fessenden): 7 to 10 minutes via Mohawk Rd W or Limeridge Rd W</li>
+ <li>Stoney Creek (lower or upper): 8 to 14 minutes via Mud St W or Rymal Rd E</li>
+ <li>Ancaster (Meadowlands, Wilson Street): 12 to 16 minutes via Lincoln M. Alexander Pkwy</li>
+ <li>Dundas (King Street West, University Plaza): 15 to 20 minutes via Mohawk Rd W</li>
+ <li>Binbrook and Glanbrook: 10 to 15 minutes via Highway 56</li>
+ <li>Mount Hope and Hamilton Airport area: 12 to 18 minutes via Upper James</li>
+ <li>Waterdown and Flamborough: 20 to 25 minutes via Highway 6 and Highway 403</li>
+ <li>Downtown and East Hamilton (Beasley, Stinson, Stipley): 10 to 14 minutes via the Sherman Cut or Jolley Cut</li>
+ </ul>
+ <p>If you are calling from outside these neighbourhoods, we still encourage you to call. We can often help by phone with first-aid steps, recommend the nearest open clinic, or get you in tomorrow if today is full.</p>
+
+ <h2 id="why-us">Why patients trust us in an emergency</h2>
+ <p>We have cared for Hamilton families since {BUSINESS['founded']}, fourteen years and {BUSINESS['review_count']}+ five-star Google reviews. Three dentists, four registered dental hygienists, and an on-staff licensed denturist mean we can usually start (and often finish) emergency treatment in-office without a referral somewhere else. We accept <a href="/canadian-care-dental-plan/">CDCP</a>, we bill <a href="/dental-insurance/">private dental insurance</a> directly to most Canadian carriers, and we offer <a href="/payment-plans/">Beautifi financing</a> for anything not fully covered. If you are anxious, we have <a href="/services/nitrous-sedation/">nitrous oxide sedation</a> on hand.</p>
+
+ <div class="service-cta" style="margin-top:1.6rem">
+ <a href="tel:{BUSINESS['phone_tel']}" class="btn btn-primary">Call {BUSINESS['phone_display']}</a>
+ <a href="/contact-us/" class="btn btn-ink">Book online</a>
+ </div>
+ </div>
+ </div>
+</section>
+
+{render_faq_section(faqs)}
+"""
+
+ html = (
+ head + render_topbar() + render_header(active="") + body
+ + render_related(links=[
+ ("/services/endodontics/", "Root Canal Therapy", "When a dying nerve is the source of the pain."),
+ ("/services/oral-surgery/", "Extractions & Oral Surgery", "When a tooth cannot be saved or a wisdom tooth is the problem."),
+ ("/services/nitrous-sedation/", "Sedation for Anxious Patients", "Laughing-gas sedation to help you through the visit."),
+ ("/dental-insurance/", "Insurance & CDCP for Emergencies", "How we bill on the day of treatment."),
+ ])
+ + render_cta_banner() + render_footer()
+ )
+ write_page("emergency-dentist-hamilton", html)
+
+
+def build_teeth_whitening_page():
+ """Text-only authority page for 'teeth whitening Hamilton' and 'Zoom whitening Hamilton'.
+ No hero image; long-form, comparison-heavy copy with FAQ schema."""
+ canonical = f"{SITE}/teeth-whitening-hamilton/"
+ title = "Teeth Whitening in Hamilton, Zoom & Take-Home | Hamilton Care Dental"
+ desc = f"Professional teeth whitening in Hamilton. In-office Zoom (1 visit) and custom take-home trays. Cost, results, safety, and how to decide. Call {BUSINESS['phone_display']}."
+ desc = desc[:160]
+
+ faqs = [
+ ("Which is better, Zoom in-office or take-home whitening?",
+ "Neither is better in the abstract, they are different tools. Zoom in-office whitening gives you a dramatic result in a single 90-minute visit and is the right choice when you have a wedding, a job interview, or a photoshoot coming up. Custom take-home trays whiten gradually over one to two weeks and give you more control over sensitivity. Many patients use Zoom for the initial result and the take-home trays for touch-ups every six to twelve months."),
+ ("How much does professional teeth whitening cost in Hamilton?",
+ "At our office, Zoom in-office whitening is typically $450 to $650. Custom take-home whitening trays are typically $250 to $400, which includes the impressions or digital scan, the trays, and your first set of gel syringes. Refill gel for the trays is $30 to $60 per syringe. Insurance does not normally cover cosmetic whitening, but you can use a Health Spending Account, <a href='/payment-plans/'>Beautifi financing</a>, or simply spread the cost over a couple of visits."),
+ ("How many shades whiter will my teeth get?",
+ "Most patients lift four to eight shades after a single Zoom session, and another one to three shades with a follow-up of take-home tray use. Results depend on what is staining the tooth in the first place. Surface staining from coffee, tea, red wine, and tobacco responds the best. Discoloration from medication (tetracycline), trauma, or naturally darker enamel responds less. We always tell you honestly what is realistic before you start."),
+ ("Is teeth whitening safe? Will it damage my enamel?",
+ "When the whitening is done under dental supervision with professional-strength hydrogen-peroxide or carbamide-peroxide gel, it is safe and does not damage healthy enamel. The most common side effect is temporary tooth sensitivity that lasts twenty-four to forty-eight hours after a treatment. We provide a desensitizing gel to manage it. Patients with worn enamel, exposed roots, or a history of severe sensitivity should talk to us first because they may benefit from a gentler protocol."),
+ ("How long do whitening results last?",
+ "Most patients hold their result for one to two years before needing a touch-up. Coffee, tea, red wine, dark berries, soy sauce, balsamic vinegar, and tobacco are the biggest culprits behind re-staining. A short tray touch-up every six to twelve months is the cheapest way to keep your shade. Patients who do not smoke and who rinse with water after dark drinks often go two or three years between sessions."),
+ ("Will whitening work on crowns, veneers, or fillings?",
+ "No. Whitening only changes the colour of natural tooth structure. Crowns, <a href='/services/cosmetic-dentistry/'>porcelain veneers</a>, composite bonding, and tooth-coloured fillings stay the colour they were the day they were placed. This matters in two ways. First, if you have visible crowns or veneers on front teeth, we usually whiten first and match the new restorations to the lighter shade afterward. Second, old composite fillings on front teeth may need replacement once the surrounding tooth is whiter than they are."),
+ ("Can I whiten my teeth while I am pregnant or breastfeeding?",
+ "Professional whitening is generally avoided during pregnancy and while breastfeeding, not because it has been proven unsafe but because there is not enough evidence to declare it safe. We are happy to do a thorough cleaning and polish in the meantime, which removes a lot of surface staining on its own."),
+ ("Is over-the-counter whitening as good as professional whitening?",
+ "Over-the-counter strips and gels work, but at a much lower concentration than what your dentist can use. They are fine for maintenance or for small lifts in shade, but they will not produce a Zoom-level result, and one-size-fits-all trays can leak gel onto your gums and cause irritation. Custom take-home trays from us cost more up front but fit better, work faster, and are gentler on your gums."),
+ ("Does dental insurance cover teeth whitening?",
+ "Most Canadian dental insurance plans do not cover purely cosmetic whitening because it is considered elective. <a href='/canadian-care-dental-plan/'>CDCP</a> does not cover it either. If you have a Health Spending Account through your employer benefits, you can usually apply it. <a href='/payment-plans/'>Beautifi financing</a> is also available."),
+ ("How do I book a whitening consultation in Hamilton?",
+ f"Call us at <a href='tel:{BUSINESS['phone_tel']}'>{BUSINESS['phone_display']}</a> or use our <a href='/contact-us/'>online booking form</a>. We start with a short exam to check that your teeth and gums are healthy enough to whiten, take a starting-shade reading, and walk you through Zoom and take-home options so you can pick the right one for your timeline and budget."),
+ ]
+
+ head = render_head(
+ title=title, description=desc, canonical=canonical,
+ og_image=f"{SITE}/assets/images/team-photo.png",
+ extra_schemas=[
+ schema_localbusiness_ref(),
+ schema_breadcrumb([("Home", f"{SITE}/"), ("Teeth Whitening Hamilton", canonical)]),
+ schema_service("Teeth Whitening", "Professional teeth whitening in Hamilton, Ontario. In-office Zoom whitening and custom take-home trays.", "teeth-whitening-hamilton"),
+ schema_faq(faqs),
+ schema_speakable(),
+ ],
+ )
+
+ body = f"""
+<main id="main">
+<section class="page-intro" aria-labelledby="tw-title">
+ <div class="container">
+ <nav class="crumbs" aria-label="Breadcrumb">
+ <a href="/">Home</a> <span aria-hidden="true">›</span> <span>Teeth Whitening Hamilton</span>
+ </nav>
+ <span class="eyebrow">Cosmetic Dentistry</span>
+ <h1 id="tw-title">Teeth Whitening in Hamilton, Ontario</h1>
+ <p class="lead">Professional teeth whitening is the simplest, cheapest cosmetic upgrade you can make. At {BUSINESS['name']} on Upper Ottawa Street we offer two routes, Zoom in-office whitening for fast results in a single visit, and custom take-home trays for a gradual lift you control at home. Below is how each one works, what they cost in Hamilton, how long results last, and how to pick the right option for your timeline.</p>
+ </div>
+</section>
+
+<section class="prose-section">
+ <div class="container">
+ <div class="prose">
+ <h2 id="zoom">Zoom in-office whitening</h2>
+ <p>Zoom is a chairside whitening system. You come in for a single 90-minute appointment. We protect your gums with a soft dental dam, paint a professional-strength hydrogen-peroxide gel onto your teeth, and activate it with a special LED light over three or four short cycles. Between cycles we wipe the gel off, reapply, and continue. Most patients lift four to eight shades by the end of the visit.</p>
+ <p>Zoom is the right choice when you have a deadline. A wedding, a graduation, a family photo, a new job, anything where you need to look your best on a specific date. It works on most adults, but we always do a short exam first to check that your gums are healthy and your enamel is in good shape.</p>
+
+ <h3>What a Zoom appointment looks like</h3>
+ <ol class="process-list">
+ <li><strong>Shade reading and photos.</strong> We record your starting shade so we can show you the difference at the end.</li>
+ <li><strong>Gum protection.</strong> A soft barrier is applied along the gum line so the bleaching gel only touches enamel.</li>
+ <li><strong>Three or four 15-minute cycles.</strong> Gel on, light on, light off, wipe, repeat. You can listen to music or watch a show. There is no drilling and no needles.</li>
+ <li><strong>Desensitizing gel.</strong> A final coat that calms the tooth and reduces the chance of sensitivity afterward.</li>
+ <li><strong>Final shade and care instructions.</strong> We avoid dark food and drink for the first forty-eight hours so the result locks in.</li>
+ </ol>
+
+ <h2 id="take-home">Custom take-home whitening trays</h2>
+ <p>The other route is take-home trays. We make a thin, soft, custom-fitted tray for your upper and lower teeth from a digital scan or impression. You take the trays home with a kit of whitening gel syringes, fill the tray with a small bead of gel, wear it for thirty to ninety minutes a day for one to two weeks (depending on the concentration), and remove and rinse afterward. The result builds gradually.</p>
+ <p>Take-home trays are the right choice when you want more control over sensitivity, when you cannot block out an afternoon for Zoom, or when you want a long-term touch-up system. The trays last for years, and you can buy refill gel syringes from us any time.</p>
+
+ <h2 id="zoom-vs-take-home">Zoom or take-home, how to decide</h2>
+ <ul class="check-list">
+ <li><strong>Speed:</strong> Zoom is one visit. Take-home is one to two weeks of nightly use.</li>
+ <li><strong>Dramatic result on day one:</strong> Zoom wins.</li>
+ <li><strong>Lower cost up front:</strong> Take-home wins.</li>
+ <li><strong>Lower risk of sensitivity:</strong> Take-home wins because you control the dose.</li>
+ <li><strong>Best for sensitive teeth:</strong> Take-home, with a lower-concentration gel.</li>
+ <li><strong>Best for stains from coffee, tea, red wine, tobacco:</strong> Both work, Zoom is faster.</li>
+ <li><strong>Best for tetracycline or trauma-related discoloration:</strong> Neither alone, talk to us about <a href="/services/cosmetic-dentistry/">veneers or bonding</a> as a more reliable fix.</li>
+ <li><strong>Best long-term:</strong> Many patients use Zoom for the initial result, then top up with take-home trays once or twice a year.</li>
+ </ul>
+
+ <h2 id="cost">What teeth whitening costs in Hamilton</h2>
+ <p>Whitening is one of the most predictable cosmetic dental costs in Ontario. Most clinics, including ours, follow a similar range:</p>
+ <ul class="check-list">
+ <li><strong>Zoom in-office whitening, both arches:</strong> $450 to $650 (single 90-minute visit)</li>
+ <li><strong>Custom take-home trays, both arches:</strong> $250 to $400 (includes trays and first kit of gel)</li>
+ <li><strong>Refill gel syringes:</strong> $30 to $60 per syringe</li>
+ <li><strong>Combination Zoom + trays:</strong> $650 to $900 typically</li>
+ </ul>
+ <p>Insurance does not normally cover cosmetic whitening. A <strong>Health Spending Account</strong> through your employer benefits often can. We also offer <a href="/payment-plans/">Beautifi financing</a> with 0% options on qualifying treatments.</p>
+
+ <h2 id="how-long">How long results last</h2>
+ <p>Most patients hold their whitening result for one to two years. What you eat and drink matters more than anything else. Coffee, tea (especially black tea), red wine, dark berries, beets, soy sauce, balsamic vinegar, curry, and tobacco are the worst offenders. A short tray touch-up every six to twelve months is the cheapest way to keep your shade. Heavy coffee drinkers who switch to rinsing with water right after their cup often double the life of their result without giving anything up.</p>
+
+ <h2 id="safety">Safety and side effects</h2>
+ <p>Professional whitening done under a dentist's supervision has been studied for decades and is considered safe. The American Dental Association and Canadian Dental Association both recognize peroxide-based whitening as a safe treatment for healthy teeth and gums. The most common side effect is short-lived tooth sensitivity in the day or two after treatment, especially with cold drinks. We pre-treat with a desensitizing gel and give you potassium-nitrate or fluoride paste to use afterward, which prevents or shortens that sensitivity for most patients.</p>
+ <p>Whitening will not damage healthy enamel at the concentrations used by dental offices. It does temporarily soften the outer layer of enamel for a few hours, which is why we ask you to avoid acidic drinks (citrus, sparkling water) and dark-staining food on the day of your appointment.</p>
+
+ <h2 id="who-shouldnt">Who should hold off on whitening</h2>
+ <ul class="check-list">
+ <li>Anyone with untreated cavities or active gum disease. We need to fix those first.</li>
+ <li>Patients with extensive crowns or front-tooth veneers, because whitening will not change them. Plan veneers <em>after</em> whitening, not before.</li>
+ <li>Patients with severe sensitivity or exposed root surfaces. We can still whiten you, just with a gentler protocol.</li>
+ <li>Pregnant and breastfeeding patients (see FAQ below).</li>
+ <li>Children under sixteen, because the enamel and the pulp chamber are still maturing.</li>
+ </ul>
+
+ <h2 id="other-options">Other ways to improve your smile</h2>
+ <p>If your concern is not just shade, it might be worth thinking about whether whitening alone will solve the problem. We commonly combine whitening with:</p>
+ <ul class="check-list">
+ <li><a href="/services/cosmetic-dentistry/">Composite bonding</a> for small chips or gaps after whitening (so the bonding matches the new shade).</li>
+ <li><a href="/services/cosmetic-dentistry/">Porcelain veneers</a> for deeper staining (tetracycline, fluorosis, trauma) or shape and length changes.</li>
+ <li><a href="/services/suresmile-clear-aligners/">SureSmile or Invisalign-style clear aligners</a> if you also want to straighten your teeth. We usually whiten near the end of aligner treatment.</li>
+ <li><a href="/services/preventative-dentistry/">A professional cleaning</a> first. It often does a lot of work on its own by removing surface staining.</li>
+ </ul>
+
+ <div class="service-cta" style="margin-top:1.6rem">
+ <a href="/contact-us/" class="btn btn-primary">Book a Whitening Consultation</a>
+ <a href="tel:{BUSINESS['phone_tel']}" class="btn btn-ink">{BUSINESS['phone_display']}</a>
+ </div>
+ </div>
+ </div>
+</section>
+
+{render_faq_section(faqs)}
+"""
+
+ html = (
+ head + render_topbar() + render_header(active="") + body
+ + render_related(links=[
+ ("/services/cosmetic-dentistry/", "Cosmetic Dentistry", "Veneers, bonding, and smile makeovers when whitening alone is not enough."),
+ ("/services/preventative-dentistry/", "Professional Cleanings", "Removes surface stain before you decide whether to whiten."),
+ ("/services/suresmile-clear-aligners/", "Clear Aligners", "Straighten first, whiten near the end of treatment."),
+ ("/payment-plans/", "Beautifi 0% Financing", "Spread the cost over predictable monthly payments."),
+ ])
+ + render_cta_banner() + render_footer()
+ )
+ write_page("teeth-whitening-hamilton", html)
+
+
+def build_hamilton_mountain_page():
+ """Text-only local authority page for 'dentist Hamilton Mountain'. Defends against
+ the exact-match-domain competitor hamiltonmountaindentist.ca. No hero image."""
+ canonical = f"{SITE}/dentist-hamilton-mountain/"
+ title = "Dentist on Hamilton Mountain | Hamilton Care Dental Centre"
+ desc = f"Family dentist on Hamilton Mountain, on Upper Ottawa St. {BUSINESS['rating']} stars from {BUSINESS['review_count']}+ reviews. Same-day emergencies, CDCP, free parking. Call {BUSINESS['phone_display']}."
+ desc = desc[:160]
+
+ faqs = [
+ ("Where exactly on Hamilton Mountain are you?",
+ f"We are at {BUSINESS['address_line']}, {BUSINESS['city']}, {BUSINESS['region']} {BUSINESS['postal']}, on Upper Ottawa Street between Mohawk Road East and Stone Church Road East. Free parking on-site. We are a five-minute drive from Lime Ridge Mall, ten minutes from Mohawk College, and a short hop from Concession Street, Mountain Plaza, Limeridge Mall, and the Mountain Brow."),
+ ("Which Hamilton Mountain neighbourhoods do you serve?",
+ "Patients come to us from Sherwood, Berrisfield, Templemead, Quinndale, Eleanor, Hampton Heights, Yeoville, Allison, Buchanan, Mohawk, Westcliffe, Fessenden, Inch Park, Bonnington, Macassa, Lawfield, Rolston, Centremount, Crown Point, Gourley, Kentley, Lisgar, Lithoid, Mewburn, Raleigh, Ryckmans, Trenholme, Vincent, Yeoville, and points beyond. If you are on the Mountain, we are easy to reach."),
+ ("How do I get to your office from Hamilton Mountain neighbourhoods?",
+ "From West Mountain: Mohawk Rd E or Limeridge Rd E heading east; we are seven to ten minutes. From Central Mountain: Upper Ottawa St directly; we are on Upper Ottawa. From East Mountain: Upper Ottawa St or Stone Church Rd E heading west. From the upper Stoney Creek Mountain edge: Mud St W to Upper Ottawa, about eight to ten minutes."),
+ ("Are you accepting new patients from the Mountain?",
+ "Yes. We always welcome new Hamilton Mountain patients of every age. Most new-patient appointments are available within a few business days, and same-day slots are usually open for dental emergencies. Have your insurance or CDCP details ready when you call."),
+ ("Why choose a dentist on Hamilton Mountain instead of downtown?",
+ "Convenience and parking, mainly. Mountain dentists usually have free on-site parking, predictable drive times, and shorter trips for school-age children and seniors. Downtown traffic and parking costs can turn a quick visit into a half-day project. If you live or work on the Mountain, staying on the Mountain for routine and emergency dentistry usually saves time and money."),
+ ("Do you accept CDCP for Hamilton Mountain residents?",
+ f"Yes. We are an accepting provider for the <a href='/canadian-care-dental-plan/'>Canadian Dental Care Plan</a>. We submit claims directly to Sun Life, so most Hamilton Mountain CDCP patients pay nothing or just a small co-pay at the visit. Call <a href='tel:{BUSINESS['phone_tel']}'>{BUSINESS['phone_display']}</a> with your CDCP member ID ready."),
+ ("What hours do you keep?",
+ "Monday to Friday 8:00 AM to 6:00 PM and Saturday 9:00 AM to 3:00 PM. Closed Sundays and statutory holidays. Saturday hours work well for Mountain patients who commute downtown or to Burlington during the week."),
+ ("Do you treat children on the Mountain?",
+ "Yes. We see children from their first tooth onward. The Canadian Dental Association recommends a first dental visit within six months of the first tooth erupting, or by age one at the latest. We never rush kids. For nervous children, <a href='/services/nitrous-sedation/'>nitrous oxide sedation</a> is available."),
+ ("What if I have a dental emergency on Hamilton Mountain?",
+ "Call us first thing in the morning if you can. We hold same-day emergency slots every weekday and Saturday morning. For a knocked-out tooth, pick the tooth up by the crown (not the root), put it in cold milk or back in the socket if you can, and get to us within thirty minutes. See our <a href='/emergency-dentist-hamilton/'>emergency dentist page</a> for first-aid steps for the most common dental emergencies."),
+ ("Are you part of a chain or an independent Hamilton Mountain dental clinic?",
+ "We are independent. Dr. Fadi Dawood opened {BUSINESS['name']} on Upper Ottawa in {BUSINESS['founded']} and has run it locally ever since. Decisions are made in the office, not at a corporate head office, and we know most of our patients by name."),
+ ]
+
+ head = render_head(
+ title=title, description=desc, canonical=canonical,
+ og_image=f"{SITE}/assets/images/team-photo.png",
+ extra_schemas=[
+ schema_localbusiness_ref(),
+ schema_breadcrumb([("Home", f"{SITE}/"), ("Dentist on Hamilton Mountain", canonical)]),
+ schema_faq(faqs),
+ schema_speakable(),
+ ],
+ )
+
+ body = f"""
+<main id="main">
+<section class="page-intro" aria-labelledby="hm-title">
+ <div class="container">
+ <nav class="crumbs" aria-label="Breadcrumb">
+ <a href="/">Home</a> <span aria-hidden="true">›</span> <span>Dentist on Hamilton Mountain</span>
+ </nav>
+ <span class="eyebrow">Your Hamilton Mountain Dentist</span>
+ <h1 id="hm-title">Family Dentist on Hamilton Mountain, Upper Ottawa St</h1>
+ <p class="lead">{BUSINESS['name']} is an independent family dental practice on Upper Ottawa Street, central to Hamilton Mountain. We have cared for Mountain families since {BUSINESS['founded']}, fourteen years and {BUSINESS['review_count']}+ five-star Google reviews. Three dentists, four registered dental hygienists, an on-staff licensed denturist, free on-site parking, and same-day emergency slots every weekday and Saturday morning. We accept CDCP and bill private insurance directly. If you live, work, or go to school on the Mountain, we are an easy choice for routine and urgent dental care.</p>
+ </div>
+</section>
+
+<section class="prose-section">
+ <div class="container">
+ <div class="prose">
+ <h2 id="why-mountain">Why a Hamilton Mountain dentist matters</h2>
+ <p>The Mountain is its own city in a lot of ways. The bus routes run on the Mountain, the schools are on the Mountain, the groceries are on the Mountain, and most days you can run your whole errand list without ever crossing the escarpment. Picking a dentist on the Mountain fits the same pattern. Five minutes to your appointment beats twenty minutes plus parking downtown, especially during winter on the Jolley Cut or the Claremont Access. Routine cleanings happen more reliably when they are not a half-day production. Emergency visits happen when they need to happen, not when traffic allows.</p>
+ <p>That is the practical case for staying on the Mountain. The clinical case is the same. A Mountain dental clinic with three dentists, four hygienists, and an on-staff denturist can do almost everything a downtown clinic can do, including dental implants, root canals, wisdom-teeth removal, Invisalign-compatible clear aligners, dentures, and emergency care. We rarely refer out, and when we do (an unusual specialist surgery, an orthodontist for a complex bite) we do it because the patient gets a better result, not because we cannot do it.</p>
+
+ <h2 id="location">Where we are, and how to find us</h2>
+ <p>We are at <strong>{BUSINESS['address_line']}, {BUSINESS['city']}, {BUSINESS['region']} {BUSINESS['postal']}</strong>, on Upper Ottawa Street between Mohawk Road East and Stone Church Road East. The plaza has free on-site parking and clear signage. Look for the Hamilton Care Dental Centre name on the building.</p>
+ <p>Landmarks nearby:</p>
+ <ul class="check-list">
+ <li>Lime Ridge Mall, five minutes south on Upper Wentworth.</li>
+ <li>Mohawk College, ten minutes west on Mohawk Rd W.</li>
+ <li>Concession Street and the Mountain Brow, ten minutes north on Upper Ottawa.</li>
+ <li>Juravinski Hospital and Cancer Centre, twelve minutes north on Concession Street.</li>
+ <li>Lawfield Community Centre and Bernie Morelli Recreation Centre, both nearby.</li>
+ <li>HSR bus routes that stop within a short walk: 21, 22, 24, 25, 33, 44, 56, all run regularly along Upper Ottawa, Stone Church, and Mohawk.</li>
+ </ul>
+ <p>If you are driving in from off the Mountain, the Lincoln M. Alexander Parkway (the LINC) is the fastest east-west route across the Mountain. Take any of the Upper Wentworth, Upper Ottawa, Upper Sherman, or Upper James exits and you are minutes from us.</p>
+
+ <h2 id="neighbourhoods">Mountain neighbourhoods we serve</h2>
+ <p>The Mountain is divided informally into West Mountain, Central Mountain, and East Mountain. We have regular patients in all three.</p>
+
+ <h3>West Mountain</h3>
+ <p>Westcliffe, Mohawk, Buchanan, Fessenden, Allison, Inch Park, Yeoville, Macassa, Bonnington. Drive time to us is seven to ten minutes along Mohawk Rd W or Limeridge Rd W. The fastest route is usually Mohawk Rd E to Upper Ottawa, then south.</p>
+
+ <h3>Central Mountain</h3>
+ <p>Sherwood, Berrisfield, Templemead, Quinndale, Eleanor, Hampton Heights, Lawfield, Centremount, Rolston, Raleigh, Inch Park. We are central to this part of the Mountain. Most central-Mountain patients are at our door in five minutes or less.</p>
+
+ <h3>East Mountain</h3>
+ <p>Kentley, Lisgar, Crown Point, Gourley, Mewburn, Trenholme, Vincent, Ryckmans, the Mountview area near Albion Falls and Pritchard Park. Drive time is five to eight minutes along Stone Church Rd E or Upper Ottawa St.</p>
+
+ <h3>Mountain edges (Mount Hope, Glanbrook, Stoney Creek Mountain)</h3>
+ <p>Patients along the southern edge of the Mountain in Mount Hope, Glanbrook, Binbrook, and the upper Stoney Creek Mountain reach us in ten to fifteen minutes along Upper James, Highway 56, or Mud Street West.</p>
+
+ <h2 id="services">What we do for Mountain patients</h2>
+ <p>Almost everything you need is under one roof:</p>
+ <ul class="check-list">
+ <li><strong><a href="/services/preventative-dentistry/">Cleanings, checkups, and dental hygiene</a></strong>, including fluoride, sealants for kids, periodontal charting, and oral cancer screening at every recall visit.</li>
+ <li><strong><a href="/services/restorative-dentistry/">Tooth-coloured fillings, crowns, and bridges</a></strong> to restore decayed, cracked, or worn teeth.</li>
+ <li><strong><a href="/services/dental-implants/">Dental implants</a></strong> for single missing teeth, multiple missing teeth, implant-supported bridges, and full-arch restorations.</li>
+ <li><strong><a href="/services/cosmetic-dentistry/">Porcelain veneers, composite bonding, crown lengthening, and smile makeovers</a></strong>.</li>
+ <li><strong><a href="/services/suresmile-clear-aligners/">SureSmile and Invisalign-style clear aligners</a></strong> for adults and teens.</li>
+ <li><strong><a href="/services/endodontics/">Root canal therapy</a></strong> to save infected teeth and end severe tooth pain.</li>
+ <li><strong><a href="/services/oral-surgery/">Wisdom-teeth removal, extractions, and minor oral surgery</a></strong> in-office.</li>
+ <li><strong><a href="/teeth-whitening-hamilton/">Zoom in-office and take-home whitening</a></strong>.</li>
+ <li><strong><a href="/services/miscellaneous/">Dentures, sleep-apnea oral appliances, TMJ care, night guards, and athletic mouthguards</a></strong>.</li>
+ <li><strong><a href="/services/nitrous-sedation/">Nitrous oxide (laughing gas) sedation</a></strong> for anxious adults and children.</li>
+ <li><strong><a href="/emergency-dentist-hamilton/">Same-day emergency dental care</a></strong> for severe pain, broken teeth, swelling, and lost crowns.</li>
+ </ul>
+
+ <h2 id="insurance">Insurance, CDCP, and payment</h2>
+ <p>We bill <a href="/dental-insurance/">most Canadian dental insurance plans</a> directly, including Sun Life, Manulife, Canada Life, Green Shield, Desjardins, Equitable, Industrial Alliance, SSQ, Empire Life, and Blue Cross. You only pay your portion at the visit. We are also a participating <a href="/canadian-care-dental-plan/">CDCP</a> provider for eligible Mountain residents without private insurance. For anything insurance does not fully cover, <a href="/payment-plans/">Beautifi 0% financing</a> spreads the cost over predictable monthly payments. Before any major treatment we provide a written estimate showing what insurance is expected to pay and what your portion would be.</p>
+
+ <h2 id="kids">Children and family dentistry on the Mountain</h2>
+ <p>The Mountain is full of families. We see toddlers, school-age kids, teens, parents, and grandparents, often in the same week and sometimes back-to-back to make the schedule easier on busy parents. First visits for kids are short and friendly. We never rush. If a child is nervous, <a href="/services/nitrous-sedation/">nitrous oxide sedation</a> is available and very effective.</p>
+ <p>The Canadian Dental Association recommends a first dental visit within six months of the first tooth, or by age one at the latest, and a checkup every six months thereafter for most healthy kids. Sealants on the chewing surfaces of permanent molars (usually placed around age six and again around age twelve) prevent the most common kind of childhood cavity. Most Hamilton Mountain families have these covered fully by private insurance or by CDCP.</p>
+
+ <h2 id="seniors">Seniors and Mountain residents on CDCP</h2>
+ <p>A large share of our Mountain patient base is seniors who have aged into <a href="/canadian-care-dental-plan/">CDCP</a> coverage and adults who have lost workplace dental benefits after retirement. We submit CDCP claims directly to Sun Life, confirm co-pays up front, and handle any pre-authorization paperwork on your behalf. If you are wondering whether dentures, implant-supported dentures, or fixed bridges are the right route for missing teeth, our on-staff licensed denturist Saif can talk you through the trade-offs and the cost of each option.</p>
+
+ <h2 id="emergency">Dental emergencies on the Mountain</h2>
+ <p>If you have severe tooth pain, swelling, a knocked-out tooth, or a broken tooth, please <a href="tel:{BUSINESS['phone_tel']}">call us at {BUSINESS['phone_display']}</a> right away. We hold same-day emergency slots every weekday and Saturday morning, and most Mountain patients can be at our door within ten minutes. See our <a href="/emergency-dentist-hamilton/">emergency dentist in Hamilton page</a> for first-aid steps you can take before you arrive.</p>
+
+ <h2 id="book">How to become a patient</h2>
+ <ol class="process-list">
+ <li>Call <a href="tel:{BUSINESS['phone_tel']}">{BUSINESS['phone_display']}</a>, email <a href="mailto:{BUSINESS['email']}">{BUSINESS['email']}</a>, or <a href="/contact-us/">book online</a>.</li>
+ <li>We confirm your appointment within twenty-four hours and send a short new-patient form.</li>
+ <li>Bring photo ID, insurance details or CDCP member ID, and any recent X-rays from another dentist. See our <a href="/new-patients/">new patients page</a> for the full checklist.</li>
+ <li>Plan on sixty to ninety minutes for your first visit. We take our time so we can do it properly.</li>
+ </ol>
+
+ <div class="service-cta" style="margin-top:1.6rem">
+ <a href="/contact-us/" class="btn btn-primary">Book Your First Visit</a>
+ <a href="tel:{BUSINESS['phone_tel']}" class="btn btn-ink">{BUSINESS['phone_display']}</a>
+ </div>
+ </div>
+ </div>
+</section>
+
+{render_faq_section(faqs)}
+"""
+
+ html = (
+ head + render_topbar() + render_header(active="") + body
+ + render_related(links=[
+ ("/new-patients/", "New Patients", "What to expect at your first visit and what to bring."),
+ ("/emergency-dentist-hamilton/", "Same-Day Emergency Care", "What to do tonight if a tooth just broke."),
+ ("/services/", "All Dental Services", "From cleanings to implants, everything under one roof."),
+ ("/dental-insurance/", "Insurance & CDCP", "Who we bill and how to use CDCP on the Mountain."),
+ ])
+ + render_cta_banner() + render_footer()
+ )
+ write_page("dentist-hamilton-mountain", html)
+
+
 def build_new_patients_page():
  """New-patients onboarding page, optimized for "new dental patient Hamilton" and
  "accepting new patients dentist near me" queries plus AI/AEO answer engines.
@@ -1716,7 +2185,9 @@ def write_sitemap():
  # Flat list of all indexable URLs (lint-safe — single comprehension, no nested loops)
  urls = (["/", "/about-us/", "/our-story/", "/services/", "/contact-us/",
  "/blog/", "/payment-plans/", "/canadian-care-dental-plan/",
- "/dental-insurance/", "/new-patients/", "/faq/", "/referral-form/", "/privacy-policy/"]
+ "/dental-insurance/", "/new-patients/",
+ "/emergency-dentist-hamilton/", "/teeth-whitening-hamilton/", "/dentist-hamilton-mountain/",
+ "/faq/", "/referral-form/", "/privacy-policy/"]
  + [f"/services/{s}/" for s in SERVICES]
  + [f"/team/{s}/" for s in TEAM]
  + [f"/blog/{s}/" for s in BLOG])
@@ -1986,6 +2457,9 @@ Details: {SITE}/payment-plans/ · CDCP details: {SITE}/canadian-care-dental-plan
 - About Us: {SITE}/about-us/
 - Our Story: {SITE}/our-story/
 - All Services: {SITE}/services/
+- Emergency Dentist Hamilton: {SITE}/emergency-dentist-hamilton/
+- Teeth Whitening Hamilton: {SITE}/teeth-whitening-hamilton/
+- Dentist on Hamilton Mountain: {SITE}/dentist-hamilton-mountain/
 - Payment Plans: {SITE}/payment-plans/
 - Dental Insurance & CDCP overview: {SITE}/dental-insurance/
 - CDCP detail page: {SITE}/canadian-care-dental-plan/
@@ -2127,6 +2601,9 @@ def main():
  build_cdcp_page()
  build_dental_insurance_page()
  build_new_patients_page()
+ build_emergency_dentist_page()
+ build_teeth_whitening_page()
+ build_hamilton_mountain_page()
  build_referral()
  build_thank_you()
  build_privacy()
