@@ -428,8 +428,9 @@ TEAM = {
  "role": "Owner",
  "photo": "695fc139ba075a99589a81cc_Owner.png",
  "bio": [
- "Dr. Fadi Dawood is the owner of Hamilton Care Dental Centre. He founded the practice in 2012 with a simple goal: deliver thorough, gentle dentistry that treats every patient like family.",
- "Patients consistently describe Dr. Dawood as patient, thorough, and genuinely caring. He focuses on family dentistry, dental implants, and complex restorative cases.",
+ "Dr. Dawood, the proud owner of Hamilton Care Dental Centre, graduated from Melbourne Dental School in Australia in 2019 and has been dedicated to serving our community ever since.",
+ "He is known for his commitment to patient comfort and delivering high-quality treatments, skillfully adapting his approach based on the latest research findings.",
+ "Outside of his professional commitments, Dr. Dawood enjoys watching sports and cherishing moments with friends and family.",
  ],
  },
  "dr-bassam-petros": {
@@ -437,8 +438,9 @@ TEAM = {
  "role": "Dentist",
  "photo": "695fc16d95d4cc3dcb72b1e8_Associate_Dentist.png",
  "bio": [
- "Dr. Bassam Petros is an associate dentist at Hamilton Care Dental Centre. He treats patients of all ages and is particularly known for his gentle chairside manner with children and anxious patients.",
- "Dr. Petros provides thorough care including preventive dentistry, cosmetic treatments, restorative work, and clear-aligner orthodontics.",
+ "Dr. Petros earned his dental degree from the University of Baghdad College of Dentistry in 1991. In 2008, he pursued his Canadian dental degree at the University of Western Ontario, where he served as President of the International Trained Dentists from 2008 to 2010.",
+ "During his studies, he furthered his training with extensive implant courses at the University of New York in 2009. Dr. Petros has been practicing dentistry in Ontario since 2010, gaining valuable experience across various fields including cosmetic, surgical, and orthodontics.",
+ "Committed to staying at the forefront of his field, Dr. Petros regularly participates in continuing education courses to update his knowledge of the latest methods and materials in dentistry. Outside of work, he enjoys barbecuing, cheering on the Raptors, and indulging in superhero cartoons.",
  ],
  },
  "dr-peter-markho": {
@@ -446,8 +448,10 @@ TEAM = {
  "role": "Associate Dentist",
  "photo": "petermarkho.png",
  "bio": [
- "Dr. Peter Markho is an associate dentist at Hamilton Care Dental Centre. He provides general and cosmetic dental services for patients across Hamilton.",
- "Dr. Markho is committed to ongoing education and to using current, evidence-based techniques to deliver clear, conservative care.",
+ "Peter Markho is an associate dentist with a strong commitment to providing patient-centred care. Driven by his passion for helping people with their oral health, Dr. Markho decided at a young age to pursue dentistry as his profession.",
+ "His educational background includes an Honours Bachelor of Science in biology from McMaster University and a Bachelor of Dental Surgery with Honours from University College Cork in Ireland.",
+ "In addition to his academic achievements, Dr. Markho is an active member of professional organizations such as the Academy of General Dentistry, the Canadian Dental Association and the Ontario Dental Association.",
+ "Outside of dentistry, Dr. Markho is a highly active individual who enjoys weightlifting, cardio, personal training and participating in competitive soccer leagues and triathlons.",
  ],
  },
  "maha": {
@@ -483,8 +487,10 @@ TEAM = {
  "role": "Registered Dental Hygienist",
  "photo": "695fc64490e9e79261cb959f_Darcy.png",
  "bio": [
- "Darcy is a registered dental hygienist at Hamilton Care Dental Centre. She provides thorough, gentle cleanings, periodontal care, and personalized home-care coaching.",
- "Many of our long-term patients see Darcy every six months, and she is a big reason they keep coming back.",
+ "Darcy is a dedicated dental hygienist with over 10 years of experience helping her patients achieve healthy, confident smiles.",
+ "She is valued for her warm energy and friendly conversations, and genuinely enjoys learning about patients' lives during appointments.",
+ "Personally, Darcy is a mother of two who enjoys outdoor activities and family time. She is creative, and appreciates capturing life's special moments through thoughtful photo ops with her kids.",
+ "For Darcy, life is all about connection, joy, and celebrating the little things that make people smile, both in and out of the dental office.",
  ],
  },
  "erazel": {
@@ -492,8 +498,11 @@ TEAM = {
  "role": "Dental Assistant",
  "photo": "erazel.png",
  "bio": [
- "Erazel is a dental assistant at Hamilton Care Dental Centre. She works chairside with our dentists across general, cosmetic, and surgical procedures.",
- "Patients often mention how comfortable she helps them feel, especially during longer appointments. Her calm, attentive style sets the tone for a smooth visit.",
+ "Erazel began her career in 2020, initially working as a floater before choosing to pursue higher education.",
+ "She completed her education at Anderson College and joined Hamilton Care Dental Centre in July 2024.",
+ "With five years of experience as a certified dental assistant, she is committed to delivering patient-centered care of the highest quality.",
+ "She actively pursues continuing education and stays current with the latest advancements in dental care and technology. This commitment enables her to provide personalized treatment guidance, helping patients maintain oral health and confidence.",
+ "Outside of her professional life, she enjoys discovering new places, immersing herself in different cultures, and creating meaningful memories with family and friends.",
  ],
  },
  "fatima": {
@@ -501,8 +510,10 @@ TEAM = {
  "role": "Dental Receptionist",
  "photo": "695fc3d46c849965cb0aeba0_Fatima.png",
  "bio": [
- "Fatima is a dental receptionist at Hamilton Care Dental Centre. She welcomes patients, books appointments, and handles insurance questions and CDCP claims so every visit starts smoothly.",
- "She is fluent at navigating Canadian dental insurance and the Canadian Dental Care Plan, and works hard to make care as affordable and predictable as possible.",
+ "Fatima began her dental career as a certified dental assistant after completing dental assisting school in 2022.",
+ "She transitioned from chairside clinical work to her current receptionist position, where she excels in creating a welcoming environment, managing appointments efficiently, and ensuring each patient's visit is smooth and stress-free.",
+ "Her background allows her to understand both clinical needs and patient experience comprehensively. Whether greeting patients with a warm smile or coordinating care behind the scenes, Fatima is committed to providing exceptional service with professionalism and kindness.",
+ "Outside of work, Fatima enjoys exploring new foods, shopping, and discovering historical settings.",
  ],
  },
  "lucy": {
@@ -510,8 +521,10 @@ TEAM = {
  "role": "Assistant Office Manager",
  "photo": "695fc36600851c5991192f35_Lucy.jpg",
  "bio": [
- "Lucy is our Assistant Office Manager. She supports the day-to-day running of the practice, helps coordinate the schedule, and keeps things moving for our front-office and clinical teams.",
- "Her warm welcome is often the first thing patients mention in our reviews.",
+ "Lucy joined our practice in 2013 as a Level 2 Intra-Oral Dental Assistant. Over the years, she transitioned to the role of front desk receptionist and now to our assistant manager.",
+ "She has proven to be an invaluable asset. She manages everything from our wonderful staff, scheduling appointments to handling estimates and insurance details, ensuring that everyone's experience with us is seamless and exceptional.",
+ "In her spare time she enjoys binge-watching her favorite reality TV shows and going on adventures with her new growing family.",
+ "Despite her new responsibilities as a mother, Lucy remains dedicated to our practice. She takes great pride in contributing to our office's growth and success, considering herself fortunate to be part of our wonderful work family.",
  ],
  },
  "maheen": {
@@ -519,8 +532,10 @@ TEAM = {
  "role": "Registered Dental Hygienist",
  "photo": "695fc4f744be23b3ad24c69d_Maheen.png",
  "bio": [
- "Maheen is a Registered Dental Hygienist at Hamilton Care Dental Centre. She delivers gentle, thorough cleanings and personalized home-care coaching for patients of every age.",
- "She is known for her calm chairside manner and her attention to detail with periodontal care.",
+ "Maheen's journey at Hamilton Care Dental Centre has truly come full circle. Starting with her first high school co-op placement at the office, she discovered a passion for dental hygiene that led her to pursue her education in the field.",
+ "She built her foundation through observing colleagues deliver compassionate dental care and form meaningful connections with patients during her co-op. After graduating from Niagara College in 2020, she channeled pandemic challenges into professional determination.",
+ "She thrives on building close relationships with her patients, ensuring their individual needs are met with personalized care.",
+ "She is often recognizable by the sound of her infectious laugh, and maintains balance through gym activities and exploring restaurants across the Greater Toronto Area.",
  ],
  },
  "melissa": {
@@ -528,8 +543,7 @@ TEAM = {
  "role": "Registered Dental Hygienist",
  "photo": "695fc52d311f8540d54a3aba_Melissa.png",
  "bio": [
- "Melissa is a Registered Dental Hygienist focused on gentle preventive care and patient education.",
- "She shapes home-care routines to each patient's needs, including those wearing braces, clear aligners, or implants.",
+ "Melissa is a Registered Dental Hygienist at Hamilton Care Dental Centre.",
  ],
  },
  "nahrin": {
@@ -537,8 +551,9 @@ TEAM = {
  "role": "Dental Receptionist",
  "photo": "695fc3a74c192fae4f9469aa_Nahrin.jpg",
  "bio": [
- "Nahrin is a dental receptionist at Hamilton Care Dental Centre. She handles bookings, follow-up calls, and insurance questions so patients always know what to expect before their visit.",
- "Her organized, friendly style keeps the schedule running on time.",
+ "Meet Nahrin, a seasoned certified dental assistant with over 20 years of experience. She is recognized for professionalism and dedication, excelling at providing compassionate patient care.",
+ "Not only does she assist with procedures in the treatment room, but she also manages administrative duties at the front desk. Her responsibilities span from appointment scheduling to greeting patients warmly.",
+ "Whether you encounter her in the treatment room or at the front desk, Nahrin is committed to delivering exceptional care with a warm and friendly demeanor.",
  ],
  },
  "paeez": {
@@ -546,8 +561,9 @@ TEAM = {
  "role": "Dental Assistant",
  "photo": "695fc40212b44ca167596e2b_Paeez.png",
  "bio": [
- "Paeez is a dental assistant at Hamilton Care Dental Centre. He works chairside with our dentists across general and surgical procedures and helps every appointment run smoothly.",
- "Patients appreciate his calm, helpful approach and his attention to comfort during longer treatments.",
+ "Meet Paeez, our valued team member at Hamilton Care Dental Centre. Paeez graduated from Anderson College and brings a wealth of expertise to our practice.",
+ "Her professional interests include implant procedures, where she finds satisfaction in the surgical aspect and exceptional results from our patients.",
+ "Outside the dental practice, Paeez pursues hairstyling, maintains friendships, and spends time with family. Her dedication and warm personality make her an integral part of our close-knit team, ensuring every patient receives compassionate and skilled care.",
  ],
  },
  "saif": {
@@ -555,8 +571,10 @@ TEAM = {
  "role": "Denturist",
  "photo": "695fc28fb77fe3cc807785ae_Saif.jpg",
  "bio": [
- "Saif is the denturist at Hamilton Care Dental Centre. He designs and fits complete and partial dentures, immediate dentures, and implant-retained dentures right in our office.",
- "Working on-site means faster turnaround, better aesthetics, and tight coordination with our dental team for extractions, implants, and follow-up adjustments.",
+ "Saif is the dedicated denturist at Hamilton Care Dental Centre, following in his grandfather's footsteps with a passion for custom denture care.",
+ "He graduated from George Brown College in Toronto, obtained his denturism license, and has practiced since 2021.",
+ "Saif prioritizes patient education, believing that informed patients contribute to successful denture outcomes through knowledge and diligence.",
+ "Outside work, he enjoys soccer and his mother's Iraqi cuisine with his father.",
  ],
  },
  "sally": {
@@ -564,8 +582,11 @@ TEAM = {
  "role": "Registered Restorative Dental Hygienist & Office Manager",
  "photo": "695fc30246bc7e1590459662_Sally.png",
  "bio": [
- "Sally is our Office Manager and a Registered Restorative Dental Hygienist. She splits her time between leading the office team and providing thorough hygiene visits and restorative care for patients.",
- "Her cheerful, organized approach sets the tone for the whole practice.",
+ "Sally plays a pivotal role at Hamilton Care Dental Centre as a Registered Restorative Dental Hygienist and office manager, with a passion that developed from a young age while growing up in her father's dental clinic.",
+ "Known for her expertise and dedication, Sally ensures that patients fully comprehend every aspect of their oral health during treatment.",
+ "She integrates cutting-edge dental technology into her appointments to enhance patient care, recognizing that oral health extends beyond brushing and flossing.",
+ "Sally takes pride in educating patients about how diet, breathing issues, and overall systemic health impact their oral well-being.",
+ "Outside of work, Sally finds joy in spending quality time with her husband, family, and friends, and indulging in a bit of retail therapy.",
  ],
  },
  "sana": {
@@ -573,8 +594,7 @@ TEAM = {
  "role": "Dental Assistant",
  "photo": "695fc471b77fe3cc80788b19_Sana.png",
  "bio": [
- "Sana is a dental assistant at Hamilton Care Dental Centre. She supports our dentists chairside across general, cosmetic, and surgical procedures.",
- "Patients appreciate her gentle approach and the way she keeps them informed throughout each step.",
+ "Sana is a dental assistant at Hamilton Care Dental Centre.",
  ],
  },
  "torees": {
@@ -582,8 +602,11 @@ TEAM = {
  "role": "Registered Dental Hygienist",
  "photo": "695fc4a2e6fcbb9f696acf41_Torees.jpg",
  "bio": [
- "Torees is a Registered Dental Hygienist at Hamilton Care Dental Centre. She delivers gentle cleanings and periodontal care, with a focus on long-term gum health.",
- "She is known for keeping patients informed and comfortable throughout every appointment.",
+ "Torees is a dedicated Registered Dental Hygienist who has been involved in the dental field since before officially practicing dental hygiene in 2009.",
+ "She demonstrates particular skill in working with children and remains committed to providing safe and ethical care to all clients.",
+ "Torees takes great satisfaction in assisting individuals in improving their oral health and overall well-being.",
+ "She thoroughly enjoys her role at Hamilton Care Dental Centre, where she contributes her expertise and passion for dental care.",
+ "Beyond work, Torees cherishes her time with her husband and children.",
  ],
  },
 }

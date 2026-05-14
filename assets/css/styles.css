@@ -675,6 +675,11 @@ p { margin: 0 0 1em; }
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .doctor-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.doctor-card-link { display: block; color: inherit; text-decoration: none; }
+.doctor-card-link:hover { color: inherit; }
+.doctor-card-link:hover h3 { color: var(--gold-dark); }
+.doctor-card:hover .doctor-photo img { transform: scale(1.03); }
+.doctor-photo img { transition: transform .35s ease; }
 .doctor-photo {
   aspect-ratio: 1/1;
   overflow: hidden;
