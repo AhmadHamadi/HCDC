@@ -385,6 +385,7 @@ SERVICES = {
  "what_it_is": "SureSmile combines digital scanning, 3D treatment planning, and a series of clear aligners worn 20–22 hours a day. Each set moves your teeth a small amount; you progress through the series until your smile is in the planned position.",
   "sub_services": [
   "SureSmile® Aligners",
+  "SureSmile® Aligner Cases",
   "Invisalign-Compatible Cases",
   "Bite Refinement",
   "Retainers & Retention",
