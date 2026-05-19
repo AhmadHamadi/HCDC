@@ -42,6 +42,7 @@ SERVICES_NAV = [
  ("restorative-dentistry", "Restorative Dentistry"),
  ("endodontics", "Endodontics"),
  ("preventative-dentistry", "Preventative Dentistry"),
+ ("canker-sore-treatment", "Canker Sore Treatment"),
  ("miscellaneous", "Additional Services"),
 ]
 
@@ -155,6 +156,7 @@ def render_footer():
  ("nitrous-sedation", "Nitrous Sedation"),
  ("preventative-dentistry", "Cleanings & Checkups"),
  ("endodontics", "Root Canals"),
+ ("canker-sore-treatment", "Canker Sore Treatment"),
  ]
  pop_links = "\n".join(f' <li><a href="/services/{s}/">{n}</a></li>' for s, n in pop_services)
  return f"""
@@ -469,6 +471,7 @@ def schema_localbusiness_ref():
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Athletic Mouthguards"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Nitrous Oxide Sedation"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Emergency Dental Care"}},
+ {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Canker Sore Treatment"}},
  ],
  },
  }) + '</script>'

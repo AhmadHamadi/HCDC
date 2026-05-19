@@ -32,6 +32,7 @@ HERO_MAP = {
  "preventative-dentistry": "prev1.jpg",
  "restorative-dentistry": "cos1.png",
  "suresmile-clear-aligners": "6982397522a67279467e28ff_Screenshot_2026-02-03_130614.jpg",
+ "canker-sore-treatment": "cranker1.jpeg",
 }
 
 # Service pages: slug -> data
@@ -416,7 +417,54 @@ SERVICES = {
   ("Retention is for life", "<p>The biggest mistake in aligner or braces treatment is treating the day the aligners come off as the end of the case. Teeth want to drift back toward where they started, particularly the lower front teeth. We provide a custom retainer (a thin clear retainer for the upper, a small wire bonded to the inside of the lower front teeth or another clear retainer for the lower) and ask you to wear them at night long-term. People who stop wearing retainers usually see relapse within two to five years. People who wear them nightly forever keep their result. The retainers are inexpensive to replace and last for years.</p>"),
   ("Timeline and how we walk through fees with you", "<p>Treatment time averages 6 to 12 months for simpler cases, 12 to 18 months for moderate ones, and longer for complex ones. After your consultation we share a clear written estimate with photos and a digital preview of the final result so you know exactly what to expect before you commit. We provide direct insurance billing if applicable so any orthodontic coverage on your plan is applied at the visit, and <a href='/payment-plans/'>Beautifi financing</a> with 0% options on qualifying treatments is available for any out-of-pocket portion.</p>"),
  ],
- 
+
+ },
+ "canker-sore-treatment": {
+ "name": "Canker Sore Treatment",
+ "short": "Diagnosis, fast pain relief, and trigger-based care for recurring canker sores and mouth ulcers.",
+ "intro": "Canker sores (aphthous ulcers) are small painful lesions inside the mouth that make eating, drinking, and talking difficult. Most heal in a week to ten days on their own, but a recurring pattern of canker sores or a sore that is unusually large, lasts longer than two weeks, or keeps appearing in the same spot is worth a quick exam. We diagnose what is causing yours, ease the pain quickly, and put together a plan that lowers how often they come back.",
+ "what_it_is": "Canker sores look like round or oval shallow ulcers with a white or yellow centre and a red border. They appear on the inside of the cheeks and lips, on the soft palate, on the floor of the mouth, on the underside of the tongue, or at the base of the gums. They are not cold sores, which are caused by the herpes simplex virus and appear on the lips and skin around the mouth. Canker sores are not contagious and they do not spread by sharing utensils, kissing, or close contact. Common triggers include accidental cheek bites, sharp edges on a tooth or filling, citrus and other acidic foods, sodium lauryl sulfate (SLS) in some toothpastes, hormonal shifts, stress, vitamin B12 or iron deficiencies, and sensitivities to certain foods.",
+  "sub_services": [
+  "Canker sore diagnosis and exam",
+  "Topical pain relief",
+  "Prescription steroid pastes for severe cases",
+  "Antimicrobial mouth rinses",
+  "Trigger identification (diet, toothpaste, stress)",
+  "Smoothing sharp tooth or filling edges",
+  "Recurrence prevention plan",
+  "Referral for biopsy if a sore looks unusual",
+ ],
+ "good_for": [
+ "Patients with a single painful canker sore that is interfering with eating or talking",
+ "Patients with frequent recurring canker sores (more than three or four a year)",
+ "Children and teens with recurring mouth ulcers",
+ "Patients whose canker sores last longer than two weeks",
+ "Anyone with an unusually large sore (bigger than a centimetre) or a sore that keeps appearing in the same spot",
+ "Patients whose canker sores started after switching to a new toothpaste or making a dietary change",
+ ],
+ "process": [
+ ("Quick exam and history", "We look at the sore, check the rest of your mouth, ask about diet and stress, review any toothpaste or product changes, and rule out other conditions."),
+ ("Immediate pain relief", "Same-day topical anesthetic gel or a protective paste so you can eat and drink comfortably while the sore heals."),
+ ("Trigger-based plan", "If the cause is a sharp tooth, we smooth it. If it is SLS toothpaste, we switch you to an SLS-free option. If recurrence suggests a nutritional or systemic cause, we coordinate with your family doctor."),
+ ("Follow-up if needed", "Most patients do not need a second visit. If the sore is not healing in two weeks or returns frequently, we revisit the plan or refer for further investigation."),
+ ],
+ "faqs": [
+ ("How long do canker sores take to heal?", "Most canker sores heal on their own within seven to ten days. Larger or deeper ones can take two to three weeks. A sore that has not healed in two weeks, or that keeps reappearing in the same spot, should be looked at."),
+ ("How is a canker sore different from a cold sore?", "Canker sores appear inside the mouth (cheeks, lips, tongue, palate, floor of the mouth) and are not contagious. Cold sores appear on the lips or skin around the mouth and are caused by the herpes simplex virus. The two need different treatment, so confirming which one you have matters."),
+ ("Can the dentist do anything to make canker sores hurt less?", "Yes. We can apply a topical anesthetic for instant relief, prescribe a steroid or protective paste that shortens healing time, recommend an antimicrobial mouth rinse, and smooth any sharp tooth or filling edge that may be causing repeated trauma."),
+ ("Why do I keep getting canker sores?", "Common triggers include accidental cheek bites, sharp tooth or filling edges, citrus and acidic foods, sodium lauryl sulfate (SLS) toothpastes, stress, hormonal shifts, and vitamin B12 or iron deficiencies. Identifying which trigger applies to you usually lowers how often the sores come back."),
+ ("Are canker sores contagious?", "No. Canker sores are not contagious. They do not spread by sharing utensils, kissing, or close contact. That is one of the main differences between canker sores and cold sores."),
+ ("When should a canker sore be checked by a dentist?", "Book a visit if a sore lasts longer than two weeks, is larger than a centimetre, keeps appearing in the same spot, is associated with a fever or feeling unwell, or is unusually painful. Persistent or atypical sores should always be evaluated to rule out other conditions."),
+ ("Should I avoid certain foods when I have a canker sore?", "Yes, until it heals. Skip citrus juice, tomato sauce, pineapple, vinegar, very salty snacks, sharp chips, and spicy food. Cool soft foods (yogurt, smoothies without a straw, mashed potatoes) are easier and faster to eat."),
+ ("How are canker sore visits covered by insurance?", "An exam to diagnose and treat an oral lesion is typically covered by most private dental insurance plans, and we provide direct insurance billing if applicable. <a href='/canadian-care-dental-plan/'>CDCP</a> also covers examination and basic treatment for eligible patients."),
+ ],
+ "deep_content": [
+  ("Why most canker sores are not what people think they are", "<p>The biggest source of confusion is the difference between a canker sore and a cold sore. Patients often arrive convinced they have one when they actually have the other. Cold sores live on the outside of the lips, are caused by the herpes simplex virus, and are contagious through close contact. Canker sores live inside the mouth, are not viral, and are not contagious. The treatment for each is different, so a quick exam saves you from buying the wrong over-the-counter product and waiting longer than you need to. Bring the sore in within a day or two of noticing it and we will tell you which it is.</p>"),
+  ("What we actually do at the visit", "<p>A canker sore visit is short. We start with a look at the sore itself and a quick check of the rest of your mouth so we are not missing a second one tucked under the tongue or behind a back molar. We ask about your toothpaste, your diet over the last week, your stress levels, any new medications, and whether you have noticed a pattern over the last year. From there we offer one of a few things: a topical anesthetic gel you can apply at home for instant pain relief, a prescription steroid or protective paste for larger or more painful sores, or an antimicrobial mouth rinse if the area is at risk of secondary infection. If a sharp tooth or filling edge is irritating the same spot repeatedly, we smooth it on the spot. None of this is dramatic. Most patients leave within thirty minutes with something that works.</p>"),
+  ("Identifying triggers so the sores stop coming back", "<p>The single most useful thing we can do for patients with recurring canker sores is figure out what is causing them. The most common culprits in our chair are: a toothpaste containing sodium lauryl sulfate (SLS), which is in many big-brand toothpastes and irritates the mucosa in susceptible people; a sharp edge on a tooth, filling, or crown that traumatizes the same area; citrus, tomato, pineapple, and vinegar-heavy meals; stress that has been going on for weeks; orthodontic appliances or aligner attachments that rub a specific spot; vitamin B12, iron, folate, or zinc deficiencies. When the pattern is clearly nutritional we coordinate with your family doctor. If a switch to an SLS-free toothpaste (Sensodyne ProNamel, Tom's of Maine SLS-free, Biotene, and others) resolves the recurrence over the next few weeks, you have your answer.</p>"),
+  ("When a sore is not a canker sore", "<p>Most mouth ulcers are simple canker sores. A small number are something else. A sore that does not heal in two weeks, that is larger than a centimetre, that has a hardened edge, that is on the lateral border of the tongue, or that keeps appearing in the same spot deserves a careful look. We perform an oral cancer screening at every checkup, and any sore that does not fit the canker-sore pattern is examined more thoroughly and, if needed, referred to a maxillofacial surgeon for biopsy. We do not do biopsies in-house. Catching an atypical lesion early matters, so do not put off a visit if a sore is behaving differently than what you are used to.</p>"),
+  ("Home care that genuinely helps", "<p>While a canker sore heals, the goal is to reduce irritation and pain so it can run its course. Rinse with warm salt water (a teaspoon of salt in a mug of warm water) two or three times a day. Avoid the foods listed in the FAQ until it heals. Switch to a soft-bristle toothbrush and brush gently around the area; do not avoid brushing entirely, because plaque buildup makes the irritation worse. Over-the-counter products that can help in the short term include benzocaine-based gels (Anbesol, Orajel), Orabase protective paste, and antiseptic mouth rinses. If the pain is interfering with sleep or hydration, call us, because we can prescribe something stronger.</p>"),
+ ],
  },
 }
 
