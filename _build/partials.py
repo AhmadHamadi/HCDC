@@ -14,8 +14,8 @@ BUSINESS = {
  "lng": -79.8265,
  "site": "https://hamiltoncaredental.com",
  "founded": "2012",
- "rating": "4.9",
- "review_count": "89",
+ "rating": "4.6",
+ "review_count": "100",
  "facebook": "https://www.facebook.com/HamiltonCareDentalCentre",
  "instagram": "https://www.instagram.com/HamiltonCareDentalCentre",
 }

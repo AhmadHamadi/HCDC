@@ -49,7 +49,7 @@ HamiltonCareDentalCentre/
 10. **Our Doctors** — 3 dentist cards
 11. **New Patients Welcome** — info + new-patient form + Beautiful Loan
 12. **Nitrous Sedation** — new-service announcement
-13. **Reviews** — 4.9★ summary + 3 testimonials
+13. **Reviews** — 4.6★ summary + 3 testimonials
 14. **Visit Us** — address, phone, email, hours + Google Map embed
 15. **CTA banner** — strong closing call-to-action
 16. **FAQ** — 7 questions (book, insurance, emergency, payment, frequency, location, sedation)
@@ -98,7 +98,7 @@ HamiltonCareDentalCentre/
 ### Conversion + UX
 
 - Phone + Book CTAs above the fold and repeated throughout (top bar, hero, action strip, about, doctors, CTA banner, footer, sticky mobile bar)
-- Trust badges: 4.9★ rating, 89+ reviews, CDCP, 14+ years
+- Trust badges: 4.6★ rating, 100+ reviews, CDCP, 14+ years
 - `tel:` and `mailto:` links everywhere a number/email appears
 - Sticky mobile action bar (Call + Book)
 - Appointment form with proper input types, autocomplete, and confirmation note
