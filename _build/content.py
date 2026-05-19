@@ -728,7 +728,7 @@ BLOG = {
  "title": "How Much Does Dental Care Cost in Hamilton? What to Expect in 2025",
  "seo_title": "Dental Care Costs in Hamilton: 2025 Patient Guide",
  "date": "2026-04-08",
- "hero": "6a04c1d25217f5426cd9cbe6_beautify_financing.webp",
+ "hero": "69593a5e7088be19ac00c21f_DB2A7965-1-min-scaled.jpg",
  "summary": "A clear, honest look at dental costs in Hamilton, checkups, fillings, crowns, implants, Invisalign, and how insurance, CDCP, and financing help.",
  "keywords": "dental costs Hamilton, dentist prices Hamilton, dental fee guide 2025 Ontario, affordable dentist Hamilton",
  "body": [
@@ -758,7 +758,7 @@ BLOG = {
  "title": "Preventive Dentistry in Hamilton: How Regular Care Saves You Time, Pain, and Money",
  "seo_title": "Preventive Dentistry in Hamilton: Save Time and Money",
  "date": "2026-02-06",
- "hero": "prev1.jpg",
+ "hero": "prev2.jpg",
  "summary": "Skipping dental visits to save money is one of the most expensive choices you can make. Here's how preventive care pays off, financially and in quality of life.",
  "keywords": "preventive dentistry Hamilton, dental cleanings Hamilton, dental exam Hamilton, oral health prevention",
  "body": [
