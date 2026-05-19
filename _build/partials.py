@@ -219,7 +219,7 @@ def render_footer():
  <tr><th scope="row">Wed</th><td>9:00 AM – 5:00 PM</td></tr>
  <tr><th scope="row">Thu</th><td>9:00 AM – 4:00 PM</td></tr>
  <tr><th scope="row">Fri</th><td>9:00 AM – 3:00 PM</td></tr>
- <tr><th scope="row">Sat</th><td>9:00 AM – 3:00 PM</td></tr>
+ <tr><th scope="row">Sat</th><td>9:00 AM – 3:00 PM (by appointment only)</td></tr>
  <tr><th scope="row">Sun</th><td>Closed</td></tr>
  </table>
  <p class="footer-cta-line"><a href="/contact-us/" class="btn btn-primary btn-sm">Book Appointment</a></p>
@@ -411,7 +411,7 @@ def schema_localbusiness_ref():
  {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday"], "opens": "09:00", "closes": "17:00"},
  {"@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "09:00", "closes": "16:00"},
  {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "15:00"},
- {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "15:00"},
+ {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "15:00", "description": "By appointment only"},
  ],
  "sameAs": [BUSINESS["facebook"], BUSINESS["instagram"]],
  "aggregateRating": {"@type": "AggregateRating", "ratingValue": BUSINESS["rating"], "reviewCount": BUSINESS["review_count"], "bestRating": "5", "worstRating": "1"},
