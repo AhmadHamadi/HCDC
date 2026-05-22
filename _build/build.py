@@ -59,6 +59,7 @@ def build_service_page(slug, data):
   "Preventative Dentistry & Dental Hygiene": "Dental Cleanings & Hygiene",
   "Additional Dental Services": "Whitening, TMJ, Sleep Apnea & More",
   "SureSmile® Aligners": "SureSmile® & Invisalign Aligners",
+  "Canker Sore and Cold Sore Treatment": "Canker & Cold Sore Treatment",
  }
  _seo_name = _short_name_map.get(name, name)
  title = f"{_seo_name} in Hamilton | Hamilton Care Dental"
@@ -129,8 +130,8 @@ def build_service_page(slug, data):
    ("/assets/images/scraped/rest1.png", "Restorative and cosmetic restorations at Hamilton Care Dental Centre, view two"),
   ),
   "canker-sore-treatment": (
-   ("/assets/images/scraped/cranker1.jpeg", "Canker sore treatment at Hamilton Care Dental Centre, view one"),
-   ("/assets/images/scraped/cranker2.jpeg", "Canker sore treatment at Hamilton Care Dental Centre, view two"),
+   ("/assets/images/scraped/cranker1.jpeg", "Canker sore and cold sore treatment at Hamilton Care Dental Centre, view one"),
+   ("/assets/images/scraped/cranker2.jpeg", "Canker sore and cold sore treatment at Hamilton Care Dental Centre, view two"),
   ),
  }
  if slug in SLIDERS:
