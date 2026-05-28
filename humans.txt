@@ -7,7 +7,8 @@ Location: Hamilton, Ontario, Canada
 /* SITE */
 Name: Hamilton Care Dental Centre
 Phone: (289) 755-2568
-Email: office@hamiltoncaredental.ca
+Fax: (289) 755-2569
+Email: office@hamiltoncaredental.com
 Address: 969 Upper Ottawa St, 11 A, Hamilton, ON L8T 4V9
 Established: 2012
 Last update: 2026-05-13

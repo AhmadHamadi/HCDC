@@ -714,7 +714,7 @@ BLOG = {
  ("Thorough care under one roof", "From routine cleanings and check-ups to <a href='/services/dental-implants/'>dental implants</a>, Invisalign, <a href='/services/oral-surgery/'>oral surgery</a>, and emergency care, almost everything you need is provided in-office. That means fewer referrals out and less time off work for you."),
  ("Family-friendly, all-ages care", "We see toddlers having their first checkup, teens in Invisalign, busy parents getting cleanings, and seniors restoring their smiles. Patients love that the whole family can be seen in one office."),
  ("Same-day and emergency appointments", "If you're in pain, call us first. We hold time every day for emergencies, broken teeth, severe pain, lost fillings, swelling, and aim to see you the same day."),
- ("Booking and contact", "<a href='tel:+12897552568'>Call (289) 755-2568</a>, email office@hamiltoncaredental.ca, or <a href='/contact-us/'>book online</a>. We're open Monday–Friday 8–6 and Saturday 9–3."),
+ ("Booking and contact", "<a href='tel:+12897552568'>Call (289) 755-2568</a>, email office@hamiltoncaredental.com, or <a href='/contact-us/'>book online</a>. We're open Monday–Friday 8–6 and Saturday 9–3."),
  ],
  },
  "emergency-dentist-near-me-in-hamilton-same-day-care": {

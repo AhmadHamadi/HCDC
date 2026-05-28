@@ -4,7 +4,8 @@ BUSINESS = {
  "name": "Hamilton Care Dental Centre",
  "phone_display": "(289) 755-2568",
  "phone_tel": "+12897552568",
- "email": "office@hamiltoncaredental.ca",
+ "fax_display": "(289) 755-2569",
+ "email": "office@hamiltoncaredental.com",
  "address_line": "969 Upper Ottawa St, 11 A",
  "city": "Hamilton",
  "region": "ON",
@@ -212,6 +213,7 @@ def render_footer():
  <h4>Visit Us in Hamilton</h4>
  <div class="footer-contact-item">{SVG_PIN}<span>{BUSINESS['address_line']}<br />{BUSINESS['city']}, {BUSINESS['region']} {BUSINESS['postal']}</span></div>
  <div class="footer-contact-item">{SVG_PHONE}<a href="tel:{BUSINESS['phone_tel']}">{BUSINESS['phone_display']}</a></div>
+ <div class="footer-contact-item">{SVG_PHONE}<span>Fax: {BUSINESS['fax_display']}</span></div>
  <div class="footer-contact-item">{SVG_MAIL}<a href="mailto:{BUSINESS['email']}">{BUSINESS['email']}</a></div>
  <table class="footer-hours" aria-label="Office hours">
  <tr><th scope="row">Mon</th><td>9:00 AM – 5:00 PM</td></tr>
@@ -386,6 +388,7 @@ def schema_localbusiness_ref():
  "alternateName": "Hamilton Care Dental",
  "url": BUSINESS["site"] + "/",
  "telephone": "+1-289-755-2568",
+ "faxNumber": "+1-289-755-2569",
  "email": BUSINESS["email"],
  "image": f"{BUSINESS['site']}/assets/images/team-photo.png",
  "logo": f"{BUSINESS['site']}/assets/images/logo.png",

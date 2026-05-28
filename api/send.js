@@ -1,5 +1,5 @@
 // Vercel serverless function: receives the appointment / referral form POST,
-// validates it, sends an email to office@hamiltoncaredental.ca via SMTP,
+// validates it, sends an email to office@hamiltoncaredental.com via SMTP,
 // then 303-redirects the visitor to /thank-you/.
 //
 // All form submissions on the site (homepage appointment, contact-us
@@ -15,13 +15,13 @@
 //   SMTP_PASS   the mailbox password / app password
 //
 // Optional env vars (have sensible defaults if you leave them out):
-//   TO_EMAIL    defaults to "office@hamiltoncaredental.ca"
+//   TO_EMAIL    defaults to "office@hamiltoncaredental.com"
 //   FROM_EMAIL  defaults to SMTP_USER
 //   SITE_URL    defaults to "https://hamiltoncaredental.com"
 
 const nodemailer = require("nodemailer");
 
-const TO_EMAIL = process.env.TO_EMAIL || "office@hamiltoncaredental.ca";
+const TO_EMAIL = process.env.TO_EMAIL || "office@hamiltoncaredental.com";
 const FROM_EMAIL = process.env.FROM_EMAIL || process.env.SMTP_USER || "no-reply@hamiltoncaredental.ca";
 const FROM_NAME = "Hamilton Care Dental website";
 const SITE_URL = process.env.SITE_URL || "https://hamiltoncaredental.com";

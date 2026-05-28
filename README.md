@@ -150,4 +150,4 @@ After deploying:
 
 ## Important note: NAP consistency
 
-The original site contained an inconsistency — the schema/JSON-LD referenced **Hamilton City Dental** with a different address (182 Jackson St E). This rebuild standardizes to the **correct, consistently-stated** business identity: **Hamilton Care Dental Centre, 969 Upper Ottawa St 11 A, Hamilton ON L8T 4V9, (289) 755-2568, office@hamiltoncaredental.ca**. Verify against the Google Business Profile before deploying live.
+The original site contained an inconsistency — the schema/JSON-LD referenced **Hamilton City Dental** with a different address (182 Jackson St E). This rebuild standardizes to the **correct, consistently-stated** business identity: **Hamilton Care Dental Centre, 969 Upper Ottawa St 11 A, Hamilton ON L8T 4V9, (289) 755-2568, fax (289) 755-2569, office@hamiltoncaredental.com**. Verify against the Google Business Profile before deploying live.

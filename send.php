@@ -3,7 +3,7 @@
  * Form handler for Hamilton Care Dental Centre.
  *
  * Receives appointment + referral form submissions and emails them to
- * office@hamiltoncaredental.ca. Designed to run on cPanel with PHP 7.4+.
+ * office@hamiltoncaredental.com. Designed to run on cPanel with PHP 7.4+.
  *
  * SMTP (recommended for deliverability):
  *   1. Drop PHPMailer into /vendor/phpmailer/ via Composer or zip upload.
@@ -18,7 +18,7 @@
 /* =========================
  * CONFIG (UPDATE ON DEPLOY)
  * ========================= */
-const TO_EMAIL    = 'office@hamiltoncaredental.ca';
+const TO_EMAIL    = 'office@hamiltoncaredental.com';
 const TO_NAME     = 'Hamilton Care Dental Centre';
 const FROM_EMAIL  = 'no-reply@hamiltoncaredental.ca';   // must be a mailbox on this domain
 const FROM_NAME   = 'Hamilton Care Dental website';

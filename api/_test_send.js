@@ -76,7 +76,7 @@ async function main() {
   // Pin the recipient for the happy-path test so it isn't sensitive to any
   // temporary redirect set in send.js. Production deploys read TO_EMAIL from
   // Vercel env vars and ignore the hardcoded fallback.
-  process.env.TO_EMAIL = "office@hamiltoncaredental.ca";
+  process.env.TO_EMAIL = "office@hamiltoncaredental.com";
 
   const send = require("./send.js");
   let pass = 0, total = 0;
@@ -126,7 +126,7 @@ async function main() {
     // Standard subject across every submission
     if (call.msg.subject !== "Appointment Request Submission") throw new Error("subject not standardized: " + call.msg.subject);
     // To address
-    if (call.msg.to !== "office@hamiltoncaredental.ca") throw new Error("wrong To: " + call.msg.to);
+    if (call.msg.to !== "office@hamiltoncaredental.com") throw new Error("wrong To: " + call.msg.to);
     // Body contains every relevant field
     if (!call.msg.text.includes("Jane Smith")) throw new Error("body missing name");
     if (!call.msg.text.includes("jane@example.com")) throw new Error("body missing email");
