@@ -314,7 +314,7 @@ SERVICES = {
  ("Does scaling hurt?", "Modern ultrasonic and hand scaling is gentle. We can numb sensitive spots if needed."),
  ("Why do my gums bleed when I brush?", "Bleeding gums usually mean gum disease. The best thing to do is see your dental hygienist to have it assessed, because gum disease becomes much harder to manage the further it progresses. Caught early, a professional cleaning and better home care can usually stop the bleeding and keep it from getting worse."),
  ("Are sealants worth it for kids?", "Yes. Sealants prevent the most common type of childhood cavity, the ones on chewing surfaces of molars."),
- ("Do I really need X-rays?", "We only take X-rays when they'll provide useful information. Most adults need a routine set every 1 to 2 years."),
+ ("Do I really need X-rays?", "We only take X-rays when they'll provide useful information. Most people need a new set every 1 to 2 years."),
  ("Are cleanings covered by insurance?", "Almost always. Most Canadian plans cover preventive visits, and <a href='/canadian-care-dental-plan/'>CDCP</a> covers preventive care for eligible patients."),
  ],
  "deep_content": [
