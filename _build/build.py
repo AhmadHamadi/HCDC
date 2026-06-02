@@ -196,11 +196,19 @@ def build_service_page(slug, data):
  )
 
  good_for_html = "\n".join(f" <li>{x}</li>" for x in data["good_for"])
- good_for_block = "" if not data["good_for"] else ' <h3>Who ' + name.lower() + ' is good for</h3>\n <ul class="check-list">\n' + good_for_html + '\n </ul>'
+ _gf_heading = {"endodontics": "Who could qualify for endodontic treatment"}.get(slug, "Who " + name.lower() + " is good for")
+ good_for_block = "" if not data["good_for"] else ' <h3>' + _gf_heading + '</h3>\n <ul class="check-list">\n' + good_for_html + '\n </ul>'
  svc_intro_heading = {
   "miscellaneous": "Additional Services Offered",
   "canker-sore-treatment": "What is the treatment for canker sores and cold sores?",
   "preventative-dentistry": "What is Preventative Dentistry?",
+  "nitrous-sedation": "How nitrous oxide sedation works",
+  "suresmile-clear-aligners": "How SureSmile® aligners straighten your teeth",
+  "dental-implants": "How a dental implant replaces a missing tooth",
+  "oral-surgery": "What oral surgery covers",
+  "cosmetic-dentistry": "What cosmetic dentistry can do for your smile",
+  "restorative-dentistry": "How we restore damaged and missing teeth",
+  "endodontics": "What are root canals?",
  }.get(slug, "What " + svc_verb + " " + name + "?")
  svc_cta_label = "Book your dental hygiene appointment now" if slug == "preventative-dentistry" else "Book " + name
  process_html = "\n".join(
