@@ -1,5 +1,5 @@
 # Hamilton Care Dental Centre, robots.txt
-# Family dental clinic in Hamilton, Ontario. CDCP accepted. Beautifi financing.
+# Family dental clinic in Hamilton, Ontario. CDCP accepted. 0% financing available.
 # https://hamiltoncaredental.com/
 
 User-agent: *

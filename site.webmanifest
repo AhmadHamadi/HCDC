@@ -1,7 +1,7 @@
 {
   "name": "Hamilton Care Dental Centre",
   "short_name": "HCDC",
-  "description": "Family and general dentistry in Hamilton, Ontario. Implants, Invisalign, whitening, emergency care. Same-day appointments and CDCP accepted.",
+  "description": "Family and general dentistry in Hamilton, Ontario. Implants, clear aligners, whitening, emergency care. CDCP accepted.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

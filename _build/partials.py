@@ -166,7 +166,7 @@ def render_footer():
 
  <div class="footer-seo-block">
  <h2 class="footer-seo-h">Trusted Family Dentist on Hamilton Mountain</h2>
- <p>{BUSINESS['name']} has been caring for Hamilton families since {BUSINESS['founded']}. We're a full-service dental clinic on Upper Ottawa Street offering cleanings, checkups, dental implants, Invisalign, SureSmile® Aligners, professional whitening, crowns and bridges, root canals, oral surgery and wisdom teeth removal, dentures, nitrous oxide sedation, and same-day emergency care. We accept the Canadian Dental Care Plan (CDCP), bill insurance directly, and offer Beautifi financing including 0% options.</p>
+ <p>{BUSINESS['name']} has been caring for Hamilton families since {BUSINESS['founded']}. We're a full-service dental clinic on Upper Ottawa Street offering cleanings, checkups, dental implants, SureSmile® Aligners, professional whitening, crowns and bridges, root canals, oral surgery and wisdom teeth removal, dentures, nitrous oxide sedation, and emergency dental care. We accept the Canadian Dental Care Plan (CDCP), bill insurance directly, and offer 0% financing for qualifying patients.</p>
  <p>Serving Hamilton Mountain, Upper Ottawa, Stoney Creek, Ancaster, Dundas, Binbrook, and Waterdown. New patients always welcome.</p>
  </div>
 
@@ -229,7 +229,7 @@ def render_footer():
  </div>
 
  <div class="footer-keywords" aria-hidden="true">
- Dentist Hamilton ON · Hamilton Mountain dentist · Upper Ottawa dentist · Family dentist Hamilton · Emergency dentist Hamilton · Same-day dentist Hamilton · CDCP dentist Hamilton · Dental implants Hamilton · Invisalign Hamilton · SureSmile Hamilton · Teeth whitening Hamilton · Zoom whitening Hamilton · Cosmetic dentist Hamilton · Wisdom teeth removal Hamilton · Root canal Hamilton · Dentures Hamilton · Kids dentist Hamilton
+ Dentist Hamilton ON · Hamilton Mountain dentist · Upper Ottawa dentist · Family dentist Hamilton · Emergency dentist Hamilton · CDCP dentist Hamilton · Dental implants Hamilton · SureSmile Hamilton · Clear aligners Hamilton · Teeth whitening Hamilton · Zoom whitening Hamilton · Cosmetic dentist Hamilton · Wisdom teeth removal Hamilton · Root canal Hamilton · Dentures Hamilton · Kids dentist Hamilton
  </div>
 
  <div class="footer-bottom">
@@ -320,7 +320,7 @@ def render_explore_more(*, exclude_service=None):
  <div class="explore-col">
  <h3>Payment, Booking &amp; Contact</h3>
  <ul>
- <li><a href="/payment-plans/">Payment Plans &amp; Beautifi Financing</a></li>
+ <li><a href="/payment-plans/">Payment Plans &amp; 0% Financing</a></li>
  <li><a href="/canadian-care-dental-plan/">Canadian Dental Care Plan (CDCP)</a></li>
  <li><a href="/referral-form/">Refer a Friend or Family Member</a></li>
  <li><a href="/contact-us/">Contact &amp; Booking</a></li>
@@ -356,7 +356,7 @@ def render_cta_banner(headline="Ready for Your Best Smile?", sub="Modern, gentle
  <a href="tel:{BUSINESS['phone_tel']}" class="btn btn-outline">Call {BUSINESS['phone_display']}</a>
  </div>
  <div class="badges">
- <span>{SVG_CHECK}Same-day appointments</span>
+ <span>{SVG_CHECK}New patients welcome</span>
  <span>{SVG_CHECK}CDCP accepted</span>
  <span>{SVG_CHECK}Direct insurance billing</span>
  </div>
@@ -395,8 +395,8 @@ def schema_localbusiness_ref():
  "priceRange": "$$",
  "description": (
   "Family and emergency dentist on Hamilton Mountain serving Hamilton, Stoney Creek, "
-  "Ancaster, Dundas, Binbrook and Waterdown since 2012. CDCP-accepting. Beautifi 0% financing. "
-  "Dental implants, Invisalign, SureSmile, crowns, veneers, root canals, wisdom teeth, "
+  "Ancaster, Dundas, Binbrook and Waterdown since 2012. CDCP-accepting. 0% financing available. "
+  "Dental implants, SureSmile clear aligners, crowns, veneers, root canals, wisdom teeth, "
   "dentures, teeth whitening, nitrous sedation, and emergency dental care."
  ),
  "slogan": "Caring for Hamilton smiles since 2012",
@@ -431,7 +431,7 @@ def schema_localbusiness_ref():
  {"@type": "Place", "name": "Waterdown"},
  {"@type": "Place", "name": "Flamborough"},
  ],
- "paymentAccepted": ["Cash", "Debit", "Visa", "Mastercard", "American Express", "E-transfer", "Insurance", "CDCP", "Beautifi financing"],
+ "paymentAccepted": ["Cash", "Debit", "Visa", "Mastercard", "American Express", "E-transfer", "Insurance", "CDCP", "0% financing"],
  "currenciesAccepted": "CAD",
  "isAcceptingNewPatients": True,
  "publicAccess": True,
@@ -455,8 +455,7 @@ def schema_localbusiness_ref():
  "itemListElement": [
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Dental Implants"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "All-on-4 Dental Implants"}},
- {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Invisalign Clear Aligners"}},
- {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "SureSmile® Aligners"}},
+ {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "SureSmile® Clear Aligners"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Porcelain Veneers"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Dental Crowns and Bridges"}},
  {"@type": "Offer", "itemOffered": {"@type": "MedicalProcedure", "name": "Composite White Fillings"}},
