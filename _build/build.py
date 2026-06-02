@@ -205,10 +205,10 @@ def build_service_page(slug, data):
   "nitrous-sedation": "How nitrous oxide sedation works",
   "suresmile-clear-aligners": "How SureSmile® aligners straighten your teeth",
   "dental-implants": "How a dental implant replaces a missing tooth",
-  "oral-surgery": "What oral surgery covers",
-  "cosmetic-dentistry": "What cosmetic dentistry can do for your smile",
+  "oral-surgery": "Wisdom teeth, extractions, and minor oral surgery",
+  "cosmetic-dentistry": "Treatments that improve how your smile looks",
   "restorative-dentistry": "How we restore damaged and missing teeth",
-  "endodontics": "What are root canals?",
+  "endodontics": "How a root canal saves an infected tooth",
  }.get(slug, "What " + svc_verb + " " + name + "?")
  svc_cta_label = "Book your dental hygiene appointment now" if slug == "preventative-dentistry" else "Book " + name
  process_html = "\n".join(
