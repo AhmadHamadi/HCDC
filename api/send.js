@@ -60,6 +60,129 @@ function isReferral(src) {
   return src === "referral-form";
 }
 
+// ---------------------------------------------------------------------------
+// Anti-spam layers (server-side, no paid services / no API keys).
+// Every bot rejection is returned as a SILENT success (303 -> /thank-you/) so
+// bots get no feedback about which check caught them.
+// ---------------------------------------------------------------------------
+
+const SILENT_OK = (res) => {
+  res.statusCode = 303;
+  res.setHeader("Location", SITE_URL + REDIRECT_OK);
+  return res.end();
+};
+
+// Pull a bare lowercased hostname out of an Origin, Referer, or Host value.
+// Handles "https://host:443/path", "host:port", "user@host", etc.
+function hostnameOf(value) {
+  if (!value) return "";
+  let s = String(value).trim();
+  s = s.replace(/^[a-z][a-z0-9+.-]*:\/\//i, ""); // strip scheme
+  s = s.split("/")[0];                            // strip path
+  s = s.split("@").pop();                         // strip userinfo
+  s = s.replace(/^\[(.*)\]$/, "$1");              // strip IPv6 brackets
+  s = s.split(":")[0];                            // strip port
+  return s.toLowerCase();
+}
+
+// Layer 1 — Origin / Referer check.
+// A real submission from one of our own pages always carries an Origin (modern
+// browsers send it on POST) or at least a Referer (our Referrer-Policy is
+// strict-origin-when-cross-origin, so same-origin requests include it). A bot
+// POSTing straight to /api/send with curl carries neither, or carries a foreign
+// host. We allow the deployment host AUTOMATICALLY via the request's own Host
+// header (so this never breaks whatever domain the site is actually served from)
+// plus the known production hosts and any Vercel preview (*.vercel.app).
+function originAllowed(req) {
+  const origin = req.headers["origin"];
+  const referer = req.headers["referer"] || req.headers["referrer"];
+  // Prefer Origin (authoritative); fall back to Referer. Neither present => drop.
+  const candidate = origin ? hostnameOf(origin) : referer ? hostnameOf(referer) : "";
+  if (!candidate) return false;
+
+  const allowed = new Set();
+  const add = (h) => { const x = hostnameOf(h); if (x) allowed.add(x); };
+  add(req.headers["host"]);          // the host this request actually arrived on
+  add(process.env.VERCEL_URL);       // current Vercel deployment URL, if set
+  add(process.env.SITE_URL);
+  add(SITE_URL);
+  add("hamiltoncaredental.com");
+  add("www.hamiltoncaredental.com");
+
+  if (allowed.has(candidate)) return true;
+  if (candidate.endsWith(".vercel.app")) return true; // preview deployments
+  return false;
+}
+
+// Layer 2 — Timing trap.
+// The page stamps a hidden _t field with Date.now() when it loads. Anything that
+// arrives < 2.5s after load is a bot. IMPORTANT: a missing / unparseable / future
+// token is treated as OK, so visitors with JavaScript disabled or a cached page
+// (valid origin but no fresh token) are NOT blocked.
+const MIN_FILL_MS = 2500;
+function timingOk(body) {
+  const raw = body._t;
+  if (raw == null || String(raw).trim() === "") return true; // no token -> lenient
+  const t = Number(String(raw).trim());
+  if (!Number.isFinite(t) || t <= 0) return true;            // unparseable -> lenient
+  const elapsed = Date.now() - t;
+  if (!Number.isFinite(elapsed) || elapsed < 0) return true;  // clock skew -> lenient
+  return elapsed >= MIN_FILL_MS;
+}
+
+// Layer 4 — Content filtering.
+// Matches URLs: explicit http(s)://, www., or a bare domain on a spammy TLD.
+const URL_RE = /(?:https?:\/\/|www\.)[^\s<>"']+|\b[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.(?:com|net|org|io|ru|info|biz|xyz|top|online|site|shop|club|vip|link|click|store|cn|co|live|icu|work|loan|men|win)\b/gi;
+function countLinks(s) {
+  const m = String(s || "").match(URL_RE);
+  return m ? m.length : 0;
+}
+
+// Conservative spam-phrase categories. We only flag a message when it hits 2+
+// DISTINCT categories (AND-logic), so a single keyword never blocks a real
+// patient (e.g. someone who happens to mention "marketing" or "free").
+const SPAM_CATEGORIES = [
+  // SEO
+  [/\bseo\b/, /back ?links?/, /search engine (?:ranking|optimi[sz])/, /rank(?:ing)? (?:#?\s?1|first|higher|on (?:the )?(?:first page|google))/, /guest post/, /link building/, /domain authority/],
+  // Marketing / lead-gen
+  [/digital marketing/, /marketing (?:services|agency|proposal)/, /increase (?:your )?(?:traffic|sales|leads|revenue)/, /grow your (?:business|traffic|revenue)/, /more (?:customers|clients|leads|traffic)/, /lead generation/, /web ?design services/],
+  // Crypto / finance
+  [/\bcrypto(?:currency)?\b/, /bitcoin/, /\bforex\b/, /\bnfts?\b/, /investment opportunity/, /trading (?:platform|bot|signals)/, /\bbinary options\b/],
+  // Pharma
+  [/viagra/, /cialis/, /\bpharmacy\b/, /\bpills?\b/, /\bmeds?\b.*(?:online|cheap)/],
+  // Generic get-rich / scam
+  [/click here/, /limited[ -]time offer/, /\bact now\b/, /100% free/, /make money/, /work from home/, /earn \$\s?\d/, /\bgift card\b/],
+  // Gambling / loans
+  [/\bcasino\b/, /payday loan/, /\bloans?\b.*(?:approved|guaranteed)/, /\bgambling\b/],
+];
+
+// Returns a short reason string if the submission looks like spam, else "".
+function spamReason(fields) {
+  const name = fields.name || "";
+  const notes = fields.notes || "";
+
+  // The name field should never carry HTML or links.
+  if (/[<>]/.test(name)) return "html-in-name";
+  if (countLinks(name) >= 1) return "link-in-name";
+  if (name.length > 80) return "name-too-long";
+
+  // Cap message length (a real enquiry is never an essay of spam).
+  if (notes.length > 2000) return "message-too-long";
+
+  // 2+ links in the body is the classic spam shape.
+  if (countLinks(notes) >= 2) return "multiple-links";
+
+  // Conservative phrase match across the free-text fields, AND-logic (2+ cats).
+  const hay = [name, notes, fields.referredName, fields.referredContact]
+    .filter(Boolean).join(" ").toLowerCase();
+  let hits = 0;
+  for (const cat of SPAM_CATEGORIES) {
+    if (cat.some((re) => re.test(hay))) hits++;
+    if (hits >= 2) return "spam-phrases";
+  }
+  return "";
+}
+
 async function readBody(req) {
   // Vercel auto-parses req.body for known content types, but the form posts
   // application/x-www-form-urlencoded, which Vercel passes through as a string.
@@ -190,11 +313,22 @@ module.exports = async (req, res) => {
     return res.end("Bad request");
   }
 
-  // Honeypot: humans never see these hidden fields. If filled, accept silently.
+  // Layer 3 — Honeypot: humans never see these hidden fields. If filled, drop
+  // silently (still looks successful to the bot).
   if (body.website || body.url || body._hp) {
-    res.statusCode = 303;
-    res.setHeader("Location", SITE_URL + REDIRECT_OK);
-    return res.end();
+    return SILENT_OK(res);
+  }
+
+  // Layer 1 — Origin/Referer: drop anything not submitted from our own pages.
+  // (A direct curl POST to /api/send carries no Origin and no Referer.)
+  if (!originAllowed(req)) {
+    return SILENT_OK(res);
+  }
+
+  // Layer 2 — Timing trap: drop submissions that arrive impossibly fast.
+  // Missing/old token (JS off, cached page) is allowed through on purpose.
+  if (!timingOk(body)) {
+    return SILENT_OK(res);
   }
 
   const source = stripCRLF(body._source || "unknown");
@@ -235,6 +369,14 @@ module.exports = async (req, res) => {
     replyToEmail: email && isValidEmail(email) ? email : "",
     ip: stripCRLF(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "unknown"),
   };
+
+  // Layer 4 — Content filtering. Drop spammy submissions silently (the bot
+  // still sees the success page). Runs after validation so we have clean fields.
+  const reason = spamReason(fields);
+  if (reason) {
+    console.warn("Dropped likely-spam submission:", reason, "from", fields.ip);
+    return SILENT_OK(res);
+  }
 
   const text = buildPlainText(fields);
   const html = buildHtml(fields);

@@ -55,6 +55,12 @@
        Lets the real form POST through to /api/send (Vercel) or /send.php
        (cPanel fallback). The handler does the redirect to /thank-you/. */
     document.querySelectorAll('form#appointment-form, form#referral-form').forEach(function (form) {
+      /* Anti-spam timing trap: stamp when the form became available to a real
+         visitor. The server drops submissions that arrive < 2.5s after this.
+         If JS is disabled the field stays empty and the server lets it through. */
+      var tField = form.querySelector('input[name="_t"]');
+      if (tField) tField.value = String(Date.now());
+
       form.addEventListener('submit', function () {
         if (!form.checkValidity()) return; // browser will show validation errors
         var btn = form.querySelector('button[type="submit"]');

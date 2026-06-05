@@ -25,15 +25,33 @@ require.cache[require.resolve("nodemailer")] = {
 };
 
 // ---- Tiny fake req/res ----
-function makeReq({ method = "POST", body = {}, headers = {} } = {}) {
+// Defaults model a REAL browser submission from our own page: a same-site
+// Origin header + a timing token stamped ~6s ago (comfortably past the 2.5s
+// minimum). Individual tests override these to exercise bot scenarios:
+//   origin: null        -> no Origin header (e.g. direct curl POST)
+//   stampToken: false   -> do not auto-add _t (combine with body._t to control)
+function makeReq({
+  method = "POST",
+  body = {},
+  headers = {},
+  origin = "https://hamiltoncaredental.com",
+  host = "hamiltoncaredental.com",
+  stampToken = true,
+} = {}) {
   // Encode body as application/x-www-form-urlencoded so readBody walks
   // the same path the production handler takes for browser submissions.
-  const raw = new URLSearchParams(body).toString();
+  const fullBody = { ...body };
+  if (stampToken && fullBody._t === undefined) {
+    fullBody._t = String(Date.now() - 6000); // loaded 6s ago -> passes timing trap
+  }
+  const raw = new URLSearchParams(fullBody).toString();
+  const hdrs = { "content-type": "application/x-www-form-urlencoded", host, ...headers };
+  if (origin !== null && hdrs.origin === undefined) hdrs.origin = origin;
   let dataCb = null;
   let endCb = null;
   return {
     method,
-    headers: { "content-type": "application/x-www-form-urlencoded", ...headers },
+    headers: hdrs,
     body: null,  // force readBody to hit the stream path
     socket: { remoteAddress: "127.0.0.1" },
     on(event, cb) {
@@ -42,6 +60,14 @@ function makeReq({ method = "POST", body = {}, headers = {} } = {}) {
       if (event === "end") setImmediate(() => { dataCb && dataCb(Buffer.from(raw)); endCb && endCb(); });
     },
   };
+}
+
+// Asserts a request was dropped SILENTLY: 303 to /thank-you/, and no email sent.
+function expectSilentlyDropped(res, sendMailCalls) {
+  if (res.statusCode !== 303) throw new Error("expected 303, got " + res.statusCode);
+  if (!String(res.headers["location"]).endsWith("/thank-you/"))
+    throw new Error("expected silent success redirect to /thank-you/, got " + res.headers["location"]);
+  if (sendMailCalls.length !== 0) throw new Error("bot submission should NOT have sent email");
 }
 function makeRes() {
   const res = {
@@ -224,6 +250,132 @@ async function main() {
     if (!String(res.headers["location"]).includes("server-not-configured")) throw new Error("wrong redirect");
     if (sendMailCalls.length !== 0) throw new Error("should not send without env vars");
     process.env.SMTP_HOST = old;
+  })) pass++;
+
+  // =====================================================================
+  // ANTI-SPAM LAYERS — real bot scenarios vs. a genuine human submission.
+  // =====================================================================
+
+  const validBody = {
+    name: "Maria Lopez", email: "maria@gmail.com", phone: "289-555-0177",
+    preferred_date: "2026-06-20", notes: "I'd like to book a cleaning, thanks.",
+    _source: "contact-us-appointment",
+  };
+
+  // ---- Layer 1: Origin / Referer ----
+  total++; if (await run("BOT: direct POST with no Origin and no Referer -> dropped silently", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: validBody, origin: null }); // no origin, no referer
+    const res = makeRes();
+    await send(req, res);
+    expectSilentlyDropped(res, sendMailCalls);
+  })) pass++;
+
+  total++; if (await run("BOT: POST from a foreign origin -> dropped silently", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: validBody, origin: "https://spam-bot.example.ru" });
+    const res = makeRes();
+    await send(req, res);
+    expectSilentlyDropped(res, sendMailCalls);
+  })) pass++;
+
+  total++; if (await run("HUMAN: Referer-only (no Origin) from our own page -> accepted", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: validBody, origin: null, headers: { referer: "https://hamiltoncaredental.com/contact-us/" } });
+    const res = makeRes();
+    await send(req, res);
+    if (sendMailCalls.length !== 1) throw new Error("expected email to be sent, got " + sendMailCalls.length);
+  })) pass++;
+
+  total++; if (await run("HUMAN: Vercel preview deployment origin -> accepted", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: validBody, origin: "https://hcdc-git-main-acme.vercel.app", host: "hcdc-git-main-acme.vercel.app" });
+    const res = makeRes();
+    await send(req, res);
+    if (sendMailCalls.length !== 1) throw new Error("expected email to be sent, got " + sendMailCalls.length);
+  })) pass++;
+
+  total++; if (await run("HUMAN: deployment served from a different host (Host header auto-allow) -> accepted", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: validBody, origin: "https://www.somenewdomain.test", host: "www.somenewdomain.test" });
+    const res = makeRes();
+    await send(req, res);
+    if (sendMailCalls.length !== 1) throw new Error("Host-header self-allow failed; got " + sendMailCalls.length);
+  })) pass++;
+
+  // ---- Layer 2: Timing trap ----
+  total++; if (await run("BOT: submission arrives < 2.5s after load -> dropped silently", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: { ...validBody, _t: String(Date.now() - 200) }, stampToken: false });
+    const res = makeRes();
+    await send(req, res);
+    expectSilentlyDropped(res, sendMailCalls);
+  })) pass++;
+
+  total++; if (await run("HUMAN: valid origin but MISSING timing token (JS off / cached page) -> accepted", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: validBody, stampToken: false }); // no _t at all
+    const res = makeRes();
+    await send(req, res);
+    if (sendMailCalls.length !== 1) throw new Error("missing-token human should pass; got " + sendMailCalls.length);
+  })) pass++;
+
+  // ---- Layer 4: Content filtering ----
+  total++; if (await run("BOT: 2+ links in the message -> dropped silently", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: { ...validBody, notes: "Great site! Visit https://cheap-pills.ru and http://buy-now.xyz today" } });
+    const res = makeRes();
+    await send(req, res);
+    expectSilentlyDropped(res, sendMailCalls);
+  })) pass++;
+
+  total++; if (await run("BOT: link/HTML stuffed in the name field -> dropped silently", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: { ...validBody, name: "Buy backlinks http://seo-spam.top" } });
+    const res = makeRes();
+    await send(req, res);
+    expectSilentlyDropped(res, sendMailCalls);
+  })) pass++;
+
+  total++; if (await run("BOT: absurdly long name -> dropped silently", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: { ...validBody, name: "x".repeat(200) } });
+    const res = makeRes();
+    await send(req, res);
+    expectSilentlyDropped(res, sendMailCalls);
+  })) pass++;
+
+  total++; if (await run("BOT: spam phrases across 2+ categories (SEO + crypto) -> dropped silently", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: { ...validBody, notes: "We provide SEO backlinks and crypto bitcoin investment opportunity for your clinic." } });
+    const res = makeRes();
+    await send(req, res);
+    expectSilentlyDropped(res, sendMailCalls);
+  })) pass++;
+
+  total++; if (await run("HUMAN: a single spam-ish word does NOT block a real patient", async () => {
+    sendMailCalls.length = 0;
+    // "seo" appears (1 category only) inside a genuine question -> must go through.
+    const req = makeReq({ body: { ...validBody, notes: "A friend who does SEO recommended your clinic. Can I book a checkup?" } });
+    const res = makeRes();
+    await send(req, res);
+    if (sendMailCalls.length !== 1) throw new Error("single-category word wrongly blocked a real patient; got " + sendMailCalls.length);
+  })) pass++;
+
+  // ---- Full genuine human happy path through ALL layers ----
+  total++; if (await run("HUMAN: genuine appointment (good origin, realistic timing, clean content) -> email sent", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: {
+      name: "David Chen", phone: "(905) 555-2211", email: "david.chen@outlook.com",
+      preferred_date: "2026-07-02", notes: "My daughter needs her first checkup. Mornings are best.",
+      _source: "homepage-appointment",
+    }});
+    const res = makeRes();
+    await send(req, res);
+    if (res.statusCode !== 303) throw new Error("status " + res.statusCode);
+    if (!String(res.headers["location"]).endsWith("/thank-you/")) throw new Error("wrong redirect");
+    if (sendMailCalls.length !== 1) throw new Error("genuine submission was dropped; got " + sendMailCalls.length);
+    if (!sendMailCalls[0].msg.text.includes("David Chen")) throw new Error("email missing patient name");
   })) pass++;
 
   console.log("\n" + pass + " / " + total + " tests passed");
