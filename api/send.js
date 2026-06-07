@@ -86,19 +86,22 @@ function hostnameOf(value) {
 }
 
 // Layer 1 — Origin / Referer check.
-// A real submission from one of our own pages always carries an Origin (modern
-// browsers send it on POST) or at least a Referer (our Referrer-Policy is
-// strict-origin-when-cross-origin, so same-origin requests include it). A bot
-// POSTing straight to /api/send with curl carries neither, or carries a foreign
-// host. We allow the deployment host AUTOMATICALLY via the request's own Host
-// header (so this never breaks whatever domain the site is actually served from)
-// plus the known production hosts and any Vercel preview (*.vercel.app).
+// If the request carries an Origin or Referer, it must be one of our own pages;
+// a FOREIGN host means a cross-site bot, so we drop it. We allow the deployment
+// host AUTOMATICALLY via the request's own Host header (so this never breaks
+// whatever domain the site is actually served from) plus the known production
+// hosts and any Vercel preview (*.vercel.app).
+//
+// PATIENT-FRIENDLY: if there is NO Origin and NO Referer at all, we let it
+// through. Some privacy browsers, in-app browsers (Instagram/Facebook), and
+// corporate proxies strip both headers, and we don't want to block those real
+// patients. The honeypot + timing + content layers still apply to them.
 function originAllowed(req) {
   const origin = req.headers["origin"];
   const referer = req.headers["referer"] || req.headers["referrer"];
-  // Prefer Origin (authoritative); fall back to Referer. Neither present => drop.
+  // Prefer Origin (authoritative); fall back to Referer.
   const candidate = origin ? hostnameOf(origin) : referer ? hostnameOf(referer) : "";
-  if (!candidate) return false;
+  if (!candidate) return true; // neither header present -> favor real patients
 
   const allowed = new Set();
   const add = (h) => { const x = hostnameOf(h); if (x) allowed.add(x); };
@@ -131,10 +134,15 @@ function timingOk(body) {
 }
 
 // Layer 4 — Content filtering.
-// Matches URLs: explicit http(s)://, www., or a bare domain on a spammy TLD.
-const URL_RE = /(?:https?:\/\/|www\.)[^\s<>"']+|\b[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.(?:com|net|org|io|ru|info|biz|xyz|top|online|site|shop|club|vip|link|click|store|cn|co|live|icu|work|loan|men|win)\b/gi;
-function countLinks(s) {
-  const m = String(s || "").match(URL_RE);
+// EXPLICIT_URL_RE: only full links (http(s):// or www.). Used for the MESSAGE so
+// that a patient who simply mentions "google.com" or "facebook.com" is NOT
+// flagged — only 2+ real pasted URLs (the classic spam shape) count.
+const EXPLICIT_URL_RE = /(?:https?:\/\/|www\.)[^\s<>"']+/gi;
+// DOMAINISH_RE: also catches a bare domain on a spammy TLD. Used ONLY for the
+// NAME field, where a real name never contains a domain at all.
+const DOMAINISH_RE = /(?:https?:\/\/|www\.)[^\s<>"']+|\b[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.(?:com|net|org|io|ru|info|biz|xyz|top|online|site|shop|club|vip|link|click|store|cn|co|live|icu|work|loan|men|win)\b/gi;
+function countMatches(s, re) {
+  const m = String(s || "").match(re);
   return m ? m.length : 0;
 }
 
@@ -161,16 +169,16 @@ function spamReason(fields) {
   const name = fields.name || "";
   const notes = fields.notes || "";
 
-  // The name field should never carry HTML or links.
+  // The name field should never carry HTML or a domain/link.
   if (/[<>]/.test(name)) return "html-in-name";
-  if (countLinks(name) >= 1) return "link-in-name";
-  if (name.length > 80) return "name-too-long";
+  if (countMatches(name, DOMAINISH_RE) >= 1) return "link-in-name";
+  if (name.length > 120) return "name-too-long";
 
-  // Cap message length (a real enquiry is never an essay of spam).
-  if (notes.length > 2000) return "message-too-long";
-
-  // 2+ links in the body is the classic spam shape.
-  if (countLinks(notes) >= 2) return "multiple-links";
+  // 2+ FULL pasted URLs in the body is the classic spam shape. Bare domain
+  // mentions (e.g. "google.com") are deliberately NOT counted, so verbose
+  // patients who reference a site are not blocked. Message length is not
+  // capped here (the body is already trimmed to 4000 chars when stored).
+  if (countMatches(notes, EXPLICIT_URL_RE) >= 2) return "multiple-links";
 
   // Conservative phrase match across the free-text fields, AND-logic (2+ cats).
   const hay = [name, notes, fields.referredName, fields.referredContact]

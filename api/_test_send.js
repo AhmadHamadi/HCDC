@@ -263,9 +263,17 @@ async function main() {
   };
 
   // ---- Layer 1: Origin / Referer ----
-  total++; if (await run("BOT: direct POST with no Origin and no Referer -> dropped silently", async () => {
+  total++; if (await run("HUMAN: no Origin and no Referer (privacy/in-app browser) -> accepted", async () => {
     sendMailCalls.length = 0;
     const req = makeReq({ body: validBody, origin: null }); // no origin, no referer
+    const res = makeRes();
+    await send(req, res);
+    if (sendMailCalls.length !== 1) throw new Error("missing-headers patient wrongly blocked; got " + sendMailCalls.length);
+  })) pass++;
+
+  total++; if (await run("BOT: no Origin/Referer BUT submitted instantly -> still dropped by timing trap", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: { ...validBody, _t: String(Date.now() - 200) }, origin: null, stampToken: false });
     const res = makeRes();
     await send(req, res);
     expectSilentlyDropped(res, sendMailCalls);
@@ -351,6 +359,23 @@ async function main() {
     const res = makeRes();
     await send(req, res);
     expectSilentlyDropped(res, sendMailCalls);
+  })) pass++;
+
+  total++; if (await run("HUMAN: mentioning bare domains (google.com, facebook.com) is NOT blocked", async () => {
+    sendMailCalls.length = 0;
+    const req = makeReq({ body: { ...validBody, notes: "I found you on google.com and your reviews on facebook.com look great. Can I book?" } });
+    const res = makeRes();
+    await send(req, res);
+    if (sendMailCalls.length !== 1) throw new Error("bare-domain mention wrongly blocked; got " + sendMailCalls.length);
+  })) pass++;
+
+  total++; if (await run("HUMAN: long, detailed message is NOT blocked by length", async () => {
+    sendMailCalls.length = 0;
+    const longMsg = "My son chipped a tooth playing hockey and I'm worried. " .repeat(40); // ~2200 chars
+    const req = makeReq({ body: { ...validBody, notes: longMsg } });
+    const res = makeRes();
+    await send(req, res);
+    if (sendMailCalls.length !== 1) throw new Error("long genuine message wrongly blocked; got " + sendMailCalls.length);
   })) pass++;
 
   total++; if (await run("HUMAN: a single spam-ish word does NOT block a real patient", async () => {

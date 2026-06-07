@@ -70,7 +70,9 @@ function origin_allowed() {
     $referer = $_SERVER['HTTP_REFERER'] ?? '';
     $candidate = $origin !== '' ? hostname_of($origin)
                : ($referer !== '' ? hostname_of($referer) : '');
-    if ($candidate === '') return false; // no Origin and no Referer -> drop
+    // No Origin and no Referer at all: some privacy/in-app/proxy browsers strip
+    // both. Favor real patients and let it through (other layers still apply).
+    if ($candidate === '') return true;
 
     $allowed = [];
     foreach ([
@@ -101,17 +103,22 @@ function timing_ok() {
 }
 
 // Layer 4 — Content filtering.
-function count_links($s) {
+// Explicit full URLs only (used for the message body).
+function count_urls($s) {
+    return preg_match_all('#(?:https?://|www\.)[^\s<>"\']+#i', (string)$s);
+}
+// Also catches bare domains (used only for the name field).
+function count_domainish($s) {
     $re = '#(?:https?://|www\.)[^\s<>"\']+|\b[a-z0-9](?:[a-z0-9\-]*[a-z0-9])?\.(?:com|net|org|io|ru|info|biz|xyz|top|online|site|shop|club|vip|link|click|store|cn|co|live|icu|work|loan|men|win)\b#i';
     return preg_match_all($re, (string)$s);
 }
 
 function spam_reason($name, $notes, $extra) {
     if (preg_match('/[<>]/', $name)) return 'html-in-name';
-    if (count_links($name) >= 1) return 'link-in-name';
-    if (mb_strlen($name) > 80) return 'name-too-long';
-    if (mb_strlen($notes) > 2000) return 'message-too-long';
-    if (count_links($notes) >= 2) return 'multiple-links';
+    if (count_domainish($name) >= 1) return 'link-in-name';
+    if (mb_strlen($name) > 120) return 'name-too-long';
+    // 2+ FULL pasted URLs in the body (bare domain mentions are not counted).
+    if (count_urls($notes) >= 2) return 'multiple-links';
 
     $hay = strtolower(trim($name . ' ' . $notes . ' ' . $extra));
     $categories = [
