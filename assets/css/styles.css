@@ -1625,11 +1625,12 @@ p { margin: 0 0 1em; }
   position: relative;
   width: 100%;
   /* Height scales with viewport WIDTH so the visible slice of the team photo
-     stays constant on every monitor. A fixed pixel height covers a smaller
-     fraction of the image on wider screens, which is what used to crop the
-     team's heads off on laptops/large monitors. clamp() keeps it sane on
-     phones (floor) and ultrawide displays (ceiling). */
-  height: clamp(340px, 33vw, 820px);
+     stays constant on every monitor. The photo is 3:2 (ratio .667); at 42vw
+     the hero shows ~63% of the photo's height — enough to fit everyone from
+     the tallest head (~14% from the top) down past the front row's hands
+     (~75%) without showing the ceiling. clamp() keeps it sane on phones
+     (floor) and very wide displays (ceiling). */
+  height: clamp(340px, 42vw, 900px);
   overflow: hidden;
   background: var(--cream);
 }
@@ -1639,10 +1640,11 @@ p { margin: 0 0 1em; }
 .page-photo-hero-bg img {
   width: 100%; height: 100%;
   object-fit: cover;
-  /* Everyone's face sits in the TOP ~half of this photo (heads ~7%, lowest
-     chin ~45%); the bottom half is just bodies/chair/floor. Anchor near the
-     top so the back-row heads are never clipped. */
-  object-position: 50% 6%;
+  /* The tallest head (back-row centre) starts ~14% from the top of the photo
+     and the front-row faces end ~55%; above 13% is just ceiling. 28% places
+     the crop window a touch above the tallest head, so no ceiling band shows
+     and the seated front row stays in frame. */
+  object-position: 50% 28%;
   display: block;
 }
 .page-photo-hero::after {
@@ -1721,8 +1723,12 @@ p { margin: 0 0 1em; }
 }
 
 /* Height + crop are handled by clamp()/object-position above and hold across
-   all widths, so no per-breakpoint height or object-position overrides here —
-   only spacing/typography tweaks remain. */
+   all widths. One exception: past ~2200px the 900px height cap makes the hero
+   proportionally shorter, which would slide the crop's top edge down into the
+   back row's heads — re-anchor higher there. */
+@media (min-width: 2200px) {
+  .page-photo-hero-bg img { object-position: 50% 18%; }
+}
 @media (max-width: 768px) {
   .page-intro { padding: 2.5rem 0 2rem; }
 }
