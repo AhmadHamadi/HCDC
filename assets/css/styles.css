@@ -1624,15 +1624,20 @@ p { margin: 0 0 1em; }
 .page-photo-hero {
   position: relative;
   width: 100%;
-  /* The team photo is 1920x1280 and the group fills it head-to-toe: the
-     tallest head starts ~14% from the top and the front row's legs/sneakers
-     run to the bottom edge, so ANY banner crop cuts somebody. Show the whole
-     photo minus the empty ceiling strip: 61.4vw = the photo's 2:3 height
-     ratio x the 92% slice we keep (8%..100%). Because the height is a pure
-     fraction of the width with no clamp, the composition is IDENTICAL on
-     every screen size — nothing can get cut on phones, laptops or wide
-     monitors. */
-  height: 61.4vw;
+  /* Crop window for the 1920x1280 team photo: from just above the tallest
+     head (~9% from the top; the head starts ~13-14%) down to the seated front
+     row's laps/hands (~83%) — heads safe at the top, half-torsos at the
+     bottom, no ceiling band, not head-to-toe. 49vw = the photo's 2:3 height
+     ratio x that ~74% slice. Pure fraction of the width (no clamp at the top
+     end), so the composition is IDENTICAL on laptops and any size monitor.
+     The 340px floor only kicks in below ~695px width, where the hero
+     gradually reveals more of the photo's height instead of becoming a thin
+     strip. The 70vw ceiling stops the floor from over-zooming on narrow
+     phones: past that ratio object-fit starts cropping the SIDES, which cuts
+     off the woman standing at the far left edge of the photo (verified: at
+     320px wide with a hard 340px floor she disappears). At 70vw the full
+     width still fits everyone. */
+  height: min(max(340px, 49vw), 70vw);
   overflow: hidden;
   background: var(--cream);
 }
@@ -1642,10 +1647,12 @@ p { margin: 0 0 1em; }
 .page-photo-hero-bg img {
   width: 100%; height: 100%;
   object-fit: cover;
-  /* Anchor to the BOTTOM of the photo: the only hidden slice (~8%) is taken
-     entirely off the top, which is empty ceiling. Everyone is visible from
-     above the tallest head down to their feet at every viewport width. */
-  object-position: 50% 100%;
+  /* 35% splits the hidden slice so the crop's top edge sits at ~9% of the
+     photo (above the tallest head at ~13-14%) and the bottom edge at ~83%
+     (the seated front row's laps). On narrow screens the visible slice grows
+     toward the full photo, which only ever ADDS headroom — it can never cut
+     into the heads. */
+  object-position: 50% 35%;
   display: block;
 }
 .page-photo-hero::after {
