@@ -1624,13 +1624,15 @@ p { margin: 0 0 1em; }
 .page-photo-hero {
   position: relative;
   width: 100%;
-  /* Height scales with viewport WIDTH so the visible slice of the team photo
-     stays constant on every monitor. The photo is 3:2 (ratio .667); at 42vw
-     the hero shows ~63% of the photo's height — enough to fit everyone from
-     the tallest head (~14% from the top) down past the front row's hands
-     (~75%) without showing the ceiling. clamp() keeps it sane on phones
-     (floor) and very wide displays (ceiling). */
-  height: clamp(340px, 42vw, 900px);
+  /* The team photo is 1920x1280 and the group fills it head-to-toe: the
+     tallest head starts ~14% from the top and the front row's legs/sneakers
+     run to the bottom edge, so ANY banner crop cuts somebody. Show the whole
+     photo minus the empty ceiling strip: 61.4vw = the photo's 2:3 height
+     ratio x the 92% slice we keep (8%..100%). Because the height is a pure
+     fraction of the width with no clamp, the composition is IDENTICAL on
+     every screen size — nothing can get cut on phones, laptops or wide
+     monitors. */
+  height: 61.4vw;
   overflow: hidden;
   background: var(--cream);
 }
@@ -1640,11 +1642,10 @@ p { margin: 0 0 1em; }
 .page-photo-hero-bg img {
   width: 100%; height: 100%;
   object-fit: cover;
-  /* The tallest head (back-row centre) starts ~14% from the top of the photo
-     and the front-row faces end ~55%; above 13% is just ceiling. 28% places
-     the crop window a touch above the tallest head, so no ceiling band shows
-     and the seated front row stays in frame. */
-  object-position: 50% 28%;
+  /* Anchor to the BOTTOM of the photo: the only hidden slice (~8%) is taken
+     entirely off the top, which is empty ceiling. Everyone is visible from
+     above the tallest head down to their feet at every viewport width. */
+  object-position: 50% 100%;
   display: block;
 }
 .page-photo-hero::after {
@@ -1654,13 +1655,17 @@ p { margin: 0 0 1em; }
   content: '';
   position: absolute; inset: 0;
   pointer-events: none;
+  /* The hero now shows the team head-to-toe, so the bottom fade must stay
+     light: a heavy white wash here would dissolve the front row's legs and
+     look like they're cut off. Keep the blend gentle and confined to the
+     last ~10% (mostly floor). */
   background:
     linear-gradient(180deg,
       rgba(139, 111, 71, 0.22) 0%,
       rgba(139, 111, 71, 0.10) 28%,
-      rgba(139, 111, 71, 0.08) 58%,
-      rgba(246, 242, 234, 0.55) 85%,
-      rgba(255, 255, 255, 0.96) 100%);
+      rgba(139, 111, 71, 0.06) 60%,
+      rgba(246, 242, 234, 0.22) 90%,
+      rgba(255, 255, 255, 0.78) 100%);
 }
 .page-photo-hero .container { z-index: 3; }   /* keep the breadcrumb above the gradient */
 .page-photo-hero .container {
@@ -1722,13 +1727,8 @@ p { margin: 0 0 1em; }
   flex-wrap: wrap;
 }
 
-/* Height + crop are handled by clamp()/object-position above and hold across
-   all widths. One exception: past ~2200px the 900px height cap makes the hero
-   proportionally shorter, which would slide the crop's top edge down into the
-   back row's heads — re-anchor higher there. */
-@media (min-width: 2200px) {
-  .page-photo-hero-bg img { object-position: 50% 18%; }
-}
+/* Height + crop hold across all widths (pure vw ratio, bottom-anchored), so
+   no per-breakpoint hero overrides — only spacing/typography tweaks here. */
 @media (max-width: 768px) {
   .page-intro { padding: 2.5rem 0 2rem; }
 }
