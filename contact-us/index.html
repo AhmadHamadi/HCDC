@@ -151,6 +151,9 @@
  <label for="notes">What can we help with? (Optional)</label>
  <textarea id="notes" name="notes" rows="3" placeholder="Routine checkup, emergency, aligner consult, etc."></textarea>
  </div>
+ <div class="form-captcha field-full">
+ <div class="g-recaptcha" data-sitekey="6LdtxTItAAAAAIhu6NPu77epJBKUBDOVM0JrlLCv"></div>
+ </div>
  <div class="form-submit field-full">
  <button type="submit" class="btn btn-primary">Request Appointment</button>
  </div>
@@ -284,6 +287,7 @@
  <a href="/contact-us/" class="btn btn-primary">Book Appointment</a>
 </div>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="/assets/js/main.js" defer></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 

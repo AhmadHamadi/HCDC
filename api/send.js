@@ -27,6 +27,11 @@ const FROM_NAME = "Hamilton Care Dental website";
 const SITE_URL = process.env.SITE_URL || "https://hamiltoncaredental.com";
 const REDIRECT_OK = "/thank-you/";
 
+// Google reCAPTCHA (v2 "I'm not a robot" checkbox). This SECRET stays on the
+// server; the matching PUBLIC site key lives in the form HTML.
+const RECAPTCHA_SECRET = "6LdtxTItAAAAANzJvupIkFRtyyhSKdhYTtKeWvIT";
+const RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
+
 // Uniform subject line so the front desk inbox has a predictable shape.
 const EMAIL_SUBJECT = "Appointment Request Submission";
 
@@ -131,6 +136,37 @@ function timingOk(body) {
   const elapsed = Date.now() - t;
   if (!Number.isFinite(elapsed) || elapsed < 0) return true;  // clock skew -> lenient
   return elapsed >= MIN_FILL_MS;
+}
+
+// reCAPTCHA verification. Sends the visitor's token to Google's siteverify
+// endpoint with our secret. Returns true only when Google confirms the
+// challenge. Fails CLOSED (returns false) on a missing token, a network/timeout
+// error, or a non-success response, so a real patient simply retries the box.
+async function verifyRecaptcha(token, remoteip) {
+  if (!token) return false;
+
+  const params = new URLSearchParams();
+  params.append("secret", RECAPTCHA_SECRET);
+  params.append("response", token);
+  if (remoteip) params.append("remoteip", remoteip);
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const resp = await fetch(RECAPTCHA_VERIFY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString(),
+      signal: controller.signal,
+    });
+    const data = await resp.json();
+    return !!(data && data.success === true);
+  } catch (err) {
+    console.error("reCAPTCHA verify request failed:", err);
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // Layer 4 — Content filtering.
@@ -341,6 +377,20 @@ module.exports = async (req, res) => {
 
   const source = stripCRLF(body._source || "unknown");
   const referral = isReferral(source);
+
+  // reCAPTCHA gate. Every form on the site carries a checkbox challenge, so a
+  // valid token is REQUIRED. Unlike the silent anti-spam layers above, a
+  // missing/failed challenge gets a VISIBLE error (?error=captcha) so a real
+  // patient can simply tick the box again and resubmit.
+  const remoteIp = stripCRLF(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "")
+    .split(",")[0].trim();
+  const captchaOk = await verifyRecaptcha(safeStr(body["g-recaptcha-response"]), remoteIp);
+  if (!captchaOk) {
+    res.statusCode = 303;
+    const back = referral ? "/referral-form/" : "/contact-us/";
+    res.setHeader("Location", SITE_URL + back + "?error=captcha");
+    return res.end();
+  }
 
   const name = stripCRLF(body.name);
   const email = stripCRLF(body.email);
