@@ -892,9 +892,6 @@ def build_contact_us():
  <label for="notes">What can we help with? (Optional)</label>
  <textarea id="notes" name="notes" rows="3" placeholder="Routine checkup, emergency, aligner consult, etc."></textarea>
  </div>
- <div class="form-captcha field-full">
- <div class="g-recaptcha" data-sitekey="6LdtxTItAAAAAIhu6NPu77epJBKUBDOVM0JrlLCv"></div>
- </div>
  <div class="form-submit field-full">
  <button type="submit" class="btn btn-primary">Request Appointment</button>
  </div>
@@ -910,7 +907,6 @@ def build_contact_us():
  </div>
  </div>
 </section>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 """
 
  html = head + render_topbar() + render_header(active="/contact-us/") + body + render_related(links=[("/services/", "See All Services", "What we offer, who each treatment is right for, what to expect."), ("/payment-plans/", "Payment Plans", "0% financing options for treatments insurance doesn't fully cover."), ("/canadian-care-dental-plan/", "CDCP Patients", "How the Canadian Dental Care Plan works at our office."), ("/faq/", "Common Questions", "New patients, insurance, emergencies, kids, anxiety, and more.")]) + render_cta_banner() + render_footer()
@@ -1945,9 +1941,6 @@ def build_referral():
  <textarea id="ref-notes" name="notes" rows="3"></textarea>
  </div>
  <p class="form-note">We'll reach out to your friend within 1 to 2 business days.</p>
- <div class="form-captcha">
- <div class="g-recaptcha" data-sitekey="6LdtxTItAAAAAIhu6NPu77epJBKUBDOVM0JrlLCv"></div>
- </div>
  <div class="form-submit">
  <button type="submit" class="btn btn-primary">Send Referral</button>
  </div>
@@ -1955,7 +1948,6 @@ def build_referral():
  </div>
  </div>
 </section>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 """
 
  html = head + render_topbar() + render_header(active="") + hero + body + render_related(links=[("/about-us/", "About Our Practice", "What makes Hamilton Care Dental different from other Hamilton clinics."), ("/team/dr-fadi-dawood/", "Meet Dr. Fadi Dawood", "Patients describe him as patient, thorough, and kind."), ("/services/", "Our Dental Services", "Implants, SureSmile, restorative, surgery, and more."), ("/contact-us/", "Have Them Call Us", "Or pass on (289) 755-2568.")]) + render_cta_banner() + render_footer()

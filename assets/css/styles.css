@@ -513,28 +513,6 @@ p { margin: 0 0 1em; }
 .appt-form .form-submit { grid-column: 1 / -1; text-align: center; }
 .appt-form .form-submit button { min-width: 220px; }
 
-/* reCAPTCHA widget placement on the appointment / referral forms */
-.form-captcha { grid-column: 1 / -1; margin-top: .2rem; }
-.appt-form .form-captcha { display: flex; justify-content: center; }
-.contact-appt-form .form-captcha { justify-content: flex-start; }
-/* The widget is a fixed 302px; shrink slightly so it never overflows the
-   card on the narrowest phones. transform-origin keeps it left-anchored. */
-@media (max-width: 360px) {
-  .form-captcha { transform: scale(.85); transform-origin: top left; }
-}
-
-/* Inline form error banner (e.g. ?error=captcha after a failed challenge) */
-.form-error {
-  grid-column: 1 / -1;
-  margin: 0 0 .2rem;
-  padding: .7rem .9rem;
-  border: 1px solid #e6b8b3;
-  background: #fdeceb;
-  color: #8a2a22;
-  border-radius: 8px;
-  font-size: .9rem;
-}
-
 /* ---------- Promo / May campaign ---------- */
 .promo {
   padding: 5rem 0;

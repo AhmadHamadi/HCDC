@@ -33,11 +33,6 @@ const SMTP_SECURE = 'tls';                           // 'tls' or 'ssl'
 const SMTP_USER   = 'no-reply@hamiltoncaredental.ca';
 const SMTP_PASS   = 'REPLACE_ME_WITH_MAILBOX_PASSWORD';
 
-// Google reCAPTCHA (v2 "I'm not a robot" checkbox). This SECRET stays on the
-// server; the matching PUBLIC site key lives in the form HTML.
-const RECAPTCHA_SECRET     = '6LdtxTItAAAAANzJvupIkFRtyyhSKdhYTtKeWvIT';
-const RECAPTCHA_VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify';
-
 /* =========================
  * REQUEST HANDLING
  * ========================= */
@@ -107,46 +102,6 @@ function timing_ok() {
     return $elapsed >= 2500;
 }
 
-// reCAPTCHA — verify the visitor's token with Google's siteverify endpoint.
-// Returns true ONLY when Google confirms the challenge. Fails CLOSED (false) on
-// a missing token or any network/parse error, so a real patient simply retries.
-function verify_recaptcha($token, $remoteip = '') {
-    $token = trim((string)$token);
-    if ($token === '') return false;
-
-    $post = http_build_query([
-        'secret'   => RECAPTCHA_SECRET,
-        'response' => $token,
-        'remoteip' => $remoteip,
-    ]);
-
-    $raw = false;
-    if (function_exists('curl_init')) {
-        $ch = curl_init(RECAPTCHA_VERIFY_URL);
-        curl_setopt_array($ch, [
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $post,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT        => 8,
-            CURLOPT_CONNECTTIMEOUT => 5,
-        ]);
-        $raw = curl_exec($ch);
-        curl_close($ch);
-    } else {
-        $ctx = stream_context_create(['http' => [
-            'method'  => 'POST',
-            'header'  => "Content-Type: application/x-www-form-urlencoded\r\n",
-            'content' => $post,
-            'timeout' => 8,
-        ]]);
-        $raw = @file_get_contents(RECAPTCHA_VERIFY_URL, false, $ctx);
-    }
-
-    if ($raw === false || $raw === null) return false; // network error -> fail closed
-    $data = json_decode($raw, true);
-    return is_array($data) && !empty($data['success']);
-}
-
 // Layer 4 — Content filtering.
 // Explicit full URLs only (used for the message body).
 function count_urls($s) {
@@ -195,18 +150,6 @@ if (!origin_allowed()) {
 // Layer 2 — Timing trap.
 if (!timing_ok()) {
     silent_ok();
-}
-
-// reCAPTCHA gate. Every form carries a checkbox challenge, so a valid token is
-// REQUIRED. Unlike the silent layers above, a missing/failed challenge gets a
-// VISIBLE error so a real patient can tick the box again and resubmit.
-$xff = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? '';
-$captcha_ip = $xff !== '' ? trim(explode(',', $xff)[0]) : ($_SERVER['REMOTE_ADDR'] ?? '');
-if (!verify_recaptcha($_POST['g-recaptcha-response'] ?? '', $captcha_ip)) {
-    $src  = $_POST['_source'] ?? '';
-    $back = ($src === 'referral-form') ? '/referral-form/' : '/contact-us/';
-    header('Location: ' . SITE_URL . $back . '?error=captcha');
-    exit;
 }
 
 function clean($v) {

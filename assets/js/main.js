@@ -51,31 +51,9 @@
       dateInput.min = iso;
     }
 
-    /* ---------- Appointment form: reCAPTCHA + disable submit on send ----------
+    /* ---------- Appointment form: disable submit button on send ----------
        Lets the real form POST through to /api/send (Vercel) or /send.php
-       (cPanel fallback). The handler verifies the reCAPTCHA token, then does
-       the redirect to /thank-you/. */
-    var FORM_ERROR_MESSAGES = {
-      'captcha': 'Please confirm you are not a robot, then submit again.',
-      'missing-fields': 'Please add your name and a phone number or email so we can reach you.',
-      'send-failed': 'Sorry, something went wrong sending your request. Please call us at (289) 755-2568.',
-      'server-not-configured': 'Sorry, the form is temporarily unavailable. Please call us at (289) 755-2568.'
-    };
-
-    function showFormError(form, code) {
-      var msg = FORM_ERROR_MESSAGES[code];
-      if (!msg) return;
-      var banner = form.querySelector('.form-error');
-      if (!banner) {
-        banner = document.createElement('div');
-        banner.className = 'form-error';
-        banner.setAttribute('role', 'alert');
-        form.insertBefore(banner, form.firstChild);
-      }
-      banner.textContent = msg;
-      banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
+       (cPanel fallback). The handler does the redirect to /thank-you/. */
     document.querySelectorAll('form#appointment-form, form#referral-form').forEach(function (form) {
       /* Anti-spam timing trap: stamp when the form became available to a real
          visitor. The server drops submissions that arrive < 2.5s after this.
@@ -83,27 +61,8 @@
       var tField = form.querySelector('input[name="_t"]');
       if (tField) tField.value = String(Date.now());
 
-      var hasCaptcha = !!form.querySelector('.g-recaptcha');
-
-      /* If the server bounced a previous submission, surface the reason
-         (e.g. an un-ticked reCAPTCHA box) so the visitor knows what to fix. */
-      var errCode = new URLSearchParams(window.location.search).get('error');
-      if (errCode) showFormError(form, errCode);
-
-      form.addEventListener('submit', function (e) {
+      form.addEventListener('submit', function () {
         if (!form.checkValidity()) return; // browser will show validation errors
-
-        /* reCAPTCHA: require a completed challenge before the form can POST.
-           Only enforce when the Google widget actually loaded; if its script
-           was blocked we let the submit through and rely on the server check. */
-        if (hasCaptcha && typeof grecaptcha !== 'undefined' && grecaptcha.getResponse) {
-          if (grecaptcha.getResponse().length === 0) {
-            e.preventDefault();
-            showFormError(form, 'captcha');
-            return;
-          }
-        }
-
         var btn = form.querySelector('button[type="submit"]');
         if (btn) {
           btn.disabled = true;

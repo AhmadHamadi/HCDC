@@ -24,32 +24,12 @@ require.cache[require.resolve("nodemailer")] = {
   },
 };
 
-// ---- Mock global fetch so reCAPTCHA siteverify never hits the network ----
-// Returns success ONLY for the known-good test token; any other token is
-// treated as a failed challenge. A missing token never reaches fetch
-// (verifyRecaptcha short-circuits before calling it), so it isn't modelled here.
-const CAPTCHA_OK_TOKEN = "TESTTOKEN-VALID";
-const fetchCalls = [];
-global.fetch = async (url, opts) => {
-  fetchCalls.push({ url, opts });
-  const params = new URLSearchParams((opts && opts.body) || "");
-  const ok = params.get("response") === CAPTCHA_OK_TOKEN;
-  return {
-    ok: true,
-    status: 200,
-    json: async () => ({ success: ok, challenge_ts: "", hostname: "hamiltoncaredental.com" }),
-  };
-};
-
 // ---- Tiny fake req/res ----
 // Defaults model a REAL browser submission from our own page: a same-site
 // Origin header + a timing token stamped ~6s ago (comfortably past the 2.5s
-// minimum) + a valid reCAPTCHA token. Individual tests override these to
-// exercise bot scenarios:
+// minimum). Individual tests override these to exercise bot scenarios:
 //   origin: null        -> no Origin header (e.g. direct curl POST)
 //   stampToken: false   -> do not auto-add _t (combine with body._t to control)
-//   captcha: null       -> no g-recaptcha-response at all (challenge skipped)
-//   captcha: "INVALID"  -> a token Google's siteverify mock rejects
 function makeReq({
   method = "POST",
   body = {},
@@ -57,16 +37,12 @@ function makeReq({
   origin = "https://hamiltoncaredental.com",
   host = "hamiltoncaredental.com",
   stampToken = true,
-  captcha = CAPTCHA_OK_TOKEN,
 } = {}) {
   // Encode body as application/x-www-form-urlencoded so readBody walks
   // the same path the production handler takes for browser submissions.
   const fullBody = { ...body };
   if (stampToken && fullBody._t === undefined) {
     fullBody._t = String(Date.now() - 6000); // loaded 6s ago -> passes timing trap
-  }
-  if (captcha !== null && fullBody["g-recaptcha-response"] === undefined) {
-    fullBody["g-recaptcha-response"] = captcha; // valid token by default
   }
   const raw = new URLSearchParams(fullBody).toString();
   const hdrs = { "content-type": "application/x-www-form-urlencoded", host, ...headers };
@@ -157,53 +133,6 @@ async function main() {
     if (res.statusCode !== 303) throw new Error("got " + res.statusCode);
     if (!String(res.headers["location"]).endsWith("/thank-you/")) throw new Error("wrong redirect");
     if (sendMailCalls.length !== 0) throw new Error("honeypot should NOT have sent email");
-  })) pass++;
-
-  // ---- reCAPTCHA gate ----
-  total++; if (await run("reCAPTCHA: missing token -> visible error=captcha, no email", async () => {
-    sendMailCalls.length = 0;
-    const req = makeReq({ body: { name: "Jane Smith", email: "jane@example.com" }, captcha: null });
-    const res = makeRes();
-    await send(req, res);
-    if (res.statusCode !== 303) throw new Error("got " + res.statusCode);
-    if (!String(res.headers["location"]).includes("error=captcha")) throw new Error("wrong redirect: " + res.headers["location"]);
-    if (sendMailCalls.length !== 0) throw new Error("no-captcha submission should NOT send email");
-  })) pass++;
-
-  total++; if (await run("reCAPTCHA: token Google rejects -> error=captcha, no email", async () => {
-    sendMailCalls.length = 0;
-    const req = makeReq({ body: { name: "Jane Smith", email: "jane@example.com" }, captcha: "INVALID-TOKEN" });
-    const res = makeRes();
-    await send(req, res);
-    if (res.statusCode !== 303) throw new Error("got " + res.statusCode);
-    if (!String(res.headers["location"]).includes("error=captcha")) throw new Error("wrong redirect: " + res.headers["location"]);
-    if (sendMailCalls.length !== 0) throw new Error("failed-captcha submission should NOT send email");
-  })) pass++;
-
-  total++; if (await run("reCAPTCHA: failed challenge on referral form -> redirects back to /referral-form/", async () => {
-    sendMailCalls.length = 0;
-    const req = makeReq({ body: {
-      name: "Alice", phone: "289-555-1111", referred_name: "Bob", referred_contact: "bob@example.com",
-      _source: "referral-form",
-    }, captcha: null });
-    const res = makeRes();
-    await send(req, res);
-    if (!String(res.headers["location"]).includes("/referral-form/?error=captcha")) throw new Error("wrong redirect: " + res.headers["location"]);
-    if (sendMailCalls.length !== 0) throw new Error("should not send email");
-  })) pass++;
-
-  total++; if (await run("reCAPTCHA: valid token is sent to Google siteverify with our secret", async () => {
-    sendMailCalls.length = 0;
-    fetchCalls.length = 0;
-    const req = makeReq({ body: { name: "Jane Smith", email: "jane@example.com", _source: "homepage-appointment" } });
-    const res = makeRes();
-    await send(req, res);
-    if (fetchCalls.length !== 1) throw new Error("expected 1 siteverify call, got " + fetchCalls.length);
-    if (!String(fetchCalls[0].url).includes("recaptcha/api/siteverify")) throw new Error("wrong verify URL: " + fetchCalls[0].url);
-    const sent = new URLSearchParams(fetchCalls[0].opts.body);
-    if (!sent.get("secret")) throw new Error("secret not sent to siteverify");
-    if (sent.get("response") !== CAPTCHA_OK_TOKEN) throw new Error("token not forwarded to siteverify");
-    if (sendMailCalls.length !== 1) throw new Error("valid captcha should let the email through; got " + sendMailCalls.length);
   })) pass++;
 
   total++; if (await run("valid appointment submission -> standard subject, organized body, redirects to thank-you", async () => {
