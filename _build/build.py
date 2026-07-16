@@ -397,6 +397,11 @@ def build_blog_post(slug, data):
  schema_speakable(),
  ]
 
+ # Posts may declare an optional `faqs` list; posts without one render unchanged.
+ faqs = data.get("faqs")
+ if faqs:
+  schemas.insert(-1, schema_faq(faqs))
+
  # Blog titles are descriptive H1s; for <title> we use the optional `seo_title`
  # (kept under 65 chars for Google SERP) or fall back to the full title_text
  # with the business suffix only if there's room.
@@ -460,12 +465,17 @@ def build_blog_post(slug, data):
 </section>
 """
 
+ faq_html = render_faq_section(
+  faqs, intro=f"Quick answers to what patients ask us most about {data.get('faq_topic', 'this topic')}."
+ ) if faqs else ""
+
  html = (
  head
  + render_topbar()
  + render_header(active="/blog/")
  + hero
  + body
+ + faq_html
  + render_cta_banner()
  + render_footer()
  )
